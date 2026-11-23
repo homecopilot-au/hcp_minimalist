@@ -12,12 +12,24 @@ card_markf_alert:
   tap_action:
     action: none
   variables:
+    _card_markf_alert_effective_severity: >
+      [[[
+        var sev = entity.attributes.severity;
+        var notHomeSev = entity.attributes.not_home_severity;
+        // You'd need is_home state - but that's a framework entity we can reference
+        var isHome = states['binary_sensor.automated_alert_home'] 
+          ? states['binary_sensor.automated_alert_home'].state === 'on' 
+          : true; // default to home if unavailable
+        return (!isHome && notHomeSev && notHomeSev !== '') ? notHomeSev : sev;
+      ]]]
     card_markf_show_last_changed: false
     card_markf_alert_icon: >
       [[[
-        var severity = entity.attributes.severity;
+        var severity = variables._card_markf_alert_effective_severity;
         if (!severity || severity === variables._markf_default_automated_alert_severity_critical )
           return variables._markf_default_automated_alert_severity_critical_icon
+        else if (!severity || severity === variables._markf_default_automated_alert_severity_security )
+          return variables._markf_default_automated_alert_severity_security_icon
         else if (!severity || severity === variables._markf_default_automated_alert_severity_major )
           return variables._markf_default_automated_alert_severity_major_icon
         else if (!severity || severity === variables._markf_default_automated_alert_severity_minor )
@@ -26,26 +38,29 @@ card_markf_alert:
           return variables._markf_default_automated_alert_severity_action_icon
         else if (!severity || severity === variables._markf_default_automated_alert_severity_info )
           return variables._markf_default_automated_alert_severity_info_icon
-        els
+        else
           return variables._markf_default_automated_alert_severity_default_icon
         endif
       ]]]
+    card_markf_alert_message: "[[[ return entity.attributes.message ]]]"
     card_markf_alert_name: "[[[ return entity.attributes.friendly_name ]]]"
-    card_markf_alert_severity: "[[[ return entity.attributes.severity ]]]"
-    card_markf_alert_tag: "[[[ return entity.attributes.tag ]]]"
-    card_markf_alert_status_helper: "[[[ return entity.attributes.status_helper ]]]"
+    card_markf_alert_severity: "[[[ return variables._card_markf_alert_effective_severity ]]]"
+    card_markf_alert_tag: "[[[ return entity.attributes?.tag ]]]"
+    card_markf_alert_status_helper: "[[[ return entity.attributes?.status_helper ]]]"
     card_markf_alert_status: >
       [[[ 
         var helper = entity.attributes.status_helper;
         if (!helper || helper === '') return 'notified';
         var s = states[helper] ? states[helper].state : '';
-        return ['idle', 'skipped', 'notified', 'acknowledged'].includes(s) ? s : 'notified';
+        return ['idle', 'suppressed', 'skipped', 'notified', 'acknowledged'].includes(s) ? s : 'notified';
       ]]]
     card_markf_alert_icon_color: >
       [[[
-        var severity = entity.attributes.severity;
+        var severity = variables._card_markf_alert_effective_severity;
         if (!severity || severity === variables._markf_default_automated_alert_severity_critical )
           return "color_markf_automated_alert_critical"
+        else if (!severity || severity === variables._markf_default_automated_alert_severity_security )
+          return "color_markf_automated_alert_security"
         else if (!severity || severity === variables._markf_default_automated_alert_severity_major )
           return "color_markf_automated_alert_major"
         else if (!severity || severity === variables._markf_default_automated_alert_severity_minor )
@@ -60,9 +75,11 @@ card_markf_alert:
       ]]]
     card_markf_alert_text_color: >
       [[[
-        var severity = entity.attributes.severity;
+        var severity = variables._card_markf_alert_effective_severity;;
         if (!severity || severity === variables._markf_default_automated_alert_severity_critical )
           return "color_markf_automated_alert_critical";
+        else if (!severity || severity === variables._markf_default_automated_alert_severity_security )
+          return "color_markf_automated_alert_security";
         else if (!severity || severity === variables._markf_default_automated_alert_severity_major )
           return "color_markf_automated_alert_major";
         else if (!severity || severity === variables._markf_default_automated_alert_severity_minor )
@@ -87,15 +104,7 @@ card_markf_alert:
   styles:
     grid:
       - grid-template-areas: '"item1 silence"'
-      - grid-template-columns: >
-          [[[
-            const excludeSeverities = ['minor', 'info']
-            if (variables.card_markf_alert_status === "acknowledged" || excludeSeverities.includes(variables.card_markf_alert_severity)) {
-                return "1fr";
-            } else {
-                return "4fr 1fr";
-            }
-          ]]]
+      - grid-template-columns: "4fr 1fr"
       - grid-template-rows: "min-content"
       - row-gap: "[[[ return variables.card_markf_alert_row_gap ]]]"
     card:
@@ -112,7 +121,7 @@ card_markf_alert:
           - "markf_icon_info"
         entity: "[[[ return entity.entity_id ]]]"
         variables:
-          markf_icon_info_name: "[[[ return variables.card_markf_alert_name; ]]]"
+          markf_icon_info_name: "[[[ return variables.card_markf_alert_message; ]]]"
           markf_icon_info_icon: "[[[ return variables.card_markf_alert_icon; ]]]"
           markf_icon_info_icon_color: "[[[ return variables.card_markf_alert_icon_color ]]]"
           markf_icon_info_text_color: "[[[ return variables.card_markf_alert_text_color ]]]"
@@ -127,8 +136,10 @@ card_markf_alert:
           ulm_custom_popup: "[[[ return variables.ulm_custom_popup; ]]]"
           ulm_icon_tap_action: >
             [[[
-              var severity = entity.attributes.severity;
-              if (!severity || severity === variables._markf_default_automated_alert_severity_action )
+              var severity = variables._card_markf_alert_effective_severity;;
+              if (!severity || 
+                severity === variables._markf_default_automated_alert_severity_action ||
+                severity === variables._markf_default_automated_alert_severity_security )
                 return "call-service";
               else
                 return variables.ulm_icon_tap_action;
@@ -136,8 +147,10 @@ card_markf_alert:
             ]]]
           ulm_icon_tap_service: >
             [[[
-              var severity = entity.attributes.severity;
-              if (!severity || severity === variables._markf_default_automated_alert_severity_action )
+              var severity = variables._card_markf_alert_effective_severity;;
+              if (!severity || 
+                severity === variables._markf_default_automated_alert_severity_action ||
+                severity === variables._markf_default_automated_alert_severity_security )
                 return "input_boolean.turn_off";
               else
                 return variables.ulm_icon_tap_service;
@@ -145,8 +158,10 @@ card_markf_alert:
             ]]]
           ulm_icon_tap_target: >
             [[[
-              var severity = entity.attributes.severity;
-              if (!severity || severity === variables._markf_default_automated_alert_severity_action )
+              var severity = variables._card_markf_alert_effective_severity;;
+              if (!severity || 
+                severity === variables._markf_default_automated_alert_severity_action ||
+                severity === variables._markf_default_automated_alert_severity_security )
                 return entity.attributes.trigger_entity;
               else
                 return variables.ulm_icon_tap_target;
@@ -159,9 +174,33 @@ card_markf_alert:
         template:
           - "markf_widget_button"
           - "color_markf_switch_default"
-        icon: "[[[ return variables._markf_default_automated_alert_acknowledge_icon ]]]"
+        icon: >
+          [[[
+            var status = variables.card_markf_alert_status
+            if (!status || status === "idle" )
+              return variables._markf_default_automated_alert_idle_icon;
+            else if (!status || status === "suppressed" )
+              return variables._markf_default_automated_alert_suppressed_icon;
+            else if (!status || status === "skipped" )
+              return variables._markf_default_automated_alert_skipped_icon;
+            else if (!status || status === "notified" )
+              return variables._markf_default_automated_alert_notified_icon;
+            else if (!status || status === "acknowledged" )
+              return variables._markf_default_automated_alert_acknowledged_icon;
+            else
+              return variables._markf_default_automated_alert_default_icon;
+            endif
+          ]]]
         tap_action:
-          action: call-service
+          action: >
+            [[[
+              const excludeSeverities = ['info']
+              if (variables.card_markf_alert_status === "acknowledged" || excludeSeverities.includes(variables.card_markf_alert_severity)) {
+                  return "";
+              } else {
+                  return "call-service";
+              }
+            ]]]
           service: script.alert_clear
           service_data:
             tag: "[[[ return variables.card_markf_alert_tag ]]]"

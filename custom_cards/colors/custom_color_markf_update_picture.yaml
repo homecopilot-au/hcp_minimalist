@@ -1,0 +1,11 @@
+---
+### Update picture ###
+color_markf_update_picture:
+  template:
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+  styles:
+    icon:
+      - width: "var(--markf_minimalist_update_picture_size)"
+      - height: "var(--markf_minimalist_update_picture_size)"
+      - place-self: "var(--markf_minimalist_update_picture_placement)"
