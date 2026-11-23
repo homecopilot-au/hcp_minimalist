@@ -1,0 +1,183 @@
+---
+popup_markf_sonos:
+  show_icon: false
+  show_name: false
+  show_label: false
+  show_units: false
+  template:
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+    - "color_markf_card_popup_default"
+  variables:
+    popup_markf_sonos_entity_name: "[[[ return entity.attributes.friendly_name; ]]]"
+    popup_markf_sonos_device_name: ""
+    popup_markf_sonos_hide_back: false
+    popup_markf_sonos_switch_color: "color_markf_switch_popup"
+    popup_markf_sonos_sensor_color: "color_markf_icon_info_sonos"
+    popup_markf_sonos_history_entity: "[[[ return entity.entity_id; ]]]"
+  tap_action:
+    action: none
+  styles:
+    grid:
+      - grid-template-areas: '"back header history" "divider1 divider1 divider1" "content1 content1 content1" "divider2 divider2 divider2" "content2 content2 content2" "divider3 divider3 divider3" "content3 content3 content3"'
+      - grid-template-columns: "1fr 2.5fr 1.5fr"
+      - grid-template-rows: "min-content min-content min-content min-content min-content min-content min-content"
+      - row-gap: "var(--markf_minimalist_default_row_gap)"
+    custom_fields:
+      back:
+        - display: >
+            [[[
+                  if (variables.popup_markf_sonos_hide_back) {
+                      return "none";
+                  } else {
+                      return "block";
+                  }
+            ]]]
+      header:
+        - align-self: "start"
+      history:
+        - justify-self: "right"
+      content1:
+        - align-self: "start"
+        - margin-left: "0px"
+  custom_fields:
+    back:
+      card:
+        type: "custom:button-card"
+        template:
+          - "popup_markf_button_back"
+          - "color_markf_card_popup_default"
+
+    history:
+      card:
+        type: "custom:button-card"
+        template:
+          - "popup_markf_button_history"
+          - "color_markf_card_popup_default"
+        variables:
+          popup_markf_history_entity: "[[[ return variables.popup_markf_sonos_history_entity ]]]"
+
+    header:
+      card:
+        type: "custom:button-card"
+        template:
+          - "popup_markf_title"
+          - "color_markf_card_popup_default"
+        name: "[[[ return variables.popup_markf_sonos_entity_name; ]]]"
+
+    divider1:
+      card:
+        type: "custom:button-card"
+        template: "popup_markf_subtitle"
+        name: Configuration
+
+    content1:
+      card:
+        type: "custom:auto-entities"
+        card:
+          type: grid
+          columns: 3
+          square: false
+        card_param: cards
+        filter:
+          include:
+            - device: "[[[ return variables.popup_markf_sonos_device_name; ]]]"
+              integration: sonos
+              domain: switch
+              options:
+                type: custom:button-card
+                template: >
+                  [[[
+                    var templates = ["markf_widget_button_label"]
+                    templates.push(variables.popup_markf_sonos_switch_color)
+                    return templates;
+                  ]]]
+                hold_action:
+                  action: "fire-dom-event"
+                  browser_mod:
+                    service: "browser_mod.popup"
+                    data:
+                      hide_header: true
+                      style: |
+                        --popup-background-color: var(--markf_minimalist_popup_background_color);
+                        --popup-border-radius: var(--markf_minimalist_popup_border_radius);
+                        --popup-padding-x: var(--markf_minimalist_popup_padding_x);
+                        --popup-padding-y: var(--markf_minimalist_popup_padding_y);
+                        --popup-max-width: var(--markf_minimalist_popup_max_width);
+                        --popup-min-width: var(--markf_minimalist_popup_min_width);;
+                      size: >
+                        [[[
+                          const mediaQuery = window.matchMedia('(max-width: 1200px)')
+                          if (mediaQuery.matches) {
+                            return 'fullscreen'
+                          }
+                        ]]]
+                      content:
+                        type: "custom:button-card"
+                        template: "popup_markf_history"
+                        entity: this.entity_id
+
+        sort:
+          method: name
+
+    divider2:
+      card:
+        type: "custom:button-card"
+        template: "popup_markf_subtitle"
+        name: Levels
+
+    content2:
+      card:
+        type: "custom:auto-entities"
+        card:
+          type: grid
+          columns: 1
+          square: false
+        card_param: cards
+        filter:
+          include:
+            - device: "[[[ return variables.popup_markf_sonos_device_name; ]]]"
+              integration: sonos
+              domain: number
+              options:
+                type: custom:button-card
+                template:
+                  - "popup_markf_slider"
+                variables:
+                  popup_markf_slider_main_color: "[[[ return variables._markf_default_slider_main_color; ]]]"
+                  popup_markf_slider_secondary_color: "[[[ return variables._markf_default_slider_secondary_color; ]]]"
+        sort:
+          method: name
+
+    divider3:
+      card:
+        type: "custom:button-card"
+        template: "popup_markf_subtitle"
+        name: Sensors
+
+    content3:
+      card:
+        type: "custom:auto-entities"
+        card:
+          type: grid
+          columns: 2
+          square: false
+        card_param: cards
+        filter:
+          include:
+            - device: "[[[ return variables.popup_markf_sonos_device_name; ]]]"
+              integration: sonos
+              domain: sensor
+              options:
+                type: custom:button-card
+                template: >
+                  [[[
+                    var templates = ["markf_icon_info"]
+                    templates.push(variables.popup_markf_sonos_sensor_color)
+                    return templates;
+                  ]]]
+                variables:
+                  markf_icon_info_icon_color: "[[[ return variables.popup_markf_sonos_sensor_color; ]]]"
+                  markf_icon_info_label_swap: true
+        sort:
+          method: name

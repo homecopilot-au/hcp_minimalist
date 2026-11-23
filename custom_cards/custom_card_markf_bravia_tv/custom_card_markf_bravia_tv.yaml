@@ -1,0 +1,3669 @@
+---
+### Sony Bravia TV - markf UI standard ###
+card_markf_bravia_tv:
+  template:
+    - "ulm_translation_engine"
+    - "ulm_actions_card"
+    - "markf_global_defaults"
+  show_icon: false
+  show_name: false
+  show_label: false
+  variables:
+    card_markf_bravia_tv_enable_collapse: true
+    card_markf_bravia_tv_hide_sec2: null
+    card_markf_bravia_tv_hide_sec3: null
+    card_markf_bravia_tv_remote_entity: null
+    card_markf_bravia_tv_sound_entity: null
+    card_markf_bravia_tv_entity_sound: "sound"
+    card_markf_bravia_tv_entity_tv: "tv"
+    card_markf_bravia_tv_icon_color: "color_markf_switch_default"
+    card_markf_bravia_tv_text_color: "color_markf_card_text_default"
+    card_markf_bravia_tv_button_color: "color_markf_button_default"
+    card_markf_bravia_tv_power_button_color: "color_markf_switch_default"
+    card_markf_bravia_tv_blank_button_color: "color_markf_button_blank_default"
+    card_markf_bravia_tv_padding: "var(--markf_minimalist_default_padding)"
+    card_markf_bravia_tv_row_gap: "var(--markf_minimalist_default_row_gap)"
+    card_markf_bravia_tv_no_box_shadow: "none"
+    card_markf_bravia_tv_show_indicator: "[[[ return variables._markf_default_show_indicator ]]]"
+    card_markf_bravia_tv_remote_entity_icon: "[[[ return variables._markf_default_power_entity_icon; ]]]"
+    ulm_icon_tap_action: "call-service"
+    ulm_icon_tap_service: "fan.set_preset_mode"
+    ulm_icon_tap_service_data:
+      entity_id: fan.study_fan
+      preset_mode: Medium
+    ulm_name_tap_action: "toggle"
+    ulm_icon_hold_action: "popup"
+    ulm_name_hold_action: "popup"
+    ulm_custom_popup:
+      template: popup_markf_history
+    card_markf_bravia_tv_input_off: "[[[ return hass.localize('component.input_boolean.entity_component._.state.off') ]]]"
+    card_markf_bravia_tv_input_on: "[[[ return hass.localize('component.input_boolean.entity_component._.state.on') ]]]"
+    card_markf_bravia_tv_channel_name: "[[[ return hass.localize('component.media_player.entity_component._.state_attributes.media_channel.name') ]]]"
+  triggers_update: "all"
+  styles:
+    grid:
+      - grid-template-areas: >
+          [[[
+                if (variables.card_markf_bravia_tv_enable_collapse && !variables.ulm_active_state ) {
+                  return "\"header1\"";
+                } else {
+                  return "\"header1\" \"sec1\" \"header2\" \"sec2\" \"header3\" \"sec3\"";
+                }
+          ]]]
+      - grid-template-columns: "1fr"
+      - grid-template-rows: >
+          [[[
+                if (variables.card_markf_bravia_tv_enable_collapse && !variables.ulm_active_state ) {
+                    return "1fr";
+                } else {
+                    return "min-content min-content min-content min-content min-content min-content";
+                }
+          ]]]
+      - row-gap: "[[[ return variables.card_markf_bravia_tv_row_gap ]]]"
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "var(--box-shadow)"
+      - padding: "[[[ return variables.card_markf_bravia_tv_padding ]]]"
+      - border-style: none
+      - background-color: transparent
+    custom_fields:
+      sec1:
+        - display: >
+            [[[
+                  if (variables.ulm_active_state) {
+                      return "block";
+                  } else {
+                      return "none";
+                  }
+            ]]]
+      header2:
+        - display: >
+            [[[
+                  if (variables.ulm_active_state) {
+                      return "block";
+                  } else {
+                      return "none";
+                  }
+            ]]]
+      sec2:
+        - display: >
+            [[[
+                  if (states[variables.card_markf_bravia_tv_hide_sec2].state === variables.card_markf_bravia_tv_input_off.toLowerCase() && variables.ulm_active_state) {
+                      return "block";
+                  } else {
+                      return "none";
+                  }
+            ]]]
+      header3:
+        - display: >
+            [[[
+                  if (variables.ulm_active_state) {
+                      return "block";
+                  } else {
+                      return "none";
+                  }
+            ]]]
+      sec3:
+        - display: >
+            [[[
+                  if (states[variables.card_markf_bravia_tv_hide_sec3].state === variables.card_markf_bravia_tv_input_off.toLowerCase() && variables.ulm_active_state) {
+                      return "block";
+                  } else {
+                      return "none";
+                  }
+            ]]]
+  custom_fields:
+    header1:
+      card:
+        type: "custom:button-card"
+        template: "markf_list_2x1_items"
+        styles:
+          grid:
+            - grid-template-columns: "4.5fr 0.5fr"
+        custom_fields:
+          item1:
+            card:
+              type: "custom:button-card"
+              template:
+                - "markf_icon_info"
+                - "ulm_actions_name"
+                - "ulm_actions_icon"
+              entity: "[[[ return entity.entity_id ]]]"
+              variables:
+                markf_icon_info_icon_color: "[[[ return variables.card_markf_bravia_tv_icon_color ]]]"
+                markf_icon_info_text_color: "[[[ return variables.card_markf_bravia_tv_text_color ]]]"
+                markf_icon_info_label: >-
+                  [[[
+                    if (variables.ulm_active_state) {
+                      if (states[entity.entity_id].attributes.media_content_type === variables.card_markf_bravia_tv_channel_name.toLowerCase()) {
+                        return entity.attributes.media_content_type + ' ' + entity.attributes.media_content_id
+                      } else {
+                        return entity.attributes.media_content_type + ' ' + entity.attributes.media_title
+                      }
+                    } else {
+                      return variables.ulm_translation_state;
+                    }
+                  ]]]
+                markf_icon_info_show_indicator: "[[[ return variables.card_markf_bravia_tv_show_indicator;]]]"
+                ulm_input_select_option: "[[[ return variables.ulm_input_select_option; ]]]"
+                ulm_input_select: "[[[ return variables.ulm_input_select; ]]]"
+                ulm_icon_tap_action: "[[[ return variables.ulm_icon_tap_action; ]]]"
+                ulm_icon_tap_haptic: "[[[ return variables.ulm_icon_tap_haptic; ]]]"
+                ulm_icon_tap_navigate_path: "[[[ return variables.ulm_icon_tap_navigate_path; ]]]"
+                ulm_icon_tap_service: "[[[ return variables.ulm_icon_tap_service; ]]]"
+                ulm_icon_tap_service_data: "[[[ return variables.ulm_icon_tap_service_data; ]]]"
+                ulm_icon_hold_action: "[[[ return variables.ulm_icon_hold_action; ]]]"
+                ulm_icon_hold_haptic: "[[[ return variables.ulm_icon_hold_haptic; ]]]"
+                ulm_icon_hold_navigate_path: "[[[ return variables.ulm_icon_hold_navigate_path; ]]]"
+                ulm_icon_hold_service: "[[[ return variables.ulm_icon_hold_service; ]]]"
+                ulm_icon_hold_service_data: "[[[ return variables.ulm_icon_hold_service_data; ]]]"
+                ulm_icon_double_tap_action: "[[[ return variables.ulm_icon_double_tap_action; ]]]"
+                ulm_icon_double_tap_haptic: "[[[ return variables.ulm_icon_double_tap_haptic; ]]]"
+                ulm_icon_double_tap_navigate_path: "[[[ return variables.ulm_icon_double_tap_navigate_path; ]]]"
+                ulm_icon_double_tap_service: "[[[ return variables.ulm_icon_double_tap_service; ]]]"
+                ulm_icon_double_tap_service_data: "[[[ return variables.ulm_icon_double_tap_service_data; ]]]"
+                ulm_custom_popup: "[[[ return variables.ulm_custom_popup; ]]]"
+          item2:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return variables.card_markf_bravia_tv_remote_entity ]]]"
+              template: >
+                [[[
+                  var templates = ["markf_widget_icon"]
+                    templates.push(variables.card_markf_bravia_tv_power_button_color);
+                  return templates;
+                ]]]
+              tap_action:
+                action: call-service
+                service: remote.send_command
+                service_data:
+                  entity_id: "[[[ return variables.card_markf_bravia_tv_remote_entity ]]]"
+                  command: TvPower
+              icon: "[[[ return variables.card_markf_bravia_tv_remote_entity_icon ]]]"
+
+    sec1:
+      card:
+        type: "custom:button-card"
+        template: "markf_list_5x4_items"
+        custom_fields:
+          item1:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_01_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_01_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_01_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_01_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_01_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_01_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_01_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_01_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_01_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_01_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_01_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_01_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_01_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_01_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_01_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_01_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_01_icon;
+                      }
+                    }
+                ]]]
+          item2:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_02_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_02_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_02_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_02_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_02_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_02_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_02_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_02_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_02_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_02_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_02_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_02_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_02_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_02_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_02_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_02_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_02_icon;
+                      }
+                    }
+                ]]]
+          item3:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_03_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_03_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_03_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_03_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_03_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_03_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_03_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_03_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_03_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_03_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_03_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_03_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_03_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_03_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_03_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_03_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_03_icon;
+                      }
+                    }
+                ]]]
+          item4:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_04_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_04_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_04_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_04_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_04_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_04_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_04_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_04_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_04_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_04_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_04_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_04_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_04_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_04_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_04_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_04_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_04_icon;
+                      }
+                    }
+                ]]]
+          item5:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_05_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_05_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_05_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_05_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_05_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_05_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_05_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_05_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_05_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_05_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_05_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_05_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_05_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_05_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_05_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_05_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_05_icon;
+                      }
+                    }
+                ]]]
+          item6:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_06_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_06_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_06_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_06_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_06_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_06_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_06_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_06_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_06_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_06_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_06_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_06_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_06_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_06_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_06_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_06_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_06_icon;
+                      }
+                    }
+                ]]]
+          item7:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_07_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_07_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_07_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_07_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_07_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_07_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_07_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_07_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_07_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_07_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_07_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_07_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_07_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_07_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_07_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_07_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_07_icon;
+                      }
+                    }
+                ]]]
+          item8:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_08_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_08_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_08_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_08_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_08_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_08_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_08_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_08_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_08_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_08_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_08_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_08_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_08_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_08_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_08_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_08_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_08_icon;
+                      }
+                    }
+                ]]]
+          item9:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_09_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_09_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_09_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_09_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_09_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_09_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_09_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_09_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_09_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_09_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_09_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_09_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_09_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_09_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_09_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_09_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_09_icon;
+                      }
+                    }
+                ]]]
+          item10:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_10_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_10_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_10_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_10_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_10_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_10_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_10_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_10_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_10_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_10_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_10_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_10_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_10_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_10_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_10_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_10_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_10_icon;
+                      }
+                    }
+                ]]]
+          item11:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_11_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_11_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_11_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_11_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_11_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_11_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_11_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_11_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_11_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_11_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_11_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_11_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_11_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_11_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_11_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_11_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_11_icon;
+                      }
+                    }
+                ]]]
+          item12:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_12_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_12_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_12_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_12_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_12_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_12_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_12_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_12_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_12_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_12_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_12_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_12_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_12_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_12_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_12_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_12_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_12_icon;
+                      }
+                    }
+                ]]]
+          item13:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_13_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_13_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_13_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_13_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_13_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_13_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_13_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_13_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_13_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_13_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_13_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_13_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_13_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_13_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_13_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_13_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_13_icon;
+                      }
+                    }
+                ]]]
+          item14:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_14_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_14_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_14_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_14_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_14_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_14_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_14_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_14_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_14_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_14_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_14_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_14_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_14_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_14_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_14_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_14_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_14_icon;
+                      }
+                    }
+                ]]]
+          item15:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_15_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_13_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_15_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_15_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_15_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_15_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_15_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_15_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_15_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_15_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_15_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_15_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_15_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_15_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_15_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_15_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_15_icon;
+                      }
+                    }
+                ]]]
+          item16:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_16_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_16_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_16_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_16_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_16_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_16_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_16_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_16_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_16_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_16_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_16_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_16_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_16_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_16_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_16_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_16_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_16_icon;
+                      }
+                    }
+                ]]]
+          item17:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_17_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_17_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_17_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_17_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_17_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_17_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_17_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_17_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_17_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_17_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_17_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_17_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_17_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_17_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_17_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_17_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_17_icon;
+                      }
+                    }
+                ]]]
+          item18:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_18_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_18_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_18_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_18_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_18_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_18_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_18_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_18_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_18_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_18_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_18_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_18_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_18_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_18_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_18_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_18_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_18_icon;
+                      }
+                    }
+                ]]]
+          item19:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_19_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_19_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_19_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_19_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_19_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_19_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_19_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_19_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_19_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_19_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_19_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_19_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_19_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_19_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_19_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_19_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_19_icon;
+                      }
+                    }
+                ]]]
+          item20:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec1_20_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_20_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_20_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_service;
+                    } else if (variables.markf_bravia_tv_config_sec1_20_service !== "") {
+                      return variables.markf_bravia_tv_config_sec1_20_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec1_20_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_20_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec1_20_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_20_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec1_20_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec1_20_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec1_20_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec1_20_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec1_20_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec1_20_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec1_20_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec1_20_icon;
+                      }
+                    }
+                ]]]
+
+    header2:
+      card:
+        type: "custom:button-card"
+        template: "markf_list_2x1_items"
+        styles:
+          grid:
+            - grid-template-columns: "4.5fr 0.5fr"
+        custom_fields:
+          item1:
+            card:
+              type: "custom:button-card"
+              name: "[[[ return variables.markf_bravia_tv_config_sec2_heading ]]]"
+              styles:
+                grid:
+                  - grid-template-areas: "'n'"
+                  - grid-template-columns: "min-content"
+                  - grid-template-rows: "min-content"
+                card:
+                  - border-radius: "var(--border-radius)"
+                  - box-shadow: "[[[ return variables.card_markf_bravia_tv_no_box_shadow ]]]"
+                  - padding: "[[[ return variables.card_markf_bravia_tv_padding ]]]"
+                  - border-style: none
+                  - background-color: transparent
+          item2:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_icon"]
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  return templates;
+                ]]]
+              icon: >-
+                [[[
+                  if (states[variables.card_markf_bravia_tv_hide_sec2].state === variables.card_markf_bravia_tv_input_on.toLowerCase()) {
+                    return variables.markf_bravia_tv_config_heading_down;
+                  } else {
+                    return variables.markf_bravia_tv_config_heading_up;
+                  }
+                ]]]
+              tap_action:
+                action: "call-service"
+                service: "input_boolean.toggle"
+                service_data:
+                  entity_id: "[[[ return variables.card_markf_bravia_tv_hide_sec2 ]]]"
+              entity: "[[[ return variables.card_markf_bravia_tv_hide_sec2 ]]]"
+
+    sec2:
+      card:
+        type: "custom:button-card"
+        template: "markf_list_5x3_items"
+        custom_fields:
+          item1:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec2_01_content_id === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_01_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_action;
+                    } else {
+                      return "none";
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_01_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec2_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec2_01_content_id !== variables._markf_default_entity_undefined) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_01_content_id !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_01_content_type !== variables._markf_default_entity_undefined) {
+                        return { "media_content_id": variables.markf_bravia_tv_config_sec2_01_content_id, 
+                          "media_content_type": variables.markf_bravia_tv_config_sec2_01_content_type };
+                      } else {
+                        return {};
+                      }
+                  ]]]
+              show_entity_picture: >
+                [[[
+                    return (typeof variables.markf_bravia_tv_config_sec2_01_dark_mode_image !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_01_light_mode_image !== variables._markf_default_entity_undefined)
+                ]]]
+              entity_picture: |
+                [[[
+                  if (typeof variables.markf_bravia_tv_config_sec2_01_dark_mode_image !== variables._markf_default_entity_undefined && 
+                    hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_01_dark_mode_image;
+                  } else if (typeof variables.markf_bravia_tv_config_sec2_01_light_mode_image !== variables._markf_default_entity_undefined &&
+                    !hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_01_light_mode_image;
+                  } else {
+                    return null;
+                  }
+                ]]]
+          item2:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec2_02_content_id === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_02_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_action;
+                    } else {
+                      return "none";
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_02_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec2_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec2_02_content_id !== variables._markf_default_entity_undefined) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_02_content_id !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_02_content_type !== variables._markf_default_entity_undefined) {
+                        return { "media_content_id": variables.markf_bravia_tv_config_sec2_02_content_id, 
+                          "media_content_type": variables.markf_bravia_tv_config_sec2_02_content_type };
+                      } else {
+                        return {};
+                      }
+                  ]]]
+              show_entity_picture: >
+                [[[
+                    return (typeof variables.markf_bravia_tv_config_sec2_02_dark_mode_image !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_02_light_mode_image !== variables._markf_default_entity_undefined)
+                ]]]
+              entity_picture: |
+                [[[
+                  if (typeof variables.markf_bravia_tv_config_sec2_02_dark_mode_image !== variables._markf_default_entity_undefined && 
+                    hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_02_dark_mode_image;
+                  } else if (typeof variables.markf_bravia_tv_config_sec2_02_light_mode_image !== variables._markf_default_entity_undefined &&
+                    !hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_02_light_mode_image;
+                  } else {
+                    return null;
+                  }
+                ]]]
+          item3:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec2_03_content_id === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_03_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_action;
+                    } else {
+                      return "none";
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_03_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec2_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec2_03_content_id !== variables._markf_default_entity_undefined) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_03_content_id !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_03_content_type !== variables._markf_default_entity_undefined) {
+                        return { "media_content_id": variables.markf_bravia_tv_config_sec2_03_content_id, 
+                          "media_content_type": variables.markf_bravia_tv_config_sec2_03_content_type };
+                      } else {
+                        return {};
+                      }
+                  ]]]
+              show_entity_picture: >
+                [[[
+                    return (typeof variables.markf_bravia_tv_config_sec2_03_dark_mode_image !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_03_light_mode_image !== variables._markf_default_entity_undefined)
+                ]]]
+              entity_picture: |
+                [[[
+                  if (typeof variables.markf_bravia_tv_config_sec2_03_dark_mode_image !== variables._markf_default_entity_undefined && 
+                    hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_03_dark_mode_image;
+                  } else if (typeof variables.markf_bravia_tv_config_sec2_03_light_mode_image !== variables._markf_default_entity_undefined &&
+                    !hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_03_light_mode_image;
+                  } else {
+                    return null;
+                  }
+                ]]]
+          item4:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec2_04_content_id === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_04_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_action;
+                    } else {
+                      return "none";
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_04_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec2_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec2_04_content_id !== variables._markf_default_entity_undefined) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_04_content_id !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_04_content_type !== variables._markf_default_entity_undefined) {
+                        return { "media_content_id": variables.markf_bravia_tv_config_sec2_04_content_id, 
+                          "media_content_type": variables.markf_bravia_tv_config_sec2_04_content_type };
+                      } else {
+                        return {};
+                      }
+                  ]]]
+              show_entity_picture: >
+                [[[
+                    return (typeof variables.markf_bravia_tv_config_sec2_04_dark_mode_image !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_04_light_mode_image !== variables._markf_default_entity_undefined)
+                ]]]
+              entity_picture: |
+                [[[
+                  if (typeof variables.markf_bravia_tv_config_sec2_04_dark_mode_image !== variables._markf_default_entity_undefined && 
+                    hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_04_dark_mode_image;
+                  } else if (typeof variables.markf_bravia_tv_config_sec2_04_light_mode_image !== variables._markf_default_entity_undefined &&
+                    !hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_04_light_mode_image;
+                  } else {
+                    return null;
+                  }
+                ]]]
+          item5:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec2_05_content_id === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_05_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_action;
+                    } else {
+                      return "none";
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_05_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec2_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec2_05_content_id !== variables._markf_default_entity_undefined) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_05_content_id !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_05_content_type !== variables._markf_default_entity_undefined) {
+                        return { "media_content_id": variables.markf_bravia_tv_config_sec2_05_content_id, 
+                          "media_content_type": variables.markf_bravia_tv_config_sec2_05_content_type };
+                      } else {
+                        return {};
+                      }
+                  ]]]
+              show_entity_picture: >
+                [[[
+                    return (typeof variables.markf_bravia_tv_config_sec2_05_dark_mode_image !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_05_light_mode_image !== variables._markf_default_entity_undefined)
+                ]]]
+              entity_picture: |
+                [[[
+                  if (typeof variables.markf_bravia_tv_config_sec2_05_dark_mode_image !== variables._markf_default_entity_undefined && 
+                    hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_05_dark_mode_image;
+                  } else if (typeof variables.markf_bravia_tv_config_sec2_05_light_mode_image !== variables._markf_default_entity_undefined &&
+                    !hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_05_light_mode_image;
+                  } else {
+                    return null;
+                  }
+                ]]]
+          item6:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec2_06_content_id === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_06_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_action;
+                    } else {
+                      return "none";
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_06_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec2_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec2_06_content_id !== variables._markf_default_entity_undefined) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_06_content_id !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_06_content_type !== variables._markf_default_entity_undefined) {
+                        return { "media_content_id": variables.markf_bravia_tv_config_sec2_06_content_id, 
+                          "media_content_type": variables.markf_bravia_tv_config_sec2_06_content_type };
+                      } else {
+                        return {};
+                      }
+                  ]]]
+              show_entity_picture: >
+                [[[
+                    return (typeof variables.markf_bravia_tv_config_sec2_06_dark_mode_image !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_06_light_mode_image !== variables._markf_default_entity_undefined)
+                ]]]
+              entity_picture: |
+                [[[
+                  if (typeof variables.markf_bravia_tv_config_sec2_06_dark_mode_image !== variables._markf_default_entity_undefined && 
+                    hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_06_dark_mode_image;
+                  } else if (typeof variables.markf_bravia_tv_config_sec2_06_light_mode_image !== variables._markf_default_entity_undefined &&
+                    !hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_06_light_mode_image;
+                  } else {
+                    return null;
+                  }
+                ]]]
+          item7:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec2_07_content_id === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_07_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_action;
+                    } else {
+                      return "none";
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_07_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec2_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec2_07_content_id !== variables._markf_default_entity_undefined) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_07_content_id !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_07_content_type !== variables._markf_default_entity_undefined) {
+                        return { "media_content_id": variables.markf_bravia_tv_config_sec2_07_content_id, 
+                          "media_content_type": variables.markf_bravia_tv_config_sec2_07_content_type };
+                      } else {
+                        return {};
+                      }
+                  ]]]
+              show_entity_picture: >
+                [[[
+                    return (typeof variables.markf_bravia_tv_config_sec2_07_dark_mode_image !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_07_light_mode_image !== variables._markf_default_entity_undefined)
+                ]]]
+              entity_picture: |
+                [[[
+                  if (typeof variables.markf_bravia_tv_config_sec2_07_dark_mode_image !== variables._markf_default_entity_undefined && 
+                    hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_07_dark_mode_image;
+                  } else if (typeof variables.markf_bravia_tv_config_sec2_07_light_mode_image !== variables._markf_default_entity_undefined &&
+                    !hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_07_light_mode_image;
+                  } else {
+                    return null;
+                  }
+                ]]]
+          item8:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec2_08_content_id === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_08_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_action;
+                    } else {
+                      return "none";
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_08_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec2_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec2_08_content_id !== variables._markf_default_entity_undefined) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_08_content_id !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_08_content_type !== variables._markf_default_entity_undefined) {
+                        return { "media_content_id": variables.markf_bravia_tv_config_sec2_08_content_id, 
+                          "media_content_type": variables.markf_bravia_tv_config_sec2_08_content_type };
+                      } else {
+                        return {};
+                      }
+                  ]]]
+              show_entity_picture: >
+                [[[
+                    return (typeof variables.markf_bravia_tv_config_sec2_08_dark_mode_image !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_08_light_mode_image !== variables._markf_default_entity_undefined)
+                ]]]
+              entity_picture: |
+                [[[
+                  if (typeof variables.markf_bravia_tv_config_sec2_08_dark_mode_image !== variables._markf_default_entity_undefined && 
+                    hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_08_dark_mode_image;
+                  } else if (typeof variables.markf_bravia_tv_config_sec2_08_light_mode_image !== variables._markf_default_entity_undefined &&
+                    !hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_08_light_mode_image;
+                  } else {
+                    return null;
+                  }
+                ]]]
+          item9:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec2_09_content_id === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_09_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_action;
+                    } else {
+                      return "none";
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_09_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec2_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec2_09_content_id !== variables._markf_default_entity_undefined) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_09_content_id !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_09_content_type !== variables._markf_default_entity_undefined) {
+                        return { "media_content_id": variables.markf_bravia_tv_config_sec2_09_content_id, 
+                          "media_content_type": variables.markf_bravia_tv_config_sec2_09_content_type };
+                      } else {
+                        return {};
+                      }
+                  ]]]
+              show_entity_picture: >
+                [[[
+                    return (typeof variables.markf_bravia_tv_config_sec2_09_dark_mode_image !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_09_light_mode_image !== variables._markf_default_entity_undefined)
+                ]]]
+              entity_picture: |
+                [[[
+                  if (typeof variables.markf_bravia_tv_config_sec2_09_dark_mode_image !== variables._markf_default_entity_undefined && 
+                    hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_09_dark_mode_image;
+                  } else if (typeof variables.markf_bravia_tv_config_sec2_09_light_mode_image !== variables._markf_default_entity_undefined &&
+                    !hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_09_light_mode_image;
+                  } else {
+                    return null;
+                  }
+                ]]]
+          item10:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec2_10_content_id === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_10_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_action;
+                    } else {
+                      return "none";
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_10_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec2_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec2_10_content_id !== variables._markf_default_entity_undefined) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_10_content_id !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_10_content_type !== variables._markf_default_entity_undefined) {
+                        return { "media_content_id": variables.markf_bravia_tv_config_sec2_10_content_id, 
+                          "media_content_type": variables.markf_bravia_tv_config_sec2_10_content_type };
+                      } else {
+                        return {};
+                      }
+                  ]]]
+              show_entity_picture: >
+                [[[
+                    return (typeof variables.markf_bravia_tv_config_sec2_10_dark_mode_image !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_10_light_mode_image !== variables._markf_default_entity_undefined)
+                ]]]
+              entity_picture: |
+                [[[
+                  if (typeof variables.markf_bravia_tv_config_sec2_10_dark_mode_image !== variables._markf_default_entity_undefined && 
+                    hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_10_dark_mode_image;
+                  } else if (typeof variables.markf_bravia_tv_config_sec2_10_light_mode_image !== variables._markf_default_entity_undefined &&
+                    !hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_10_light_mode_image;
+                  } else {
+                    return null;
+                  }
+                ]]]
+          item11:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec2_11_content_id === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_11_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_action;
+                    } else {
+                      return "none";
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_11_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec2_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec2_11_content_id !== variables._markf_default_entity_undefined) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_11_content_id !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_11_content_type !== variables._markf_default_entity_undefined) {
+                        return { "media_content_id": variables.markf_bravia_tv_config_sec2_11_content_id, 
+                          "media_content_type": variables.markf_bravia_tv_config_sec2_11_content_type };
+                      } else {
+                        return {};
+                      }
+                  ]]]
+              show_entity_picture: >
+                [[[
+                    return (typeof variables.markf_bravia_tv_config_sec2_11_dark_mode_image !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_11_light_mode_image !== variables._markf_default_entity_undefined)
+                ]]]
+              entity_picture: |
+                [[[
+                  if (typeof variables.markf_bravia_tv_config_sec2_11_dark_mode_image !== variables._markf_default_entity_undefined && 
+                    hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_11_dark_mode_image;
+                  } else if (typeof variables.markf_bravia_tv_config_sec2_11_light_mode_image !== variables._markf_default_entity_undefined &&
+                    !hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_11_light_mode_image;
+                  } else {
+                    return null;
+                  }
+                ]]]
+          item12:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec2_12_content_id === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_12_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_action;
+                    } else {
+                      return "none";
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_12_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec2_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec2_12_content_id !== variables._markf_default_entity_undefined) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_12_content_id !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_12_content_type !== variables._markf_default_entity_undefined) {
+                        return { "media_content_id": variables.markf_bravia_tv_config_sec2_12_content_id, 
+                          "media_content_type": variables.markf_bravia_tv_config_sec2_12_content_type };
+                      } else {
+                        return {};
+                      }
+                  ]]]
+              show_entity_picture: >
+                [[[
+                    return (typeof variables.markf_bravia_tv_config_sec2_12_dark_mode_image !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_12_light_mode_image !== variables._markf_default_entity_undefined)
+                ]]]
+              entity_picture: |
+                [[[
+                  if (typeof variables.markf_bravia_tv_config_sec2_12_dark_mode_image !== variables._markf_default_entity_undefined && 
+                    hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_12_dark_mode_image;
+                  } else if (typeof variables.markf_bravia_tv_config_sec2_12_light_mode_image !== variables._markf_default_entity_undefined &&
+                    !hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_12_light_mode_image;
+                  } else {
+                    return null;
+                  }
+                ]]]
+          item13:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec2_13_content_id === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_13_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_action;
+                    } else {
+                      return "none";
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_13_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec2_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec2_13_content_id !== variables._markf_default_entity_undefined) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_13_content_id !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_13_content_type !== variables._markf_default_entity_undefined) {
+                        return { "media_content_id": variables.markf_bravia_tv_config_sec2_13_content_id, 
+                          "media_content_type": variables.markf_bravia_tv_config_sec2_13_content_type };
+                      } else {
+                        return {};
+                      }
+                  ]]]
+              show_entity_picture: >
+                [[[
+                    return (typeof variables.markf_bravia_tv_config_sec2_13_dark_mode_image !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_13_light_mode_image !== variables._markf_default_entity_undefined)
+                ]]]
+              entity_picture: |
+                [[[
+                  if (typeof variables.markf_bravia_tv_config_sec2_13_dark_mode_image !== variables._markf_default_entity_undefined && 
+                    hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_13_dark_mode_image;
+                  } else if (typeof variables.markf_bravia_tv_config_sec2_13_light_mode_image !== variables._markf_default_entity_undefined &&
+                    !hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_13_light_mode_image;
+                  } else {
+                    return null;
+                  }
+                ]]]
+          item14:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec2_14_content_id === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_14_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_action;
+                    } else {
+                      return "none";
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_14_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec2_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec2_14_content_id !== variables._markf_default_entity_undefined) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_14_content_id !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_14_content_type !== variables._markf_default_entity_undefined) {
+                        return { "media_content_id": variables.markf_bravia_tv_config_sec2_14_content_id, 
+                          "media_content_type": variables.markf_bravia_tv_config_sec2_14_content_type };
+                      } else {
+                        return {};
+                      }
+                  ]]]
+              show_entity_picture: >
+                [[[
+                    return (typeof variables.markf_bravia_tv_config_sec2_14_dark_mode_image !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_14_light_mode_image !== variables._markf_default_entity_undefined)
+                ]]]
+              entity_picture: |
+                [[[
+                  if (typeof variables.markf_bravia_tv_config_sec2_14_dark_mode_image !== variables._markf_default_entity_undefined && 
+                    hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_14_dark_mode_image;
+                  } else if (typeof variables.markf_bravia_tv_config_sec2_14_light_mode_image !== variables._markf_default_entity_undefined &&
+                    !hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_14_light_mode_image;
+                  } else {
+                    return null;
+                  }
+                ]]]
+          item15:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec2_15_content_id === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_15_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_action;
+                    } else {
+                      return "none";
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_15_content_id !== variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec2_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec2_15_content_id !== variables._markf_default_entity_undefined) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec2_15_content_id !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_15_content_type !== variables._markf_default_entity_undefined) {
+                        return { "media_content_id": variables.markf_bravia_tv_config_sec2_15_content_id, 
+                          "media_content_type": variables.markf_bravia_tv_config_sec2_15_content_type };
+                      } else {
+                        return {};
+                      }
+                  ]]]
+              show_entity_picture: >
+                [[[
+                    return (typeof variables.markf_bravia_tv_config_sec2_15_dark_mode_image !== variables._markf_default_entity_undefined &&
+                      typeof variables.markf_bravia_tv_config_sec2_15_light_mode_image !== variables._markf_default_entity_undefined)
+                ]]]
+              entity_picture: |
+                [[[
+                  if (typeof variables.markf_bravia_tv_config_sec2_15_dark_mode_image !== variables._markf_default_entity_undefined && 
+                    hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_15_dark_mode_image;
+                  } else if (typeof variables.markf_bravia_tv_config_sec2_15_light_mode_image !== variables._markf_default_entity_undefined &&
+                    !hass.themes.darkMode) {
+                      return variables.markf_bravia_tv_config_sec2_15_light_mode_image;
+                  } else {
+                    return null;
+                  }
+                ]]]
+
+    header3:
+      card:
+        type: "custom:button-card"
+        template: "markf_list_2x1_items"
+        styles:
+          grid:
+            - grid-template-columns: "4.5fr 0.5fr"
+        custom_fields:
+          item1:
+            card:
+              type: "custom:button-card"
+              name: "[[[ return variables.markf_bravia_tv_config_sec3_heading ]]]"
+              styles:
+                grid:
+                  - grid-template-areas: "'n'"
+                  - grid-template-columns: "min-content"
+                  - grid-template-rows: "min-content"
+                card:
+                  - border-radius: "var(--border-radius)"
+                  - box-shadow: "[[[ return variables.card_markf_bravia_tv_no_box_shadow ]]]"
+                  - padding: "[[[ return variables.card_markf_bravia_tv_padding ]]]"
+                  - border-style: none
+                  - background-color: transparent
+          item2:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_icon"]
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  return templates;
+                ]]]
+              icon: >-
+                [[[
+                  if (states[variables.card_markf_bravia_tv_hide_sec3].state === variables.card_markf_bravia_tv_input_on.toLowerCase()) {
+                    return variables.markf_bravia_tv_config_heading_down;
+                  } else {
+                    return variables.markf_bravia_tv_config_heading_up;
+                  }
+                ]]]
+              tap_action:
+                action: "call-service"
+                service: "input_boolean.toggle"
+                service_data:
+                  entity_id: "[[[ return variables.card_markf_bravia_tv_hide_sec3 ]]]"
+              entity: "[[[ return variables.card_markf_bravia_tv_hide_sec3 ]]]"
+
+    sec3:
+      card:
+        type: "custom:button-card"
+        template: "markf_list_5x3_items"
+        custom_fields:
+          item1:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec3_01_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_01_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_01_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_service;
+                    } else if (variables.markf_bravia_tv_config_sec3_01_service !== "") {
+                      return variables.markf_bravia_tv_config_sec3_01_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec3_01_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_01_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_01_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_01_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec3_01_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec3_01_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec3_01_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec3_01_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_01_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_01_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec3_01_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec3_01_icon;
+                      }
+                    }
+                ]]]
+          item2:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec3_02_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_02_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_02_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_service;
+                    } else if (variables.markf_bravia_tv_config_sec3_02_service !== "") {
+                      return variables.markf_bravia_tv_config_sec3_02_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec3_02_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_02_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_02_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_02_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec3_02_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec3_02_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec3_02_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec3_02_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_02_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_02_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec3_02_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec3_02_icon;
+                      }
+                    }
+                ]]]
+          item3:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec3_03_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_03_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_03_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_service;
+                    } else if (variables.markf_bravia_tv_config_sec3_03_service !== "") {
+                      return variables.markf_bravia_tv_config_sec3_03_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec3_03_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_03_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_03_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_03_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec3_03_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec3_03_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec3_03_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec3_03_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_03_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_03_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec3_03_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec3_03_icon;
+                      }
+                    }
+                ]]]
+          item4:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec3_04_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_04_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_04_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_service;
+                    } else if (variables.markf_bravia_tv_config_sec3_04_service !== "") {
+                      return variables.markf_bravia_tv_config_sec3_04_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec3_04_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_04_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_04_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_04_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec3_04_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec3_04_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec3_04_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec3_04_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_04_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_04_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec3_04_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec3_04_icon;
+                      }
+                    }
+                ]]]
+          item5:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec3_05_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_05_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_05_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_service;
+                    } else if (variables.markf_bravia_tv_config_sec3_05_service !== "") {
+                      return variables.markf_bravia_tv_config_sec3_05_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec3_05_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_05_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_05_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_05_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec3_05_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec3_05_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec3_05_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec3_05_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_05_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_05_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec3_05_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec3_05_icon;
+                      }
+                    }
+                ]]]
+          item6:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec3_06_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_06_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_06_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_service;
+                    } else if (variables.markf_bravia_tv_config_sec3_06_service !== "") {
+                      return variables.markf_bravia_tv_config_sec3_06_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec3_06_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_06_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_06_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_06_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec3_06_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec3_06_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec3_06_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec3_06_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_06_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_06_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec3_06_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec3_06_icon;
+                      }
+                    }
+                ]]]
+          item7:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec3_07_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_07_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_07_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_service;
+                    } else if (variables.markf_bravia_tv_config_sec3_07_service !== "") {
+                      return variables.markf_bravia_tv_config_sec3_07_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec3_07_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_07_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_07_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_07_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec3_07_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec3_07_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec3_07_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec3_07_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_07_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_07_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec3_07_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec3_07_icon;
+                      }
+                    }
+                ]]]
+          item8:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec3_08_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_08_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_08_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_service;
+                    } else if (variables.markf_bravia_tv_config_sec3_08_service !== "") {
+                      return variables.markf_bravia_tv_config_sec3_08_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec3_08_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_08_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_08_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_08_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec3_08_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec3_08_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec3_08_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec3_08_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_08_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_08_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec3_08_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec3_08_icon;
+                      }
+                    }
+                ]]]
+          item9:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec3_09_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_09_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_09_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_service;
+                    } else if (variables.markf_bravia_tv_config_sec3_09_service !== "") {
+                      return variables.markf_bravia_tv_config_sec3_09_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec3_09_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_09_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_09_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_09_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec3_09_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec3_09_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec3_09_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec3_09_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_09_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_09_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec3_09_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec3_09_icon;
+                      }
+                    }
+                ]]]
+          item10:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec3_10_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_10_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_10_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_service;
+                    } else if (variables.markf_bravia_tv_config_sec3_10_service !== "") {
+                      return variables.markf_bravia_tv_config_sec3_10_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec3_10_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_10_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_10_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_10_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec3_10_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec3_10_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec3_10_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec3_10_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_10_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_10_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec3_10_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec3_10_icon;
+                      }
+                    }
+                ]]]
+          item11:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec3_11_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_11_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_11_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_service;
+                    } else if (variables.markf_bravia_tv_config_sec3_11_service !== "") {
+                      return variables.markf_bravia_tv_config_sec3_11_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec3_11_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_11_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_11_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_11_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec3_11_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec3_11_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec3_11_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec3_11_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_11_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_11_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec3_11_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec3_11_icon;
+                      }
+                    }
+                ]]]
+          item12:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec3_12_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_12_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_12_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_service;
+                    } else if (variables.markf_bravia_tv_config_sec3_12_service !== "") {
+                      return variables.markf_bravia_tv_config_sec3_12_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec3_12_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_12_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_12_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_12_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec3_12_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec3_12_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec3_12_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec3_12_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_12_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_12_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec3_12_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec3_12_icon;
+                      }
+                    }
+                ]]]
+          item13:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec3_13_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_13_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_13_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_service;
+                    } else if (variables.markf_bravia_tv_config_sec3_13_service !== "") {
+                      return variables.markf_bravia_tv_config_sec3_13_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec3_13_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_13_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_13_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_13_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec3_13_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec3_13_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec3_13_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec3_13_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_13_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_13_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec3_13_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec3_13_icon;
+                      }
+                    }
+                ]]]
+          item14:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec3_14_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_14_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_14_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_service;
+                    } else if (variables.markf_bravia_tv_config_sec3_14_service !== "") {
+                      return variables.markf_bravia_tv_config_sec3_14_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec3_14_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_14_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_14_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_14_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec3_14_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec3_14_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec3_14_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec3_14_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_14_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_14_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec3_14_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec3_14_icon;
+                      }
+                    }
+                ]]]
+          item15:
+            card:
+              type: "custom:button-card"
+              template: >
+                [[[
+                  var templates = ["markf_widget_button"]
+                  if (typeof variables.markf_bravia_tv_config_sec3_15_icon === variables._markf_default_entity_undefined) {
+                    templates.push(variables.card_markf_bravia_tv_blank_button_color);
+                  } else {
+                    templates.push(variables.card_markf_bravia_tv_button_color);
+                  }
+                  return templates;
+                ]]]
+              tap_action:
+                action: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_15_icon === variables._markf_default_entity_undefined) {
+                      return "none";
+                    } else {
+                      return variables.markf_bravia_tv_config_action;
+                    }
+                  ]]]
+                service: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_15_service === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_service;
+                    } else if (variables.markf_bravia_tv_config_sec3_15_service !== "") {
+                      return variables.markf_bravia_tv_config_sec3_15_service;
+                    }
+                  ]]]
+                target:
+                  entity_id: >
+                    [[[ 
+                      if (typeof variables.markf_bravia_tv_config_sec3_15_service_entity === variables._markf_default_entity_undefined) {
+                        return variables.card_markf_bravia_tv_remote_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_15_service_entity === variables.card_markf_bravia_tv_entity_sound ) {
+                        return variables.card_markf_bravia_tv_sound_entity;
+                      } else if (variables.markf_bravia_tv_config_sec3_15_service_entity === variables.card_markf_bravia_tv_entity_tv ) {
+                        return entity.entity_id;
+                      } else {
+                        return null;
+                      }
+                    ]]]
+                data: >
+                  [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_15_ismute !== variables._markf_default_entity_undefined) {
+                      if (variables.markf_bravia_tv_config_sec3_15_ismute) {
+                        return { "is_volume_muted": states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted ? false : true };
+                      }
+                    } else if (typeof variables.markf_bravia_tv_config_sec3_15_command === variables._markf_default_entity_undefined) {
+                      return {};
+                    } else if (variables.markf_bravia_tv_config_sec3_15_command !== "") {
+                      return { "command": variables.markf_bravia_tv_config_sec3_15_command };
+                    } else {
+                      return {};
+                    }
+                  ]]]
+              icon: >
+                [[[
+                    if (typeof variables.markf_bravia_tv_config_sec3_15_ismute === variables._markf_default_entity_undefined) {
+                      return variables.markf_bravia_tv_config_sec3_15_icon;
+                    } else {
+                      if (!variables.ulm_active_state || states[variables.card_markf_bravia_tv_sound_entity].attributes.is_volume_muted){
+                        return variables.markf_bravia_tv_config_sec3_15_mute_on_icon;
+                      } else {
+                        return variables.markf_bravia_tv_config_sec3_15_icon;
+                      }
+                    }
+                ]]]

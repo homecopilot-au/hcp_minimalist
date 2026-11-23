@@ -1,0 +1,305 @@
+---
+### Card Markf Weather ###
+card_markf_weather:
+  template:
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+    - "markf_list_1x4_items"
+    - "ulm_actions_card"
+  show_icon: false
+  show_name: false
+  show_label: false
+  variables:
+    card_markf_weather_show_title: false
+    card_markf_weather_show_current: true
+    card_markf_weather_show_hourly: false
+    card_markf_weather_show_daily: false
+    card_markf_weather_name: "[[[ return entity.attributes.friendly_name; ]]]"
+    card_markf_weather_icon_color: "color_markf_icon_default"
+    card_markf_weather_icon: "[[[ return entity.attributes.icon; ]]]"
+    card_markf_weather_label: "[[[ return entity.attributes.friendly_name; ]]]"
+    card_markf_weather_padding: "var(--markf_minimalist_default_padding)"
+    card_markf_weather_no_padding: "0px"
+    card_markf_weather_row_gap: "var(--markf_minimalist_default_row_gap)"
+    card_markf_weather_no_row_gap: "0px"
+    card_markf_weather_show_indicator: "[[[ return variables._markf_default_show_indicator ]]]"
+    card_markf_weather_popup_template: popup_markf_weather_forecast
+    card_markf_weather_show_forecast_summary: true
+    card_markf_weather_show_extended: true
+    card_markf_weather_observe_apparent_temp: null
+    card_markf_weather_observe_humidity: null
+    card_markf_weather_observe_temperature: null
+    card_markf_weather_observe_wind_bearing: null
+    card_markf_weather_observe_wind_gust: null
+    card_markf_weather_observe_wind_speed: null
+    card_markf_weather_forecast_summary_today: null
+    card_markf_weather_forecast_summary_tomorrow: null
+    card_markf_weather_forecast_icon_today: null
+    card_markf_weather_forecast_icon_tomorrow: null
+    card_markf_weather_forecast_max_today: null
+    card_markf_weather_forecast_max_tomorrow: null
+    card_markf_weather_forecast_min_today: null
+    card_markf_weather_forecast_min_tomorrow: null
+    card_markf_weather_forecast_rain_chance_today: null
+    card_markf_weather_forecast_rain_chance_tomorrow: null
+    card_markf_weather_forecast_rain_amount_today: null
+    card_markf_weather_forecast_rain_amount_tomorrow: null
+    card_markf_weather_popup_show_hourly: true
+    card_markf_weather_popup_show_daily: true
+    card_markf_weather_popup_show_forecast_summary: true
+    card_markf_weather_popup_show_extended: true
+    ulm_icon_tap_action: "popup"
+    ulm_name_tap_action: "popup"
+    ulm_icon_hold_action: "popup"
+    ulm_name_hold_action: "popup"
+    ulm_custom_popup:
+      template: popup_markf_weather_forecast
+  styles:
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "var(--box-shadow)"
+      - padding: |-
+          [[[
+            if(variables.card_markf_weather_show_title)
+              return variables.card_markf_weather_padding;
+            else
+              return variables.card_markf_weather_no_padding;
+          ]]]
+      - border-style: none
+      - background-color: transparent
+    custom_fields:
+      item1:
+        - display: >
+            [[[
+              if (variables.card_markf_weather_show_title) {
+                  return "block";
+              } else {
+                  return "none";
+              }
+            ]]]
+      item2:
+        - display: >
+            [[[
+              if (variables.card_markf_weather_show_current) {
+                  return "block";
+              } else {
+                  return "none";
+              }
+            ]]]
+      item3:
+        - display: >
+            [[[
+              if (variables.card_markf_weather_show_hourly) {
+                  return "block";
+              } else {
+                  return "none";
+              }
+            ]]]
+      item4:
+        - display: >
+            [[[
+              if (variables.card_markf_weather_show_daily) {
+                  return "block";
+              } else {
+                  return "none";
+              }
+            ]]]
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        entity: "[[[ return entity.entity_id ]]]"
+        template:
+          - "markf_icon_info"
+          - "ulm_actions_icon"
+        variables:
+          ulm_icon_tap_action: "[[[ return variables.ulm_icon_tap_action ]]]"
+          ulm_icon_hold_action: "[[[ return variables.ulm_icon_hold_action ]]]"
+          ulm_name_tap_action: "[[[ return variables.ulm_name_tap_action ]]]"
+          ulm_name_hold_action: "[[[ return variables.ulm_name_hold_action ]]]"
+          ulm_input_select_option: "[[[ return variables.ulm_input_select_option ]]]"
+          ulm_input_select: "[[[ return variables.ulm_input_select ]]]"
+          markf_icon_info_name: "[[[ return variables.card_markf_weather_name; ]]]"
+          markf_icon_info_label: "[[[ return variables.card_markf_weather_label; ]]]"
+          markf_icon_info_icon: "[[[ return variables.card_markf_weather_icon; ]]]"
+          markf_icon_info_icon_color: "[[[ return variables.card_markf_weather_icon_color ]]]"
+          markf_icon_info_show_indicator: "[[[ return variables.card_markf_weather_show_indicator;]]]"
+    item2:
+      card:
+        type: custom:platinum-weather-card-plus-charts
+        section_order:
+          - overview
+          - extended
+          - slots
+        show_section_extended: "[[[ return variables.card_markf_weather_show_forecast_summary; ]]]"
+        show_section_slots: "[[[ return variables.card_markf_weather_show_extended; ]]]"
+        text_card_title: "[[[ return variables.card_markf_weather_name; ]]]"
+        extended_use_attr: false
+        entity_apparent_temp: "[[[ return variables.card_markf_weather_observe_apparent_temp; ]]]"
+        entity_humidity: "[[[ return variables.card_markf_weather_observe_humidity; ]]]"
+        entity_temperature: "[[[ return variables.card_markf_weather_observe_temperature; ]]]"
+        entity_wind_bearing: "[[[ return variables.card_markf_weather_observe_wind_bearing; ]]]"
+        entity_wind_gust: "[[[ return variables.card_markf_weather_observe_wind_gust; ]]]"
+        entity_wind_speed: "[[[ return variables.card_markf_weather_observe_wind_speed; ]]]"
+        entity_extended: "[[[ return variables.card_markf_weather_forecast_summary_today; ]]]"
+        entity_forecast_icon: "[[[ return variables.card_markf_weather_forecast_icon_today; ]]]"
+        entity_forecast_max: "[[[ return variables.card_markf_weather_forecast_max_today; ]]]"
+        entity_forecast_min: "[[[ return variables.card_markf_weather_forecast_min_today; ]]]"
+        entity_pop: "[[[ return variables.card_markf_weather_forecast_rain_chance_today; ]]]"
+        entity_pos: "[[[ return variables.card_markf_weather_forecast_rain_amount_today; ]]]"
+        slot_l1: forecast_max
+        slot_l2: forecast_min
+        slot_l3: wind
+        slot_l4: remove
+        slot_l5: sun_next
+        slot_l6: remove
+        slot_l7: remove
+        slot_l8: remove
+        slot_r1: popforecast
+        slot_r2: humidity
+        slot_r3: remove
+        slot_r4: remove
+        slot_r5: sun_following
+        slot_r6: remove
+        slot_r7: remove
+        slot_r8: remove
+        tap_action:
+          action: "fire-dom-event"
+          browser_mod:
+            service: "browser_mod.popup"
+            data:
+              hide_header: true
+              style: |
+                --popup-background-color: var(--markf_minimalist_popup_background_color);
+                --popup-border-radius: var(--markf_minimalist_popup_border_radius);
+                --popup-padding-x: var(--markf_minimalist_popup_padding_x);
+                --popup-padding-y: var(--markf_minimalist_popup_padding_y);
+                --popup-max-width: var(--markf_minimalist_popup_max_width);
+                --popup-min-width: var(--markf_minimalist_popup_min_width);;
+              size: >
+                [[[
+                  const mediaQuery = window.matchMedia('(max-width: 1200px)')
+                  if (mediaQuery.matches) {
+                    return 'fullscreen'
+                  }
+                ]]]
+              content:
+                type: "custom:button-card"
+                template: "[[[ return variables.card_markf_weather_popup_template ]]]"
+                entity: "[[[ return entity.entity_id ]]]"
+                variables:
+                  popup_markf_weather_forecast_show_hourly: "[[[ return variables.card_markf_weather_popup_show_hourly; ]]]"
+                  popup_markf_weather_forecast_show_daily: "[[[ return variables.card_markf_weather_popup_show_daily; ]]]"
+                  popup_markf_weather_forecast_show_forecast_summary: "[[[ return variables.card_markf_weather_popup_show_forecast_summary; ]]]"
+                  popup_markf_weather_forecast_show_extended: "[[[ return variables.card_markf_weather_popup_show_extended; ]]]"
+                  popup_markf_weather_forecast_observe_apparent_temp: "[[[ return variables.card_markf_weather_observe_apparent_temp; ]]]"
+                  popup_markf_weather_forecast_observe_humidity: "[[[ return variables.card_markf_weather_observe_humidity; ]]]"
+                  popup_markf_weather_forecast_observe_temperature: "[[[ return variables.card_markf_weather_observe_temperature; ]]]"
+                  popup_markf_weather_forecast_observe_wind_bearing: "[[[ return variables.card_markf_weather_observe_wind_bearing; ]]]"
+                  popup_markf_weather_forecast_observe_wind_gust: "[[[ return variables.card_markf_weather_observe_wind_gust; ]]]"
+                  popup_markf_weather_forecast_observe_wind_speed: "[[[ return variables.card_markf_weather_observe_wind_speed; ]]]"
+                  popup_markf_weather_forecast_forecast_summary_today: "[[[ return variables.card_markf_weather_forecast_summary_today; ]]]"
+                  popup_markf_weather_forecast_forecast_summary_tomorrow: "[[[ return variables.card_markf_weather_forecast_summary_tomorrow; ]]]"
+                  popup_markf_weather_forecast_forecast_icon_today: "[[[ return variables.card_markf_weather_forecast_icon_today; ]]]"
+                  popup_markf_weather_forecast_forecast_icon_tomorrow: "[[[ return variables.card_markf_weather_forecast_icon_tomorrow; ]]]"
+                  popup_markf_weather_forecast_forecast_max_today: "[[[ return variables.card_markf_weather_forecast_max_today; ]]]" 
+                  popup_markf_weather_forecast_forecast_max_tomorrow: "[[[ return variables.card_markf_weather_forecast_max_tomorrow; ]]]"
+                  popup_markf_weather_forecast_forecast_min_today: "[[[ return variables.card_markf_weather_forecast_min_today; ]]]"
+                  popup_markf_weather_forecast_forecast_min_tomorrow: "[[[ return variables.card_markf_weather_forecast_min_tomorrow; ]]]"
+                  popup_markf_weather_forecast_forecast_rain_chance_today: "[[[ return variables.card_markf_weather_forecast_rain_chance_today; ]]]"
+                  popup_markf_weather_forecast_forecast_rain_chance_tomorrow: "[[[ return variables.card_markf_weather_forecast_rain_chance_tomorrow; ]]]"
+                  popup_markf_weather_forecast_forecast_rain_amount_today: "[[[ return variables.card_markf_weather_forecast_rain_amount_today; ]]]"
+                  popup_markf_weather_forecast_forecast_rain_amount_tomorrow: "[[[ return variables.card_markf_weather_forecast_rain_amount_tomorrow; ]]]"
+        card_mod:
+          style: |
+            ha-card {
+              box-shadow: none;
+              background-color: transparent
+            }
+    item3:
+      card:
+        type: custom:hourly-weather
+        entity: weather.yeronga_hourly
+        icons: true
+        name: null
+        tap_action:
+          action: "fire-dom-event"
+          browser_mod:
+            service: "browser_mod.popup"
+            data:
+              hide_header: true
+              style: |
+                --popup-background-color: var(--markf_minimalist_popup_background_color);
+                --popup-border-radius: var(--markf_minimalist_popup_border_radius);
+                --popup-padding-x: var(--markf_minimalist_popup_padding_x);
+                --popup-padding-y: var(--markf_minimalist_popup_padding_y);
+                --popup-max-width: var(--markf_minimalist_popup_max_width);
+                --popup-min-width: var(--markf_minimalist_popup_min_width);;
+              size: >
+                [[[
+                  const mediaQuery = window.matchMedia('(max-width: 1200px)')
+                  if (mediaQuery.matches) {
+                    return 'fullscreen'
+                  }
+                ]]]
+              content:
+                type: "custom:button-card"
+                template: "[[[ return variables.card_markf_weather_popup_template ]]]"
+                entity: "[[[ return entity.entity_id ]]]"    
+        hold_action: 
+          action: none
+        double_tap_action: 
+          action: none
+        card_mod:
+          style: |
+            ha-card {
+              box-shadow: none;
+              background-color: transparent
+            }
+    item4:
+      card:
+        type: custom:platinum-weather-card-plus-charts
+        entity_forecast_icon_1: sensor.yeronga_icon_descriptor_1
+        entity_forecast_max_1: sensor.yeronga_temp_max_1
+        entity_forecast_min_1: sensor.yeronga_temp_min_1
+        entity_pop_1: sensor.yeronga_rain_chance_1
+        entity_pos_1: sensor.yeronga_rain_amount_range_1
+        entity_summary_1: sensor.yeronga_short_text_1
+        section_order:
+          - overview
+          - extended
+          - slots
+          - daily_forecast
+        show_section_extended: false
+        show_section_overview: false
+        show_section_slots: false
+        tap_action:
+          action: "fire-dom-event"
+          browser_mod:
+            service: "browser_mod.popup"
+            data:
+              hide_header: true
+              style: |
+                --popup-background-color: var(--markf_minimalist_popup_background_color);
+                --popup-border-radius: var(--markf_minimalist_popup_border_radius);
+                --popup-padding-x: var(--markf_minimalist_popup_padding_x);
+                --popup-padding-y: var(--markf_minimalist_popup_padding_y);
+                --popup-max-width: var(--markf_minimalist_popup_max_width);
+                --popup-min-width: var(--markf_minimalist_popup_min_width);;
+              size: >
+                [[[
+                  const mediaQuery = window.matchMedia('(max-width: 1200px)')
+                  if (mediaQuery.matches) {
+                    return 'fullscreen'
+                  }
+                ]]]
+              content:
+                type: "custom:button-card"
+                template: "[[[ return variables.card_markf_weather_popup_template ]]]"
+                entity: "[[[ return entity.entity_id ]]]"    
+        card_mod:
+          style: |
+            ha-card {
+              box-shadow: none;
+              background-color: transparent
+            }

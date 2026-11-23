@@ -1,0 +1,15 @@
+---
+### Color for action alerts ###
+color_markf_automated_alert_action:
+  template:
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+  styles:
+    icon:
+      - color: "rgba(var(--markf_minimalist_switch_on_color), var(--markf_minimalist_icon_on_opacity))"
+    name:
+      - color: "rgba(var(--markf_minimalist_automated_alert_action_text_color),var(--markf_minimalist_state_alert_text_opacity))"
+    label:
+      - color: "rgba(var(--markf_minimalist_automated_alert_action_text_color), var(--markf_minimalist_state_alert_text_opacity))"
+    img_cell:
+      - background-color: "rgba(var(--markf_minimalist_switch_background_color), var(--markf_minimalist_background_on_opacity))"

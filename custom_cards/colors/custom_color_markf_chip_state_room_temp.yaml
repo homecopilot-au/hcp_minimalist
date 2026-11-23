@@ -1,0 +1,51 @@
+---
+color_markf_chip_state_room_temp:
+  template:
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+  variables:
+    color_markf_room_temp_warn_level: "[[[ return variables._markf_default_room_temp_warn_level; ]]]"
+    color_markf_room_temp_alert_level: "[[[ return variables._markf_default_room_temp_alert_level; ]]]"
+  state:
+    - operator: template
+      value: >-
+        [[[ return (variables.ulm_translation_state === variables.ulm_translation_unavailable); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_state_unavailable_icon_color), var(--markf_minimalist_state_unavailable_icon_opacity))"
+        label:
+          - background-color: "rgba(var(--markf_minimalist_state_unavailable_background_color), var(--markf_minimalist_state_unavailable_icon_opacity))"
+    - operator: template
+      value: >
+        [[[
+          return (entity.state > variables.color_markf_room_temp_alert_level);
+        ]]]
+      styles:
+        card:
+          - background-color: "rgba(var(--markf_minimalist_state_alert_background_color), var(--markf_minimalist_state_off_background_opacity))"
+          - padding: 0px
+        label:
+          - color: "rgba(var(--markf_minimalist_state_alert_text_color), var(--markf_minimalist_state_alert_text_opacity))"
+        icon:
+          - color: "rgba(var(--markf_minimalist_state_alert_icon_color), var(--markf_minimalist_icon_on_opacity))"
+    - operator: template
+      value: >
+        [[[
+          return (entity.state > variables.color_markf_room_temp_warn_level);
+        ]]]
+      styles:
+        card:
+          - background-color: "rgba(var(--markf_minimalist_state_warning_background_color), var(--markf_minimalist_state_ok_background_opacity))"
+          - padding: 0px
+        label:
+          - color: "rgba(var(--markf_minimalist_state_warning_text_color), var(--markf_minimalist_state_warning_text_opacity))"
+        icon:
+          - color: "rgba(var(--markf_minimalist_state_warning_icon_color), var(--markf_minimalist_icon_on_opacity))"
+    - operator: default
+      styles:
+        card:
+          - background-color: "rgba(var(--markf_minimalist_state_ok_background_color), var(--markf_minimalist_state_ok_background_opacity))"
+        label:
+          - color: "rgba(var(--markf_minimalist_state_ok_text_color), var(--markf_minimalist_state_ok_text_opacity))"
+        icon:
+          - color: "rgba(var(--markf_minimalist_state_ok_icon_color), var(--markf_minimalist_icon_on_opacity))"

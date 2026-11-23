@@ -1,0 +1,11 @@
+---
+### Text default ###
+color_markf_card_text_default:
+  template: 
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+  styles:
+    label:
+      - color: "rgba(var(--markf_minimalist_label_text_color), var(--markf_minimalist_text_default_opacity))"
+    name:
+      - color: "rgba(var(--markf_minimalist_name_text_color), var(--markf_minimalist_text_default_opacity))"

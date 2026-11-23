@@ -1,0 +1,147 @@
+---
+### Markf State Info - markf UI standard ###
+markf_state_info:
+  show_icon: false
+  show_name: false
+  show_label: false
+  template:
+    - "ulm_translation_engine"
+    - "ulm_custom_actions"
+    - "ulm_actions_card"
+    - "markf_global_defaults"
+  styles:
+    grid:
+      - grid-template-areas: "'item1'"
+      - grid-template-columns: "1fr"
+      - grid-template-rows: "1fr"
+      - column-gap: "0px"
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "none"
+      - padding: "0px"
+      - border-style: none
+      - background-color: transparent
+  variables:
+    markf_state_info_state_color: "color_markf_switch_default"
+    markf_state_info_state_entity: "[[[ return entity.entity_id; ]]]"
+    markf_state_info_name: "[[[ return entity.attributes.friendly_name; ]]]"
+    markf_state_info_label: "[[[ return entity.state; ]]]"
+    markf_state_info_text_color: "color_markf_card_text_default"
+    markf_state_info_label_swap: false
+    markf_state_info_label_date: false
+    markf_state_info_label_unit_of_measurement: false
+    markf_state_info_label_date_format: "[[[ return variables._markf_default_date_format ]]]"
+    markf_state_info_show_indicator: null
+    markf_state_info_show_indicator_state: "[[[ return variables.ulm_translation_unavailable ]]]"
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        show_icon: false
+        show_name: false
+        show_label: false
+        template:
+          - "markf_list_2x1_items"
+        custom_fields:
+          item1:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return variables.markf_state_info_state_entity; ]]]"
+              template: >
+                [[[
+                  var templates = ["markf_widget_state", "ulm_actions_icon"]
+                  templates.push(variables.markf_state_info_state_color)
+                  return templates;
+                ]]]
+              variables:
+                widget_markf_state_color: "[[[ return variables.markf_state_info_state_color; ]]]"
+                ulm_input_select_option: "[[[ return variables.ulm_input_select_option; ]]]"
+                ulm_input_select: "[[[ return variables.ulm_input_select; ]]]"
+                ulm_icon_tap_action: "[[[ return variables.ulm_icon_tap_action; ]]]"
+                ulm_icon_tap_haptic: "[[[ return variables.ulm_icon_tap_haptic; ]]]"
+                ulm_icon_tap_navigate_path: "[[[ return variables.ulm_icon_tap_navigate_path; ]]]"
+                ulm_icon_tap_service: "[[[ return variables.ulm_icon_tap_service; ]]]"
+                ulm_icon_tap_service_data: "[[[ return variables.ulm_icon_tap_service_data; ]]]"
+                ulm_icon_hold_action: "[[[ return variables.ulm_icon_hold_action; ]]]"
+                ulm_icon_hold_haptic: "[[[ return variables.ulm_icon_hold_haptic; ]]]"
+                ulm_icon_hold_navigate_path: "[[[ return variables.ulm_icon_hold_navigate_path; ]]]"
+                ulm_icon_hold_service: "[[[ return variables.ulm_icon_hold_service; ]]]"
+                ulm_icon_hold_service_data: "[[[ return variables.ulm_icon_hold_service_data; ]]]"
+                ulm_icon_double_tap_action: "[[[ return variables.ulm_icon_double_tap_action; ]]]"
+                ulm_icon_double_tap_haptic: "[[[ return variables.ulm_icon_double_tap_haptic; ]]]"
+                ulm_icon_double_tap_navigate_path: "[[[ return variables.ulm_icon_double_tap_navigate_path; ]]]"
+                ulm_icon_double_tap_service: "[[[ return variables.ulm_icon_double_tap_service; ]]]"
+                ulm_icon_double_tap_service_data: "[[[ return variables.ulm_icon_double_tap_service_data; ]]]"
+                ulm_custom_popup: "[[[ return variables.ulm_custom_popup; ]]]"
+                widget_markf_show_indicator: "[[[ return variables.markf_state_info_show_indicator ]]]"
+              styles:
+                card:
+                  - overflow: >
+                      [[[
+                        if (variables.ulm_translation_state === variables.ulm_translation_unavailable){
+                          return "visible";
+                        } else {
+                          return "hidden";
+                        }
+                      ]]]
+          item2:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              name: >-
+                [[[ 
+                  if (variables.markf_state_info_label_swap) {
+                    if (variables.markf_state_info_label_date) {
+                      return new Date(variables.markf_state_info_label).toLocaleDateString(variables.markf_state_info_label_date_format)
+                    } else {
+                      if (variables.markf_state_info_label_unit_of_measurement) {
+                        return variables.markf_state_info_label + entity.attributes?.unit_of_measurement;
+                      } else {
+                        return variables.markf_state_info_label;
+                      }
+                    }
+                  } else {
+                    return variables.markf_state_info_name;
+                  }
+                ]]]
+              label: >-
+                [[[ 
+                  if (variables.markf_state_info_label_swap) {
+                    return variables.markf_state_info_name;
+                  } else {
+                    if (variables.markf_state_info_label_date) {
+                      return new Date(variables.markf_state_info_label).toLocaleDateString(variables.markf_state_info_label_date_format)
+                    } else {
+                      if (variables.markf_state_info_label_unit_of_measurement) {
+                        return variables.markf_state_info_label + entity.attributes?.unit_of_measurement;
+                      } else {
+                        return variables.markf_state_info_label;
+                      }
+                    }
+                  }
+                ]]]
+              template: >
+                [[[
+                  var templates = ["markf_widget_info", "ulm_actions_name"]
+                  templates.push(variables.markf_state_info_text_color)
+                  return templates;
+                ]]]
+              variables:
+                ulm_input_select_option: "[[[ return variables.ulm_input_select_option; ]]]"
+                ulm_input_select: "[[[ return variables.ulm_input_select; ]]]"
+                ulm_name_tap_action: "[[[ return variables.ulm_name_tap_action; ]]]"
+                ulm_name_tap_haptic: "[[[ return variables.ulm_name_tap_haptic; ]]]"
+                ulm_name_tap_navigate_path: "[[[ return variables.ulm_name_tap_navigate_path; ]]]"
+                ulm_name_tap_service: "[[[ return variables.ulm_name_tap_service; ]]]"
+                ulm_name_tap_service_data: "[[[ return variables.ulm_name_tap_service_data; ]]]"
+                ulm_name_hold_action: "[[[ return variables.ulm_name_hold_action; ]]]"
+                ulm_name_hold_haptic: "[[[ return variables.ulm_name_hold_haptic; ]]]"
+                ulm_name_hold_navigate_path: "[[[ return variables.ulm_name_hold_navigate_path; ]]]"
+                ulm_name_hold_service: "[[[ return variables.ulm_name_hold_service; ]]]"
+                ulm_name_hold_service_data: "[[[ return variables.ulm_name_hold_service_data; ]]]"
+                ulm_name_double_tap_action: "[[[ return variables.ulm_name_double_tap_action; ]]]"
+                ulm_name_double_tap_haptic: "[[[ return variables.ulm_name_double_tap_haptic; ]]]"
+                ulm_name_double_tap_navigate_path: "[[[ return variables.ulm_name_double_tap_navigate_path; ]]]"
+                ulm_name_double_tap_service: "[[[ return variables.ulm_name_double_tap_service; ]]]"
+                ulm_name_double_tap_service_data: "[[[ return variables.ulm_name_double_tap_service_data; ]]]"
+                ulm_custom_popup: "[[[ return variables.ulm_custom_popup; ]]]"

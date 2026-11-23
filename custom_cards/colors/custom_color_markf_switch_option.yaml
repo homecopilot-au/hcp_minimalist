@@ -1,0 +1,24 @@
+---
+### Switch default ###
+color_markf_switch_option:
+  template:
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+  variables:
+    color_markf_switch_option_name: ""
+    color_markf_switch_option_state: "[[[ return entity.state; ]]]"
+  state:
+    - operator: template
+      value: >
+        [[[ return (variables.ulm_active_state && variables.color_markf_switch_option_state === variables.color_markf_switch_option_name); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_switch_on_color), var(--markf_minimalist_icon_on_opacity))"
+        card:
+          - background: "rgba(var(--markf_minimalist_switch_on_color), var(--markf_minimalist_background_on_opacity))"
+    - operator: default
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_switch_off_color), var(--markf_minimalist_icon_off_opacity))"
+        card:
+          - background: "rgba(var(--markf_minimalist_switch_off_color), var(--markf_minimalist_background_off_opacity))"

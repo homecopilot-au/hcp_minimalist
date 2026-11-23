@@ -1,0 +1,91 @@
+---
+popup_markf_weather_radar:
+  template: "popup_markf_weather_forecast"
+  variables:
+    popup_markf_weather_forecast_surpress_first_forecast: false
+    popup_markf_weather_forecast_hide_back: false
+    popup_markf_weather_forecast_history_entity: "[[[ return entity.entity_id ]]]"
+  tap_action:
+    action: none
+  styles:
+    grid:
+      - grid-template-areas: "'back header header history' 'content2 content2 content2 content2'"
+      - grid-template-rows: "14vh 13vh 13vh"
+      - grid-template-columns: "1fr 1fr 1fr 1fr"
+    custom_fields:
+      content1:
+        - display: "none"
+  extra_styles: |
+    @media (max-width: 800px) {
+      #container {
+        grid-template-areas: "back header history" "content2 content2 content2" "buttons buttons buttons" !important;
+        grid-template-rows: 6vh 52vh 14vh !important;
+        grid-template-columns: 1fr 3fr 1fr !important;
+      }
+      #buttons {
+        display: block !important;
+        align-self: start !important;
+      }
+      #content1 {
+        display: none;
+      }
+  custom_fields:
+    back:
+      card:
+        type: "custom:button-card"
+        template: "popup_markf_button_back"
+    history:
+      card:
+        type: "custom:button-card"
+        template: "popup_markf_button_history"
+        variables:
+          popup_markf_history_entity: "[[[ return variables.popup_markf_weather_forecast_history_entity ]]]"
+    buttons:
+      card:
+        type: "custom:button-card"
+        template: "list_2_items"
+        styles:
+          card:
+            - background: "none"
+          grid:
+            - align-items: "initial"
+        custom_fields:
+          item1:
+            card:
+              icon: "mdi:calendar-month"
+              type: "custom:button-card"
+              template:
+                - "popup_button"
+                - "popup_button_forecast"
+              tap_action:
+                action: "fire-dom-event"
+                browser_mod:
+                  service: "browser_mod.popup"
+                  data:
+                    hide_header: true
+                    style: |
+                      --popup-background-color: var(--primary-background-color);
+                      --popup-border-radius: 20px;
+                      --popup-padding-x: 24px;
+                      --popup-padding-y: 20px;
+                      --popup-max-width: auto
+                      --popup-min-width: 800px;
+                    size: >
+                      [[[
+                        const mediaQuery = window.matchMedia('(max-width: 1200px)')
+                        if (mediaQuery.matches) {
+                          return 'fullscreen'
+                        }
+                      ]]]
+                    content:
+                      type: "custom:button-card"
+                      template: "popup_markf_weather_forecast"
+                      entity: "[[[ return entity.entity_id; ]]]"
+          item2:
+            card:
+              icon: "mdi:radar"
+              type: "custom:button-card"
+              template:
+                - "popup_button"
+                - "popup_button_selected"
+                - "popup_button_radar"

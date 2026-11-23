@@ -1,0 +1,27 @@
+---
+### Switch popup ###
+color_markf_switch_popup:
+  template:
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+  state:
+    - operator: template
+      value: >-
+        [[[ return (variables.ulm_active_state) ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_switch_on_color), var(--markf_minimalist_icon_on_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--markf_minimalist_switch_on_color), var(--markf_minimalist_background_on_opacity))"
+        card:
+          - background-color: "rgba(var(--markf_minimalist_switch_background_color), var(--markf_minimalist_background_on_opacity))"
+          - box-shadow: "var(--box-shadow)"
+    - operator: default
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_switch_off_color), var(--markf_minimalist_icon_off_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--markf_minimalist_switch_off_color), var(--markf_minimalist_background_off_opacity))"
+        card:
+          - background-color: "rgba(var(--markf_minimalist_switch_background_color), var(--markf_minimalist_background_off_opacity))"
+          - box-shadow: "var(--box-shadow)"

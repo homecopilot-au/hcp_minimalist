@@ -1,0 +1,26 @@
+---
+### For numeric sensor where state >- is on and 0 off ###
+color_markf_state_numberic:
+  template:
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+    - "markf_numerical_state_check"
+  state:
+    - operator: template
+      value: >-
+        [[[ return (variables.markf_is_numerical_state_non_zero); ]]]
+      styles:
+        label:
+          - color: "rgba(var(--markf_minimalist_state_ok_text_color), var(--markf_minimalist_state_ok_text_opacity))"
+        state:
+          - color: "rgba(var(--markf_minimalist_state_ok_text_color), var(--markf_minimalist_state_ok_text_opacity))"
+          - font-size: "var(--markf_minimalist_state_large_font_size)"
+          - font-weight: "var(--markf_minimalist_state_font_weight)"
+    - operator: default
+      styles:
+        label:
+          - color: "rgba(var(--markf_minimalist_state_off_text_color), var(--markf_minimalist_state_off_text_opacity))"
+        state:
+          - color: "rgba(var(--markf_minimalist_state_on_text_color), var(--markf_minimalist_state_off_text_opacity))"
+          - font-size: "var(--markf_minimalist_state_large_font_size)"
+          - font-weight: "var(--markf_minimalist_state_font_weight)"

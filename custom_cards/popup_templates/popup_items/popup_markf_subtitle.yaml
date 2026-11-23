@@ -1,0 +1,19 @@
+---
+popup_markf_subtitle:
+  show_icon: false
+  show_label: false
+  show_name: true
+  template:
+    - "color_markf_card_popup_default"
+  styles:
+    card:
+      - box-shadow: "none"
+      - border-radius: "0px"
+      - padding: "var(--markf_minimalist_default_padding)"
+    name:
+      - justify-self: "start"
+      - margin-left: "var(--markf_minimalist_popup_subititle_left_margin)"
+      - font-weight: "var(--markf_minimalist_popup_subtitle_font_weight)"
+      - font-size: "var(--markf_minimalist_popup_subtitle_font_size)"
+  tap_action:
+    action: "none"

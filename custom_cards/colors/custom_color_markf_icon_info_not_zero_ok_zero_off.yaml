@@ -1,0 +1,42 @@
+---
+### For numeric sensor where state >- is on and 0 off ###
+color_markf_icon_info_not_zero_ok_zero_off:
+  template:
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+    - "markf_numerical_state_check"
+  state:
+    - operator: template
+      value: >-
+        [[[ return (variables.ulm_translation_state === variables.ulm_translation_unavailable); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_state_unavailable_icon_color), var(--markf_minimalist_state_unavailable_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--markf_minimalist_state_unavailable_background_color), var(--markf_minimalist_state_unavailable_background_opacity))"
+    - operator: template
+      value: >-
+        [[[ return (variables.markf_is_numerical_state_non_zero); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_state_ok_icon_color), var(--markf_minimalist_state_ok_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--markf_minimalist_state_ok_background_color), var(--markf_minimalist_state_ok_background_opacity))"
+        name:
+          - color: "rgba(var(--markf_minimalist_state_ok_text_color), var(--markf_minimalist_state_ok_text_opacity))"
+        label:
+          - color: "rgba(var(--markf_minimalist_state_ok_text_color), var(--markf_minimalist_state_ok_text_opacity))"
+        state:
+          - color: "rgba(var(--markf_minimalist_state_ok_text_color), var(--markf_minimalist_state_off_text_color))"
+    - operator: default
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_state_off_icon_color), var(--markf_minimalist_state_off_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--markf_minimalist_state_off_background_color), var(--markf_minimalist_state_off_background_opacity))"
+        label:
+          - color: "rgba(var(--markf_minimalist_state_off_text_color), var(--markf_minimalist_state_off_text_opacity))"
+        name:
+          - color: "rgba(var(--markf_minimalist_state_off_text_color), var(--markf_minimalist_state_off_text_opacity))"
+        state:
+          - color: "rgba(var(--markf_minimalist_state_off_text_color), var(--markf_minimalist_state_off_text_color))"

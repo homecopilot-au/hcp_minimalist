@@ -1,0 +1,27 @@
+---
+### Overlay Alert ###
+markf_overlay_alert:
+  variables:
+    - ulm_markf_overlay_alert_entity: ""
+  state:
+    - operator: "template"
+      value: >-
+        [[[ return states[variables.ulm_markf_overlay_alert_entity].state != 0 ]]]
+      styles:
+        custom_fields:
+          notification:
+            - position: "absolute"
+            - left: "var(--markf_minimalist_alert_indicator_pos_left)"
+            - bottom: "var(--markf_minimalist_alert_indicator_pos_bottom)"
+            - height: "var(--markf_minimalist_alert_indicator_size)"
+            - width: "var(--markf_minimalist_alert_indicator_size)"
+            - border: "none"
+            - font-size: "var(--markf_minimalist_alert_indicator_font_size)"
+
+  custom_fields:
+    notification: >
+      [[[
+        if (states[variables.ulm_markf_overlay_alert_entity].state != 0){
+          return `<ha-icon icon="mdi:circle" style="width: rgba(var(--markf_minimalist_alert_indicator_size),1); height: rgba(var(--markf_minimalist_alert_indicator_size),1); color: rgba(var(--markf_minimalist_widget_icon_indicator_color),1);"></ha-icon>`
+        }
+      ]]]

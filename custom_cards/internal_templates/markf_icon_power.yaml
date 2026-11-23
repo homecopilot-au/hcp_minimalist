@@ -1,0 +1,170 @@
+---
+### Icon Power - markf UI standard ###
+markf_icon_power:
+  show_icon: false
+  show_name: false
+  show_label: false
+  template:
+    - "ulm_translation_engine"
+    - "ulm_custom_actions"
+    - "ulm_actions_card"
+    - "markf_global_defaults"
+  styles:
+    grid:
+      - grid-template-areas: "'item1'"
+      - grid-template-columns: "1fr"
+      - grid-template-rows: "1fr"
+      - column-gap: "0px"
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "none"
+      - padding: "0px"
+      - border-style: none
+      - background-color: transparent
+  variables:
+    markf_icon_power_icon: "[[[ return entity.attributes.icon ]]]"
+    markf_icon_power_icon_color: "color_markf_icon_default"
+    markf_icon_power_name: "[[[ return entity.attributes.friendly_name; ]]]"
+    markf_icon_power_label: "[[[ return entity.state; ]]]"
+    markf_icon_power_text_color: "color_markf_card_text_default"
+    markf_icon_power_power_entity: ""
+    markf_icon_power_power_entity_icon: "[[[ return variables._markf_default_power_entity_icon; ]]]"
+    markf_icon_power_battery_alert_color: "color_markf_icon_info_battery_alert"
+    markf_icon_power_power_color: "color_markf_switch_default"
+    markf_icon_power_power_popup_template: "popup_markf_history"
+    markf_icon_power_show_indicator: null
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        show_icon: false
+        show_name: false
+        show_label: false
+        template:
+          - "markf_list_3x1_items"
+        styles:
+          grid:
+#            - grid-template-areas: "'item1 item2 item3'"
+            - grid-template-columns: "min-content auto min-content" 
+#            - grid-template-rows: "min-content"
+#            - column-gap: "0px"
+#          card:
+#            - box-shadow: "none"
+#            - padding: "0px"
+          custom_fields:
+            item1:
+              - justify-self: "left"
+            item2:
+              - justify-text: "left"
+            item3:
+              - justify-self: "right"
+              - display: >
+                  [[[
+                    if (variables.markf_icon_power_power_entity !== "") {
+                        return "block";
+                    } else {
+                        return "none";
+                    }
+                  ]]]
+        custom_fields:
+          item1:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              icon: >
+                [[[ 
+                  if (variables.ulm_translation_state === variables.ulm_translation_unavailable) {
+                    return variables._markf_default_unavailable_icon;
+                  } else {
+                    return variables.markf_icon_power_icon;
+                  }
+                ]]]
+              template: >
+                [[[
+                  var templates = ["markf_widget_icon", "ulm_actions_icon"]
+                  templates.push(variables.markf_icon_power_icon_color)
+                  return templates;
+                ]]]
+              variables:
+                ulm_input_select_option: "[[[ return variables.ulm_input_select_option; ]]]"
+                ulm_input_select: "[[[ return variables.ulm_input_select; ]]]"
+                ulm_icon_tap_action: "[[[ return variables.ulm_icon_tap_action; ]]]"
+                ulm_icon_tap_haptic: "[[[ return variables.ulm_icon_tap_haptic; ]]]"
+                ulm_icon_tap_navigate_path: "[[[ return variables.ulm_icon_tap_navigate_path; ]]]"
+                ulm_icon_tap_service: "[[[ return variables.ulm_icon_tap_service; ]]]"
+                ulm_icon_tap_service_data: "[[[ return variables.ulm_icon_tap_service_data; ]]]"
+                ulm_icon_hold_action: "[[[ return variables.ulm_icon_hold_action; ]]]"
+                ulm_icon_hold_haptic: "[[[ return variables.ulm_icon_hold_haptic; ]]]"
+                ulm_icon_hold_navigate_path: "[[[ return variables.ulm_icon_hold_navigate_path; ]]]"
+                ulm_icon_hold_service: "[[[ return variables.ulm_icon_hold_service; ]]]"
+                ulm_icon_hold_service_data: "[[[ return variables.ulm_icon_hold_service_data; ]]]"
+                ulm_icon_double_tap_action: "[[[ return variables.ulm_icon_double_tap_action; ]]]"
+                ulm_icon_double_tap_haptic: "[[[ return variables.ulm_icon_double_tap_haptic; ]]]"
+                ulm_icon_double_tap_navigate_path: "[[[ return variables.ulm_icon_double_tap_navigate_path; ]]]"
+                ulm_icon_double_tap_service: "[[[ return variables.ulm_icon_double_tap_service; ]]]"
+                ulm_icon_double_tap_service_data: "[[[ return variables.ulm_icon_double_tap_service_data; ]]]"
+                ulm_custom_popup: "[[[ return variables.ulm_custom_popup; ]]]"
+                widget_markf_show_indicator: "[[[ return variables.markf_icon_power_show_indicator ]]]"
+              styles:
+                card:
+                  - overflow: >
+                      [[[
+                        if (variables.markf_icon_power_show_indicator) {
+                          return "visible"
+                        }
+                        return "hidden"
+                      ]]]
+          item2:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              name: "[[[ return variables.markf_icon_power_name ]]]"
+              label: "[[[ return variables.markf_icon_power_label ]]]"
+              template: >
+                [[[
+                  var templates = ["markf_widget_info", "ulm_actions_name"]
+                  templates.push(variables.markf_icon_power_text_color)
+                  return templates;
+                ]]]
+              variables:
+                ulm_input_select_option: "[[[ return variables.ulm_input_select_option; ]]]"
+                ulm_input_select: "[[[ return variables.ulm_input_select; ]]]"
+                ulm_name_tap_action: "[[[ return variables.ulm_name_tap_action; ]]]"
+                ulm_name_tap_haptic: "[[[ return variables.ulm_name_tap_haptic; ]]]"
+                ulm_name_tap_navigate_path: "[[[ return variables.ulm_name_tap_navigate_path; ]]]"
+                ulm_name_tap_service: "[[[ return variables.ulm_name_tap_service; ]]]"
+                ulm_name_tap_service_data: "[[[ return variables.ulm_name_tap_service_data; ]]]"
+                ulm_name_hold_action: "[[[ return variables.ulm_name_hold_action; ]]]"
+                ulm_name_hold_haptic: "[[[ return variables.ulm_name_hold_haptic; ]]]"
+                ulm_name_hold_navigate_path: "[[[ return variables.ulm_name_hold_navigate_path; ]]]"
+                ulm_name_hold_service: "[[[ return variables.ulm_name_hold_service; ]]]"
+                ulm_name_hold_service_data: "[[[ return variables.ulm_name_hold_service_data; ]]]"
+                ulm_name_double_tap_action: "[[[ return variables.ulm_name_double_tap_action; ]]]"
+                ulm_name_double_tap_haptic: "[[[ return variables.ulm_name_double_tap_haptic; ]]]"
+                ulm_name_double_tap_navigate_path: "[[[ return variables.ulm_name_double_tap_navigate_path; ]]]"
+                ulm_name_double_tap_service: "[[[ return variables.ulm_name_double_tap_service; ]]]"
+                ulm_name_double_tap_service_data: "[[[ return variables.ulm_name_double_tap_service_data; ]]]"
+                ulm_custom_popup: "[[[ return variables.ulm_custom_popup; ]]]"
+          item3:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return variables.markf_icon_power_power_entity ]]]"
+              icon: "[[[ return variables.markf_icon_power_power_entity_icon ]]]"
+              template: >
+                [[[
+                  var device_class = states[variables.markf_icon_power_power_entity]?.attributes?.device_class;
+                  var templates = ["markf_widget_icon", "ulm_actions_icon"]
+                  if (device_class === variables._markf_default_battery_device_class) {
+                    var battery_level = states[variables.markf_icon_power_power_entity].state;
+                    templates.push(variables.markf_icon_power_battery_alert_color);
+                    return templates;
+                  } else {
+                    templates.push(variables.markf_icon_power_power_color);
+                    return templates;
+                  }
+                ]]]
+              variables:
+                ulm_icon_hold_action: "popup"
+                ulm_custom_popup:
+                  template: "[[[ return variables.markf_icon_power_power_popup_template ]]]"
+                  entity: "[[[ return variables.markf_icon_power_power_entity; ]]]"

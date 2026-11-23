@@ -1,0 +1,25 @@
+popup_markf_brightness_option:
+  state:
+    - operator: template
+      value: >
+        [[[ return entity.state == variables.option_name ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--color-blue),1)"
+        label:
+          - color: "rgba(var(--color-blue-text),1)"
+        name:
+          - color: "rgba(var(--color-blue-text),1)"
+        img_cell:
+          - background-color: "rgba(var(--color-blue), 0.2)"
+        card:
+          - background-color: "rgba(var(--color-background-blue), var(--opacity-bg))"
+    - operator: default
+      styles:
+        icon:
+          - color: "var(--primary-color)"
+        img_cell:
+          - background-color: "var(--card-background-color)"
+        card:
+          - background: "none"
+          - box-shadow: "none"

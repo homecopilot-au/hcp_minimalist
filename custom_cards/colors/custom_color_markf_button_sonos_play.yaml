@@ -1,0 +1,35 @@
+---
+### Sonos play button default ###
+color_markf_button_sonos_play:
+  template:
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+  variables:
+    color_markf_button_sonos_play_paused: "[[[ return hass.localize('component.media_player.entity_component._.state.paused') ]]]"
+    color_markf_button_sonos_play_idle: "[[[ return hass.localize('component.media_player.entity_component._.state.idle') ]]]"
+  state:
+    - operator: template
+      value: >-
+        [[[ return ((variables.ulm_translation_state === variables.color_markf_button_sonos_play_paused) || (variables.ulm_translation_state === variables.color_markf_button_sonos_play_idle)); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_button_icon_on_color), var(--markf_minimalist_button_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--markf_minimalist_button_background_color), var(--markf_minimalist_button_background_opacity))"
+      icon: "[[[ return variables._markf_default_media_play_icon ]]]"
+    - operator: template
+      value: >-
+        [[[ return (variables.ulm_translation_state === variables.ulm_translation_unavailable); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_button_unavailable_color), var(--markf_minimalist_icon_unavailable_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--markf_minimalist_button_unavailable_color), var(--markf_minimalist_icon_unavailable_background_opacity))"
+      icon: "[[[ return variables._markf_default_unavailable_icon ]]]"
+    - operator: default
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_button_icon_on_color), var(--markf_minimalist_button_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--markf_minimalist_button_background_color), var(--markf_minimalist_button_background_opacity))"
+      icon: "[[[ return variables._markf_default_media_pause_icon ]]]"

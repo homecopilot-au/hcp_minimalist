@@ -1,0 +1,47 @@
+---
+popup_markf_button_light_more_options:
+  template:
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+    - "markf_widget_icon"
+    - "color_markf_button_popup"
+  show_name: false
+  variables:
+    popup_markf_button_light_more_options_palette: ""
+    popup_markf_button_light_more_options_icon: "[[[ return variables._markf_default_light_more_options_icon; ]]]"
+  name: "[[[ return variables.ulm_translation_more_options; ]]]"
+  icon: "[[[ return variables.popup_markf_button_light_more_options_icon; ]]]"
+  tap_action:
+    action: "fire-dom-event"
+    browser_mod:
+      service: "browser_mod.popup"
+      data:
+        hide_header: true
+        style: |
+          --popup-background-color: var(--markf_minimalist_popup_background_color);
+          --popup-border-radius: var(--markf_minimalist_popup_border_radius);
+          --popup-padding-x: var(--markf_minimalist_popup_padding_x);
+          --popup-padding-y: var(--markf_minimalist_popup_padding_y);
+          --popup-max-width: var(--markf_minimalist_popup_max_width);
+          --popup-min-width: var(--markf_minimalist_popup_min_width);;
+        size: >
+          [[[
+            const mediaQuery = window.matchMedia('(max-width: 1200px)')
+            if (mediaQuery.matches) {
+              return 'fullscreen'
+            }
+          ]]]
+        content:
+          type: "custom:button-card"
+          template: >
+            [[[
+              if(entity.attributes?.effect_list){
+                return 'popup_markf_light_effect'
+              }
+              if(variables?.card_markf_light_color_palette){
+                return 'popup_markf_light_palette'
+              }
+            ]]]
+          entity: "[[[ return entity.entity_id; ]]]"
+          variables:
+            card_markf_light_color_palette: "[[[ return variables?.popup_markf_button_light_more_options_palette ]]]"

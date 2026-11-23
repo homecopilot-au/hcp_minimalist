@@ -1,0 +1,82 @@
+---
+color_markf_button_power:
+  template:
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+  variables:
+    popup_markf_normal_state: "[[[ return entity.attributes.normal_state ]]]"
+  state:
+    - operator: template
+      value: >-
+        [[[ return (variables.ulm_active_state && variables.popup_markf_normal_state == variables._markf_default_power_normal_on_state) ]]]
+      styles:
+#        icon:
+#          - color: "rgba(var(--markf_minimalist_power_button_on_normal_on_color),var(--markf_minimalist_icon_on_opacity))"
+        icon:
+          - color: "rgba(var(--markf_minimalist_state_ok_icon_color),var(--markf_minimalist_icon_on_opacity))"
+        label:
+          - color: "rgba(var(--markf_minimalist_power_button_on_normal_on_text_color),var(--markf_minimalist_label_opacity))"
+        name:
+          - color: "rgba(var(--markf_minimalist_power_button_on_normal_on_text_color),var(--markf_minimalist_name_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--markf_minimalist_power_button_on_normal_on_color),var(--markf_minimalist_background_on_opacity))"
+        state:
+          - color: "rgba(var(--markf_minimalist_power_button_on_normal_on_text_color),var(--markf_minimalist_name_opacity))"
+        card:
+          - background-color: "rgba(var(--markf_minimalist_power_button_on_normal_on_color),var(--markf_minimalist_background_on_opacity))"
+    - operator: template
+      value: >-
+        [[[ return (variables.ulm_active_state && variables.popup_markf_normal_state == variables._markf_default_power_normal_off_state) ]]]
+      styles:
+#        icon:
+#          - color: "rgba(var(--markf_minimalist_power_button_on_normal_off_color),var(--markf_minimalist_icon_on_opacity))"
+        icon:
+          - color: "rgba(var(--markf_minimalist_state_warning_icon_color),var(--markf_minimalist_icon_on_opacity))"
+        label:
+          - color: "rgba(var(--markf_minimalist_power_button_on_normal_off_text_color),var(--markf_minimalist_label_opacity))"
+        name:
+          - color: "rgba(var(--markf_minimalist_power_button_on_normal_off_text_color),var(--markf_minimalist_name_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--markf_minimalist_power_button_on_normal_off_color),var(--markf_minimalist_background_on_opacity))"
+        state:
+          - color: "rgba(var(--markf_minimalist_power_button_on_normal_off_text_color),var(--markf_minimalist_name_opacity))"
+        card:
+          - background-color: "rgba(var(--markf_minimalist_power_button_on_normal_off_color),var(--markf_minimalist_background_on_opacity))"
+    - operator: template
+      value: >-
+        [[[ return (!variables.ulm_active_state && variables.popup_markf_normal_state == variables._markf_default_power_normal_on_state) ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_power_button_off_normal_on_color),var(--markf_minimalist_icon_on_opacity))"
+        label:
+          - color: "rgba(var(--markf_minimalist_power_button_off_normal_on_text_color),var(--markf_minimalist_label_opacity))"
+        name:
+          - color: "rgba(var(--markf_minimalist_power_button_off_normal_on_text_color),var(--markf_minimalist_name_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--markf_minimalist_power_button_off_normal_on_color),var(--markf_minimalist_background_off_opacity))"
+        state:
+          - color: "rgba(var(--markf_minimalist_power_button_off_normal_on_text_color),var(--markf_minimalist_name_opacity))"
+        card:
+          - background-color: "rgba(var(--markf_minimalist_power_button_off_normal_on_color),var(--markf_minimalist_background_off_opacity))"
+    - operator: template
+      value: >-
+        [[[ return (!variables.ulm_active_state && variables.popup_markf_normal_state == variables._markf_default_power_normal_off_state) ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_power_button_off_normal_off_color),var(--markf_minimalist_icon_on_opacity))"
+        label:
+          - color: "rgba(var(--markf_minimalist_power_button_off_normal_off_text_color),var(--markf_minimalist_label_opacity))"
+        name:
+          - color: "rgba(var(--markf_minimalist_power_button_off_normal_off_text_color),var(--markf_minimalist_name_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--markf_minimalist_power_button_off_normal_off_color),var(--markf_minimalist_background_off_opacity))"
+        state:
+          - color: "rgba(var(--markf_minimalist_power_button_off_normal_off_text_color),var(--markf_minimalist_name_opacity))"
+        card:
+          - background-color: "rgba(var(--markf_minimalist_power_button_off_normal_off_color),var(--markf_minimalist_background_off_opacity))"
+    - operator: default
+      styles:
+        icon:
+          - color: "var(--primary-color)"
+        img_cell:
+          - background-color: "var(--card-background-color)"

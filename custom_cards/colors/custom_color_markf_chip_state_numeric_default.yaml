@@ -1,0 +1,25 @@
+---
+color_markf_chip_state_numeric_default:
+  template:
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+    - "markf_numerical_state_check"
+  state:
+    - operator: template
+      value: >-
+        [[[ return (variables.markf_is_numerical_state_non_zero); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_state_ok_icon_color), var(--markf_minimalist_icon_on_opacity))"
+        label:
+          - color: "rgba(var(--markf_minimalist_state_ok_text_color), var(--markf_minimalist_state_ok_text_opacity))"
+        card:
+          - background-color: "rgba(var(--markf_minimalist_state_ok_background_color), var(--markf_minimalist_state_ok_background_opacity))"
+    - operator: default
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_state_off_icon_color), var(--markf_minimalist_icon_off_opacity))"
+        label:
+          - color: "rgba(var(--markf_minimalist_state_off_text_color), var(--markf_minimalist_state_off_text_opacity))"
+        card:
+          - background-color: "rgba(var(--markf_minimalist_state_off_background_color), var(--markf_minimalist_state_off_background_opacity))"

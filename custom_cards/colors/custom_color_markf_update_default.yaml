@@ -1,0 +1,11 @@
+---
+### Update default ###
+color_markf_update_default:
+  template:
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+  styles:
+    icon:
+      - color: "rgba(var(--markf_minimalist_update_color), var(--markf_minimalist_icon_on_opacity))"
+    img_cell:
+      - background-color: "rgba(var(--markf_minimalist_update_color), var(--markf_minimalist_background_on_opacity))"

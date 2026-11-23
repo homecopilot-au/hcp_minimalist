@@ -1,0 +1,21 @@
+---
+### Cover open color default ###
+color_markf_cover_open_default:
+  template:
+    - "ulm_translation_engine"
+    - "markf_global_defaults"
+  state:
+    - operator: template
+      value: >-
+        [[[ return entity.attributes.current_position == "100" ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_button_unavailable_color), var(--markf_minimalist_icon_unavailable_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--markf_minimalist_button_unavailable_color), var(--markf_minimalist_icon_unavailable_background_opacity))"
+    - operator: default
+      styles:
+        icon:
+          - color: "rgba(var(--markf_minimalist_button_icon_on_color), var(--markf_minimalist_button_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--markf_minimalist_button_background_color), var(--markf_minimalist_button_background_opacity))"
