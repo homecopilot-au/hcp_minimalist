@@ -1,0 +1,21 @@
+---
+### Button popup ###
+color_hcp_button_popup:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  state:
+    - operator: template
+      value: >-
+        [[[ return (variables.ulm_translation_state === variables.ulm_translation_unavailable); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_button_popup_unavailable_color), var(--hcp_minimalist_icon_unavailable_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_button_popup_unavailable_color), var(--hcp_minimalist_icon_unavailable_background_opacity))"
+    - operator: default
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_button_popup_color), var(--hcp_minimalist_button_popup_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_button_popup_background_color), var(--hcp_minimalist_button_popup_background_opacity))"

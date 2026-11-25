@@ -1,0 +1,110 @@
+---
+### Power Distribution card - HCP UI standard ###
+card_hcp_power_distribution:
+  template:
+    - "ulm_translation_engine"
+    - "ulm_actions_card"
+    - "hcp_global_defaults"
+  show_name: false
+  show_label: false
+  show_icon: false
+  tap_action:
+    action: none
+  variables:
+    _card_hcp_power_distribution_name: >
+      [[[ 
+        const entityObj = hass.entities?.[entity.entity_id];
+        const deviceId = entityObj?.device_id;
+        const areaId = entityObj?.area_id || hass.devices?.[deviceId]?.area_id;
+        return hass.areas?.[areaId]?.name;
+      ]]]
+    card_hcp_power_distribution_show_title: true
+    card_hcp_power_distribution_icon_color: "color_hcp_icon_default"
+    card_hcp_power_distribution_label: "[[[ return entity.attributes.friendly_name; ]]]"
+    card_hcp_power_distribution_icon: "[[[ return entity.attributes.icon; ]]]"
+    card_hcp_power_distribution_padding: "var(--hcp_minimalist_default_padding)"
+    card_hcp_power_distribution_no_padding: "0px"
+    card_hcp_power_distribution_row_gap: "var(--hcp_minimalist_default_row_gap)"
+    card_hcp_power_distribution_no_row_gap: "0px"
+    card_hcp_power_distribution_show_indicator: "[[[ return variables._hcp_default_show_indicator ]]]"
+    ulm_icon_tap_action: "popup"
+    ulm_name_tap_action: "popup"
+    ulm_icon_hold_action: "popup"
+    ulm_name_hold_action: "popup"
+  styles:
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "var(--box-shadow)"
+      - padding: |-
+          [[[
+            if(variables.card_hcp_power_distribution_show_title)
+              return variables.card_hcp_power_distribution_padding;
+            else
+              return variables.card_hcp_power_distribution_no_padding;
+          ]]]
+      - border-style: none
+      - background-color: transparent
+    grid:
+      - grid-template-areas: "'item1 item1' 'item2 item2' 'item3 item3'"
+      - grid-template-columns: "min-content auto"
+      - grid-template-rows: "min-content min-content min-content"
+      - row-gap: |-
+          [[[
+            if(variables.card_hcp_power_distribution_show_title)
+              return variables.card_hcp_power_distribution_row_gap;
+            else
+              return variables.card_hcp_power_distribution_no_row_gap;
+          ]]]
+    custom_fields:
+      item1:
+        - display: >
+            [[[
+              if (variables.card_hcp_power_distribution_show_title) {
+                  return "block";
+              } else {
+                  return "none";
+              }
+            ]]]
+
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        entity: "[[[ return entity.entity_id ]]]"
+        template:
+          - "hcp_icon_info"
+          - "ulm_actions_name"
+        variables:
+          ulm_icon_tap_action: "[[[ return variables.ulm_icon_tap_action ]]]"
+          ulm_icon_hold_action: "[[[ return variables.ulm_icon_hold_action ]]]"
+          ulm_name_tap_action: "[[[ return variables.ulm_name_tap_action ]]]"
+          ulm_name_hold_action: "[[[ return variables.ulm_name_hold_action ]]]"
+          ulm_input_select_option: "[[[ return variables.ulm_input_select_option ]]]"
+          ulm_input_select: "[[[ return variables.ulm_input_select ]]]"
+          ulm_custom_popup:
+            template: popup_hcp_camera
+            popup_variables:
+              popup_hcp_power_distribution_device_name: "[[[ return variables.card_hcp_power_distribution_device; ]]]"
+          hcp_icon_info_label: "[[[ return variables.card_hcp_power_distribution_label; ]]]"
+          hcp_icon_info_name: "[[[ return variables._card_hcp_power_distribution_name; ]]]"
+          hcp_icon_info_icon: "[[[ return variables.card_hcp_power_distribution_icon; ]]]"
+          hcp_icon_info_icon_color: "[[[ return variables.card_hcp_power_distribution_icon_color ]]]"
+          hcp_icon_info_show_indicator: "[[[ return variables.card_hcp_power_distribution_show_indicator;]]]"
+    item2:
+      card:
+        type: energy-distribution
+        card_mod:
+          style: |
+            ha-card {
+              box-shadow: none;
+              background-color: transparent
+            }
+    item3:
+      card:
+        type: energy-usage-graph
+        card_mod:
+          style: |
+            ha-card {
+              box-shadow: none;
+              background-color: transparent
+            }

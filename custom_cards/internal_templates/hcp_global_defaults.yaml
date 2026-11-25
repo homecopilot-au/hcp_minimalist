@@ -1,0 +1,182 @@
+---
+### Global defaults ###
+hcp_global_defaults:
+  variables:
+    # General
+    _hcp_default_date_format: "en-AU"
+    _hcp_default_entity_undefined: "undefined"
+    _hcp_default_entity_string: "string"
+    _hcp_default_unavailable_icon: "mdi:cancel"
+    _hcp_default_power_entity_icon: "mdi:power"
+    _hcp_default_power_consumption_icon: "mdi:flash"
+    _hcp_default_power_light_icon: mdi:lightbulb
+    _hcp_default_power_socket_icon: mdi:power-socket-au
+    _hcp_default_power_fan_icon: mdi:fan
+    
+    # 3speedfan presets
+    _hcp_default_3speedfan_speed_1_preset: "low"
+    _hcp_default_3speedfan_speed_2_preset: "medium"
+    _hcp_default_3speedfan_speed_3_preset: "high"
+    _hcp_default_3speedfan_speed_1_icon: "mdi:fan-speed-1"
+    _hcp_default_3speedfan_speed_2_icon: "mdi:fan-speed-2"
+    _hcp_default_3speedfan_speed_3_icon: "mdi:fan-speed-3"
+
+    # Aircon
+    _hcp_default_aircon_off_icon: mdi:hvac-off
+    _hcp_default_aircon_heat_icon: mdi:weather-sunny
+    _hcp_default_aircon_cool_icon: mdi:snowflake
+    _hcp_default_aircon_heat_cool_icon: mdi:fan-auto
+    _hcp_default_aircon_dry_icon: mdi:radiator
+    _hcp_default_aircon_fan_only_icon: mdi:fan
+    _hcp_default_aircon_temp_up_icon: mdi:thermometer-chevron-up
+    _hcp_default_aircon_temp_down_icon: mdi:thermometer-chevron-down
+
+    # Alerts
+    _hcp_default_alert_icon: "mdi:bell-alert"
+
+    # Automated Alerts
+    _hcp_default_automated_alert_idle_icon: "mdi:bell-off"
+    _hcp_default_automated_alert_suppressed_icon: "mdi:bell-cancel"
+    _hcp_default_automated_alert_skipped_icon: "mdi:bell-sleep"
+    _hcp_default_automated_alert_notified_icon: "mdi:bell-alert"
+    _hcp_default_automated_alert_acknowledged_icon: "mdi:bell-check"
+    _hcp_default_automated_alert_default_icon: "mdi:bell"
+    _hcp_default_automated_alert_severity_critical: "critical"
+    _hcp_default_automated_alert_severity_critical_icon: "mdi:alert-octagram"
+    _hcp_default_automated_alert_severity_security: "security"
+    _hcp_default_automated_alert_severity_security_icon: "mdi:cctv"
+    _hcp_default_automated_alert_severity_major: "major"
+    _hcp_default_automated_alert_severity_major_icon: "mdi:alert-circle"
+    _hcp_default_automated_alert_severity_action: "action"
+    _hcp_default_automated_alert_severity_action_icon: "mdi:check-circle"
+    _hcp_default_automated_alert_severity_minor: "minor"
+    _hcp_default_automated_alert_severity_minor_icon: "mdi:alert-circle-outline"
+    _hcp_default_automated_alert_severity_info: "info"
+    _hcp_default_automated_alert_severity_info_icon: "mdi:information"
+    _hcp_default_automated_alert_severity_default_icon: "mdi:help-circle"
+
+    # Batteries
+    _hcp_default_battery_warn_level: 50
+    _hcp_default_battery_alert_level: 25
+    _hcp_default_battery_device_class: "battery"
+
+    # Brightness
+    _hcp_default_brightsness_1_icon: "mdi:brightness-3"
+    _hcp_default_brightsness_2_icon: "mdi:brightness-2"
+    _hcp_default_brightsness_3_icon: "mdi:brightness-1"
+
+    # Covers
+    _hcp_default_cover_open_icon: "mdi:arrow-down"
+    _hcp_default_cover_tilt_open_icon: "mdi:arrow-top-left"
+    _hcp_default_cover_close_icon: "mdi:arrow-up"
+    _hcp_default_cover_tilt_close_icon: "mdi:arrow-bottom-right"
+    _hcp_default_cover_stop_icon: "mdi:stop"
+    _hcp_default_cover_close_curtain_icon: "mdi:arrow-expand-horizontal"
+    _hcp_default_cover_open_curtain_icon: "mdi:arrow-collapse-horizontal"
+    _hcp_default_cover_unavailable_states: ["unknown", "unavailable"]
+    _hcp_default_cover_icon_open: >
+      {
+        "awning": "mdi:roller-shade",
+        "blind": "mdi:blinds-open",
+        "curtain": "mdi:curtains",
+        "damper": "mdi:circle-outline",
+        "door": "mdi:door-open",
+        "garage": "mdi:garage-open",
+        "gate": "mdi:gate-open",
+        "shade": "mdi:roller-shade",
+        "shutter": "mdi:window-shutter-open",
+        "window": "mdi:window-open",
+      };
+    _hcp_default_cover_icon_closed: >
+      {
+        "awning": "mdi:roller-shade-closed",
+        "blind": "mdi:blinds",
+        "curtain": "mdi:curtains-closed",
+        "damper": "mdi:circle-slice-8",
+        "door": "mdi:door-closed",
+        "garage": "mdi:garage",
+        "gate": "mdi:gate",
+        "shade": "mdi:roller-shade-closed",
+        "shutter": "mdi:window-shutter",
+        "window": "mdi:window-closed",
+      };
+
+    # GTFS
+    _hcp_default_gtfs_warning_mins: 20
+    _hcp_default_gtfs_alert_mins: 10
+
+    # Light
+    _hcp_default_light_more_options_icon: "mdi:dots-horizontal-circle-outline"
+
+    # Lock
+    _hcp_default_lock_locked_icon: "mdi:lock"
+    _hcp_default_lock_unlocked_icon: "mdi:lock-open-variant"
+    _hcp_default_lock_unavailable_icon: "mdi:lock-open-alert-outline"
+    _hcp_default_lock_door_open_text: "Door Open"
+
+    # Power on and off states used in customize
+    _hcp_default_power_normal_on_state: "On"
+    _hcp_default_power_normal_off_state: "Off"
+
+    # Media player Sonos
+    _hcp_default_media_play_icon: "mdi:play"
+    _hcp_default_media_pause_icon: "mdi:pause"
+    _hcp_default_media_muted_icon: "mdi:volume-off"
+    _hcp_default_media_notmuted_icon: "mdi:volume-high"
+    _hcp_default_media_volume_up_icon: "mdi:volume-plus"
+    _hcp_default_media_volume_down_icon: "mdi:volume-minus"
+
+    # Person
+    _hcp_default_person_icon: "mdi:face-man"
+    _hcp_default_person_home_icon: "mdi:home"
+    _hcp_default_person_away_icon: "mdi:home-off"
+
+    # Popups
+    _hcp_default_popup_back_icon: "mdi:arrow-left"
+    _hcp_default_popup_history_icon: "mdi:chart-box-outline"
+    _hcp_default_popup_on_off_states: ["on", "off"]
+    _hcp_default_popup_brightness_label: "Brightness"
+    _hcp_default_popup_configuration_label: "Configuration"
+    _hcp_default_popup_diagnostic_label: "Diagnostic"
+    _hcp_default_popup_levels_label: "Levels"
+    _hcp_default_popup_replacement_label: "Replacement"
+    _hcp_default_popup_sensors_label: "Sensors"
+
+    #Power graph card
+    _hcp_default_power_graph_hours: 24
+    _hcp_default_power_graph_type: "fill"
+    _hcp_default_power_graph_fill: true
+    _hcp_default_power_graph_points: "0.5"
+    _hcp_default_power_graph_group_by: "interval"
+    _hcp_default_power_graph_line_width: 5
+    _hcp_default_power_graph_enable: true
+    _hcp_default_power_graph_height: 120
+    _hcp_default_power_graph_units_of_measure: true
+    _hcp_default_power_graph_warn_pct_level: 10
+    _hcp_default_power_graph_alert_pct_level: 20
+    _hcp_default_power_graph_show_icon: true
+
+    # Room Humidity
+    _hcp_default_room_humidity_warn_level: 80
+    _hcp_default_room_humidity_alert_level: 90
+
+    # Room Temperature
+    _hcp_default_room_temp_warn_level: 30
+    _hcp_default_room_temp_alert_level: 40
+
+    # Update card
+    _hcp_default_update_icon: "mdi:package-up"
+    _hcp_default_update_release_notes: "mdi:text"
+
+    # Weather
+    _hcp_default_weather_forecast_hourly_name: "_hourly"
+    _hcp_default_weather_forecast_icon: "mdi:weather-partly-lightning"
+    _hcp_default_weather_radar_icon: "mdi:radar"
+
+    # Widget
+    _hcp_default_show_icon_indicator: true
+    _hcp_default_indicator_icon: "mdi:circle"
+
+    # Dishawasher Timer
+    _hcp_default_diswasher_warning_mins: 15
+    _hcp_default_diswasher_alert_mins: 5

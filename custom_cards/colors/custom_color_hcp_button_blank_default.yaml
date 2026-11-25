@@ -1,0 +1,11 @@
+---
+### Blank Button default ###
+color_hcp_button_blank_default:
+  template: 
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  styles:
+    card:
+      - box-shadow: "none"
+      - border-style: none
+      - background-color: transparent

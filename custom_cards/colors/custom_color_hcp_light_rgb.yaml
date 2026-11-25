@@ -1,0 +1,22 @@
+---
+### Light rgb colors ###
+color_hcp_light_rgb:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  state:
+    - operator: template
+      value: >-
+        [[[ return (variables.ulm_active_state); ]]]
+      styles:
+        icon:
+#          - color: "[[[ return 'rgba(' + entity.attributes.rgb_color + ', var(--hcp_minimalist_icon_on_opacity))' ]]]"
+          - color: "rgba(var(--hcp_minimalist_light_rgb_on_icon_color), var(--hcp_minimalist_icon_on_opacity))"
+        img_cell:
+          - background-color: "[[[ return 'rgba(' + entity.attributes.rgb_color + ', var(--hcp_minimalist_background_on_opacity))' ]]]"
+    - operator: default
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_light_off_icon_color), var(--hcp_minimalist_icon_off_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_light_off_background_color), var(--hcp_minimalist_background_off_opacity))"

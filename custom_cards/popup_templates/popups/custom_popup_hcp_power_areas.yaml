@@ -1,0 +1,92 @@
+---
+popup_hcp_power_areas:
+  show_icon: false
+  show_name: false
+  show_label: false
+  show_units: false
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+    - "color_hcp_card_popup_default"
+  variables:
+    popup_hcp_power_areas_group: ""
+    popup_hcp_power_areas_light_entities: ""
+    popup_hcp_power_areas_fan_power_entities: ""
+    popup_hcp_power_areas_power_entities: ""
+    popup_hcp_power_areas_columns: >
+      [[[ 
+        var mediaQuery = window.matchMedia('(max-width: 800px)')
+        if (mediaQuery.matches) {
+          return 2;
+        } else {
+          return 4;
+        }
+      ]]]
+    popup_hcp_power_areas_square: false
+  styles:
+    grid:
+      - grid-template-areas: '"back header consumption" "content1 content1 content1"'
+      - grid-template-columns: "1fr 2.5fr 1.5fr"
+      - grid-template-rows: "min-content min-content"
+      - row-gap: "var(--hcp_minimalist_default_row_gap)"
+    card:
+      - background: "var(--hcp_minimalist_popup_background_color)"
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "var(--hcp_minimalist_popup_box_shadow)"
+      - padding: "var(--hcp_minimalist_default_padding)"
+    custom_fields:
+      header:
+        - align-self: "start"
+      consumption:
+        - justify-self: "right"
+      content1:
+        - align-self: "start"
+  custom_fields:
+    back:
+      card:
+        type: "custom:button-card"
+        template: "popup_hcp_button_back"
+
+    consumption:
+      card:
+        type: "custom:button-card"
+        template: chip_mdi_icon_state
+        variables:
+          ulm_chip_mdi_icon_state_icon: mdi:flash
+          ulm_chip_mdi_icon_state_entity: all_area_power_entities
+
+    header:
+      card:
+        type: "custom:button-card"
+        template: "popup_hcp_title"
+        name: "Power by Area"
+
+    content1:
+      card:
+        type: "custom:auto-entities"
+        card:
+          type: grid
+          columns: "[[[ return variables.popup_hcp_power_areas_columns ]]]"
+          square: "[[[ return variables.popup_hcp_power_areas_square ]]]"
+        card_param: cards
+        filter:
+          include:
+            - group: "[[[ return variables.popup_hcp_power_areas_group ]]]"
+              options:
+                type: custom:button-card
+                template:
+                  - "card_hcp_power_graph"
+                entity: this.entity_id
+                variables:
+                  _card_hcp_power_graph_use_area_name: true
+        #                tap_action:
+        #                  action: "fire-dom-event"
+        #                  browser_mod:
+        #                    service: "browser_mod.navigate"
+        #                    data:
+        #                      hide_header: true
+        #                      dismissable: true
+        #                      autoclose: true
+        #                      path: "kitchen"
+        sort:
+          method: name

@@ -1,0 +1,34 @@
+---
+### Sonos mute button default ###
+color_hcp_button_sonos_mute:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  variables:
+    color_hcp_button_sonos_mute_idle: "[[[ return hass.localize('component.media_player.entity_component._.state.idle') ]]]"
+  state:
+    - operator: template
+      value: >-
+        [[[ return (variables.ulm_translation_state === variables.color_hcp_button_sonos_mute_idle || entity.attributes.is_volume_muted); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_button_icon_on_color), var(--hcp_minimalist_button_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_button_background_color), var(--hcp_minimalist_button_background_opacity))"
+      icon: "[[[ return variables._hcp_default_media_muted_icon ]]]"
+    - operator: template
+      value: >-
+        [[[ return (variables.ulm_translation_state === variables.ulm_translation_unavailable); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_button_unavailable_color), var(--hcp_minimalist_icon_unavailable_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_button_unavailable_color), var(--hcp_minimalist_icon_unavailable_background_opacity))"
+      icon: "[[[ return variables._hcp_default_unavailable_icon ]]]"
+    - operator: default
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_button_icon_on_color), var(--hcp_minimalist_button_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_button_background_color), var(--hcp_minimalist_button_background_opacity))"
+      icon: "[[[ return variables._hcp_default_media_notmuted_icon ]]]"

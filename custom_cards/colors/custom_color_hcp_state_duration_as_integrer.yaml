@@ -1,0 +1,19 @@
+---
+### For sensor with device_class dureation to display as integer ###
+color_hcp_state_duration_as_integrer:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  state_display: |
+    [[[ 
+      return Math.round(parseFloat(entity.state)); 
+    ]]]
+  state:
+    - operator: default
+      styles:
+        label:
+          - color: "rgba(var(--hcp_minimalist_state_ok_text_color), var(--hcp_minimalist_state_ok_text_opacity))"
+        state:
+          - color: "rgba(var(--hcp_minimalist_state_ok_text_color), var(--hcp_minimalist_state_ok_text_opacity))"
+          - font-size: "var(--hcp_minimalist_state_large_font_size)"
+          - font-weight: "var(--hcp_minimalist_state_font_weight)"

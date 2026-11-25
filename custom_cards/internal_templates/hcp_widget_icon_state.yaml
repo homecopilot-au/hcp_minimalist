@@ -1,0 +1,69 @@
+---
+### HCP widget Icon State ###
+hcp_widget_icon_state:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  variables:
+    hcp_widget_icon_state_icon: "[[[ return entity.attributes.icon ]]]"
+    hcp_widget_icon_state_on_icon: "[[[ return entity.attributes.icon ]]]"
+    hcp_widget_icon_state_show_icon: true
+    hcp_widget_icon_state_show_state: true
+    ulm_card_tap_action: "popup"
+    ulm_card_hold_action: "popup"
+    ulm_custom_popup:
+      template: "popup_hcp_history"
+      entity: "[[[ return entity.entity_id ]]]"
+  show_icon: "[[[ return variables.hcp_widget_icon_state_show_icon ]]]"
+  show_name: false
+  show_label: false
+  show_state: "[[[ return variables.hcp_widget_icon_state_show_state ]]]"
+  icon: >
+    [[[ 
+      if(variables.ulm_active_state) {
+          return variables.hcp_widget_icon_state_on_icon
+      } else {
+        return variables.hcp_widget_icon_state_icon
+      }
+    ]]]
+  styles:
+    grid:
+      - grid-template-areas: "'i s'"
+      - grid-template-columns: "min-content auto"
+      - column-gap: "var(--hcp_minimalist_default_column_gap)"
+    card:
+      - box-shadow: "none"
+      - padding: "0px"
+      - border-radius: "none"
+    img_cell:
+      - border-radius: "50%"
+      - place-self: "center start"
+      - width: "42px"
+      - height: "42px"
+    state:
+      - place-self: "center start"
+      - font-size: "var(--hcp_minimalist_label_font_size)"
+      - font-weight: "var(--hcp_minimalist_label_font_weight)"
+      - text-overflow: "initial"
+      - overflow: "initial"
+      - text-transform: "capitalize"
+    custom_fields:
+      notification:
+        - position: "absolute"
+        - left: "var(--hcp_minimalist_widget_icon_indicator_pos_left)"
+        - top: "var(--hcp_minimalist_widget_icon_indicator_pos_top)"
+        - height: "var(--hcp_minimalist_widget_icon_indicator_size)"
+        - width: "var(--hcp_minimalist_widget_icon_indicator_size)"
+        - border: "none"
+        - font-size: "var(--hcp_minimalist_widget_icon_indicator_font_size)"
+  custom_fields:
+    notification: >
+      [[[
+        if (variables.ulm_translation_state === variables.widget_hcp_icon_state_indicator_state && variables.widget_hcp_show_indicator ){
+          let var_icon = '"' + variables.widget_hcp_icon_state_indicator_icon + '"'
+          let var_size = variables.widget_hcp_icon_state_indicator_size
+          let var_color = "rgba(" + variables.widget_hcp_icon_state_indicator_color + ",1)"
+          return `<ha-icon icon= ${var_icon} style="width: ${var_size}; height: ${var_size}; color: ${var_color};"></ha-icon>`
+        }
+      ]]]
+  size: "20px"

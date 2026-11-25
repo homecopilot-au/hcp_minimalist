@@ -1,0 +1,56 @@
+---
+### Dishwasher timer colors ###
+color_hcp_dishwasher_timer:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  variables:
+    color_hcp_dishwasher_timer_warn_level: "[[[ return variables._hcp_default_diswasher_warning_mins; ]]]"
+    color_hcp_dishwasher_timer_alert_level: "[[[ return variables._hcp_default_diswasher_alert_mins; ]]]"
+  state:
+    - operator: template
+      value: >
+        [[[ return (variables.card_hcp_lg_dishwasher_remaining_minutes == 0); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_off_icon_color), var(--hcp_minimalist_state_off_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_state_off_background_color), var(--hcp_minimalist_state_off_background_opacity))"
+        state:
+          - color: "rgba(var(--hcp_minimalist_state_off_text_color), var(--hcp_minimalist_state_off_text_opacity))"
+          - font-weight: var(--hcp_minimalist_timer_font_weight)
+          - font-size: var(--hcp_minimalist_timer_font_size)
+    - operator: template
+      value: >
+        [[[ return (variables.card_hcp_lg_dishwasher_remaining_minutes < variables.color_hcp_dishwasher_timer_alert_level); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_alert_icon_color), var(--hcp_minimalist_state_alert_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_state_alert_background_color), var(--hcp_minimalist_state_alert_background_opacity))"
+        state:
+          - color: "rgba(var(--hcp_minimalist_state_alert_text_color), var(--hcp_minimalist_state_alert_text_opacity))"
+          - font-weight: var(--hcp_minimalist_timer_font_weight)
+          - font-size: var(--hcp_minimalist_timer_font_size)
+    - operator: template
+      value: >
+        [[[ return (variables.card_hcp_lg_dishwasher_remaining_minutes < variables.color_hcp_dishwasher_timer_warn_level); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_warning_icon_color), var(--hcp_minimalist_state_warning_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_state_warning_background_color), var(--hcp_minimalist_state_warning_background_opacity))"
+        state:
+          - color: "rgba(var(--hcp_minimalist_state_warning_text_color), var(--hcp_minimalist_state_warning_text_opacity))"
+          - font-weight: var(--hcp_minimalist_timer_font_weight)
+          - font-size: var(--hcp_minimalist_timer_font_size)
+    - operator: default
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_ok_icon_color), var(--hcp_minimalist_state_ok_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_state_ok_background_color), var(--hcp_minimalist_state_ok_background_opacity))"
+        state:
+          - color: "rgba(var(--hcp_minimalist_state_ok_text_color), var(--hcp_minimalist_state_ok_text_opacity))"
+          - font-weight: var(--hcp_minimalist_timer_font_weight)
+          - font-size: var(--hcp_minimalist_timer_font_size)

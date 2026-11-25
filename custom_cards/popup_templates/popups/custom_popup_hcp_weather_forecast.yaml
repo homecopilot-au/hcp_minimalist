@@ -1,0 +1,191 @@
+---
+popup_hcp_weather_forecast:
+  show_name: false
+  show_label: false
+  show_units: false
+  show_icon: false
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+    - "color_hcp_card_popup_default"
+  tap_action:
+    action: none
+  variables:
+    _popup_hcp_weather_forecast_show_radar_entity: "input_boolean.weather_show_radar"
+    popup_hcp_weather_forecast_hide_back: false
+    popup_hcp_weather_forecast_narrow_screen: >
+      [[[
+        const mediaQuery = window.matchMedia('(max-width: 1300px)')
+        if (mediaQuery.matches) {
+          return true;
+        } else {
+          return false;
+        } 
+      ]]]
+    popup_hcp_weather_forecast_show_radar_state: "[[[ return states[variables._popup_hcp_weather_forecast_show_radar_entity].state; ]]]"
+    popup_hcp_weather_forecast_show_radar_on: "[[[ return hass.localize('component.input_boolean.entity_component._.state.on') ]]]"
+    popup_hcp_weather_forecast_show_radar_icon: "[[[ return variables._hcp_default_weather_radar_icon; ]]]"
+    popup_hcp_weather_forecast_show_forecast_icon: "[[[ return variables._hcp_default_weather_forecast_icon; ]]]"
+    popup_hcp_weather_forecast_show_title: false
+    popup_hcp_weather_forecast_show_hourly: false
+    popup_hcp_weather_forecast_show_daily: false
+    popup_hcp_weather_forecast_name: null
+    popup_hcp_weather_forecast_show_forecast_summary: true
+    popup_hcp_weather_forecast_show_extended: true
+    popup_hcp_weather_forecast_observe_apparent_temp: null
+    popup_hcp_weather_forecast_observe_humidity: null
+    popup_hcp_weather_forecast_observe_temperature: null
+    popup_hcp_weather_forecast_observe_wind_bearing: null
+    popup_hcp_weather_forecast_observe_wind_gust: null
+    popup_hcp_weather_forecast_observe_wind_speed: null
+    popup_hcp_weather_forecast_forecast_summary_today: null
+    popup_hcp_weather_forecast_forecast_summary_tomorrow: null
+    popup_hcp_weather_forecast_forecast_icon_today: null
+    popup_hcp_weather_forecast_forecast_icon_tomorrow: null
+    popup_hcp_weather_forecast_forecast_max_today: null
+    popup_hcp_weather_forecast_forecast_max_tomorrow: null
+    popup_hcp_weather_forecast_forecast_min_today: null
+    popup_hcp_weather_forecast_forecast_min_tomorrow: null
+    popup_hcp_weather_forecast_forecast_rain_chance_today: null
+    popup_hcp_weather_forecast_forecast_rain_chance_tomorrow: null
+    popup_hcp_weather_forecast_forecast_rain_amount_today: null
+    popup_hcp_weather_forecast_forecast_rain_amount_tomorrow: null
+  triggers_update: "all"
+
+  styles:
+    grid:
+      - grid-template-areas: '"back header header show_radar" "content1 content1 content2 content2"'
+      - grid-template-columns: "1fr 1fr 1fr 1fr"
+      - grid-template-rows: "min-content min-content"
+      - row-gap: "var(--hcp_minimalist_default_row_gap)"
+      - column-gap: "20px"
+    custom_fields:
+      back:
+        - display: >
+            [[[
+                if (variables.popup_hcp_weather_forecast_hide_back) {
+                    return "none";
+                } else {
+                    return "block";
+                }
+            ]]]
+        - align-text: "left"
+        - justify-self: "left"
+      header:
+        - align-self: "start"
+      show_radar:
+        - display: >
+            [[[
+                if (variables.popup_hcp_weather_forecast_narrow_screen) {
+                    return "block";
+                } else {
+                    return "none";
+                }
+            ]]]
+        - justify-self: "right"
+      content1:
+        - display: >
+            [[[
+                if ((!variables.popup_hcp_weather_forecast_narrow_screen) || (variables.popup_hcp_weather_forecast_narrow_screen && variables.popup_hcp_weather_forecast_show_radar_state === variables.popup_hcp_weather_forecast_show_radar_on.toLowerCase())) {
+                    return "block";
+                } else {
+                    return "none";
+                }
+            ]]]
+      content2:
+        - display: >
+            [[[
+                if ((!variables.popup_hcp_weather_forecast_narrow_screen) || (variables.popup_hcp_weather_forecast_narrow_screen && variables.popup_hcp_weather_forecast_show_radar_state !== variables.popup_hcp_weather_forecast_show_radar_on.toLowerCase())) {
+                    return "block";
+                } else {
+                    return "none";
+                }
+            ]]]
+  extra_styles: |
+    @media (max-width: 1300px) {
+      #container {
+        grid-template-areas: "back header header show_radar" "content1 content1 content1 content1" "content2 content2 content2 content2" !important;
+      }
+    }
+  custom_fields:
+    back:
+      card:
+        type: "custom:button-card"
+        template:
+          - "popup_hcp_button_back"
+          - "color_hcp_card_popup_default"
+    show_radar:
+      card:
+        type: "custom:button-card"
+        template:
+          - "hcp_widget_icon"
+          - "color_hcp_card_popup_default"
+          - "color_hcp_button_popup"
+        entity: "[[[ return variables._popup_hcp_weather_forecast_show_radar_entity; ]]]"
+        icon: >
+          [[[
+            if (variables.popup_hcp_weather_forecast_show_radar_state === variables.popup_hcp_weather_forecast_show_radar_on.toLowerCase()) {
+              return variables.popup_hcp_weather_forecast_show_radar_icon;
+            } else {
+              return variables.popup_hcp_weather_forecast_show_forecast_icon;
+            }
+          ]]]
+        tap_action:
+          action: "call-service"
+          service: "input_boolean.toggle"
+          service_data:
+            entity_id: "[[[ return variables._popup_hcp_weather_forecast_show_radar_entity; ]]]"
+    header:
+      card:
+        type: "custom:button-card"
+        template:
+          - "popup_hcp_title"
+          - "color_hcp_card_popup_default"
+        entity: "[[[ return entity.entity_id ]]]"
+    content1:
+      card:
+        type: "custom:button-card"
+        template: 
+          - "card_hcp_weather"
+          - "color_hcp_card_default"
+        entity: weather.yeronga
+        variables:
+          card_hcp_weather_show_title: "[[[ return variables.popup_hcp_weather_forecast_show_title; ]]]"
+          card_hcp_weather_show_hourly: "[[[ return variables.popup_hcp_weather_forecast_show_hourly; ]]]"
+          card_hcp_weather_show_daily: "[[[ return variables.popup_hcp_weather_forecast_show_daily; ]]]"
+          card_hcp_weather_name: "[[[ return variables.popup_hcp_weather_forecast_name; ]]]"
+          card_hcp_weather_show_forecast_summary: "[[[ return variables.popup_hcp_weather_forecast_show_forecast_summary; ]]]"
+          card_hcp_weather_show_extended: "[[[ return variables.popup_hcp_weather_forecast_show_extended; ]]]"
+          card_hcp_weather_observe_apparent_temp: "[[[ return variables.popup_hcp_weather_forecast_observe_apparent_temp; ]]]"
+          card_hcp_weather_observe_humidity: "[[[ return variables.popup_hcp_weather_forecast_observe_humidity; ]]]"
+          card_hcp_weather_observe_temperature: "[[[ return variables.popup_hcp_weather_forecast_observe_temperature; ]]]"
+          card_hcp_weather_observe_wind_bearing: "[[[ return variables.popup_hcp_weather_forecast_observe_wind_bearing; ]]]"
+          card_hcp_weather_observe_wind_gust: "[[[ return variables.popup_hcp_weather_forecast_observe_wind_gust; ]]]"
+          card_hcp_weather_observe_wind_speed: "[[[ return variables.popup_hcp_weather_forecast_observe_wind_speed; ]]]"
+          card_hcp_weather_forecast_summary_today: "[[[ return variables.popup_hcp_weather_forecast_forecast_summary_today; ]]]"
+          card_hcp_weather_forecast_summary_tomorrow: "[[[ return variables.popup_hcp_weather_forecast_forecast_summary_tomorrow; ]]]"
+          card_hcp_weather_forecast_icon_today: "[[[ return variables.popup_hcp_weather_forecast_forecast_icon_today; ]]]"
+          card_hcp_weather_forecast_icon_tomorrow: "[[[ return variables.popup_hcp_weather_forecast_forecast_icon_tomorrow; ]]]"
+          card_hcp_weather_forecast_max_today: "[[[ return variables.popup_hcp_weather_forecast_forecast_max_today; ]]]"
+          card_hcp_weather_forecast_max_tomorrow: "[[[ return variables.popup_hcp_weather_forecast_forecast_max_tomorrow; ]]]"
+          card_hcp_weather_forecast_min_today: "[[[ return variables.popup_hcp_weather_forecast_forecast_min_today; ]]]"
+          card_hcp_weather_forecast_min_tomorrow: "[[[ return variables.popup_hcp_weather_forecast_forecast_min_tomorrow; ]]]"
+          card_hcp_weather_forecast_rain_chance_today: "[[[ return variables.popup_hcp_weather_forecast_forecast_rain_chance_today; ]]]"
+          card_hcp_weather_forecast_rain_chance_tomorrow: "[[[ return variables.popup_hcp_weather_forecast_forecast_rain_chance_tomorrow; ]]]"
+          card_hcp_weather_forecast_rain_amount_today: "[[[ return variables.popup_hcp_weather_forecast_forecast_rain_amount_today; ]]]"
+          card_hcp_weather_forecast_rain_amount_tomorrow: "[[[ return variables.popup_hcp_weather_forecast_forecast_rain_amount_tomorrow; ]]]"
+
+    content2:
+      card:
+        type: "custom:weather-radar-card"
+        zoom_level: 9
+        data_source: "RainViewer-Meteored"
+        show_marker: true
+        show_zoom: true
+        map_style: "OSM"
+        card_mod:
+          style: |
+            ha-card {
+              height: 350px !important;
+              border-radius: 20px !important;
+            }

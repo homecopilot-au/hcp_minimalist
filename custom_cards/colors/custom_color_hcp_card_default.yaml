@@ -1,0 +1,11 @@
+---
+### Card default ###
+color_hcp_card_default:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  styles:
+    card:
+      - background: "var(--hcp_minimalist_card_background_color)"
+      - box-shadow: "var(--box-shadow)"
+      - padding: "var(--hcp_minimalist_default_padding)"

@@ -1,0 +1,11 @@
+---
+### Card button ###
+color_hcp_card_button:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  styles:
+    card:
+      - background: "rgba(var(--hcp_minimalist_button_color),var(--hcp_minimalist_background_default_opacity))"
+      - box-shadow: "var(--box-shadow)"
+      - padding: "var(--hcp_minimalist_default_padding)"

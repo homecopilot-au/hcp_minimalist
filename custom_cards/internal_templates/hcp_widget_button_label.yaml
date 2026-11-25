@@ -1,0 +1,32 @@
+---
+### HCP widget button label ###
+hcp_widget_button_label:
+  template: 
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  variables:
+    hcp_widget_button_label: "[[[ return entity.attributes.friendly_name; ]]]"
+  show_icon: true
+  show_label: true
+  show_name: false
+  label: "[[[ return variables.hcp_widget_button_label; ]]]"
+  styles:
+    grid:
+      - grid-template-areas: "'i' 'l'"
+      - grid-template-columns: "auto"
+      - grid-template-rows: "min-content min-content"
+    img_cell:
+      - border-radius: "50%"
+      - place-self: "center"
+      - width: "42px"
+      - height: "42px"
+    label:
+      - justify-self: "center"
+      - align-self: "start"
+      - font-size: "var(--hcp_minimalist_label_font_size)"
+      - font-weight: "var(--hcp_minimalist_label_font_weight)"
+      - margin-top: "var(--hcp_minimalist_default_padding)"
+      - white-space: "initial"
+      - text-overflow: "initial"
+      - overflow: "initial"
+      - text-transform: "capitalize"

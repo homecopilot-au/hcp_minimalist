@@ -1,0 +1,63 @@
+---
+### Color for gtfs ###
+color_hcp_icon_info_gtfs:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  state:
+    - operator: template
+      value: >-
+        [[[ return (variables.ulm_translation_state === variables.ulm_translation_unavailable); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_unavailable_icon_color), var(--hcp_minimalist_state_unavailable_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_state_unavailable_background_color), var(--hcp_minimalist_state_unavailable_background_opacity))"
+    - operator: "template"
+      value: >
+        [[[ return entity.state === '-' ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_off_icon_color), var(--hcp_minimalist_state_off_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_state_off_background_color), var(--hcp_minimalist_state_off_background_opacity))"
+        state:
+          - color: "rgba(var(--hcp_minimalist_alert_off_text_color), var(--hcp_minimalist_state_off_text_color))"
+        label:
+          - color: "rgba(var(--hcp_minimalist_alert_off_text_color), var(--hcp_minimalist_state_off_text_color))"
+    - operator: "template"
+      value: >
+        [[[ return entity.state > variables._hcp_default_gtfs_warning_mins ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_ok_icon_color), var(--hcp_minimalist_state_ok_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_state_ok_background_color), var(--hcp_minimalist_state_ok_background_opacity))"
+        state:
+          - color: "rgba(var(--hcp_minimalist_state_ok_text_color), var(--hcp_minimalist_state_ok_text_opacity))"
+        label:
+          - color: "rgba(var(--hcp_minimalist_state_ok_text_color), var(--hcp_minimalist_state_ok_text_opacity))"
+    - operator: "template"
+      value: >
+        [[[ return (entity.state <= variables._hcp_default_gtfs_warning_mins) && (entity.state > variables._hcp_default_gtfs_alert_mins) ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_warning_icon_color), var(--hcp_minimalist_state_warning_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_state_warning_background_color), var(--hcp_minimalist_state_warning_background_opacity))"
+        state:
+          - color: "rgba(var(--hcp_minimalist_warning_on_text_color), var(--hcp_minimalist_state_warning_text_opacity))"
+        label:
+          - color: "rgba(var(--hcp_minimalist_warning_on_text_color), var(--hcp_minimalist_state_warning_text_opacity))"
+    - operator: "template"
+      value: >
+        [[[ return entity.state  <= variables._hcp_default_gtfs_alert_mins ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_alert_icon_color), var(--hcp_minimalist_state_alert_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_state_alert_background_color), var(--hcp_minimalist_state_alert_background_opacity))"
+        state:
+          - color: "rgba(var(--hcp_minimalist_state_alert_text_color), var(--hcp_minimalist_state_alert_text_opacity))"
+        label:
+          - color: "rgba(var(--hcp_minimalist_state_alert_text_color), var(--hcp_minimalist_state_alert_text_opacity))"

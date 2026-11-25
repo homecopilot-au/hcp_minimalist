@@ -1,0 +1,155 @@
+---
+### Card Generic - HCP UI standard ###
+card_hcp_generic:
+  template:
+    - "ulm_translation_engine"
+    - "ulm_actions_card"
+  variables:
+    _card_hcp_generic_name: >
+      [[[ 
+        const entityObj = hass.entities?.[entity.entity_id];
+        const deviceId = entityObj?.device_id;
+        const areaId = entityObj?.area_id || hass.devices?.[deviceId]?.area_id;
+        return hass.areas?.[areaId]?.name;
+      ]]]
+    card_hcp_generic_label: "[[[ return entity.state; ]]]"
+    card_hcp_generic_icon: "[[[ return entity.attributes.icon; ]]]"
+    card_hcp_generic_color: "color_hcp_icon_default"
+    card_hcp_generic_state_color: "color_hcp_state_numberic"
+    card_hcp_generic_swap: false
+    card_hcp_generic_label_date: false
+    card_hcp_generic_label_format: "en-AU"
+    card_hcp_generic_popup_card: "popup_hcp_history"
+    card_hcp_generic_show_indicator: "[[[ return variables._hcp_default_show_indicator ]]]"
+    card_hcp_generic_show_state: false
+    card_hcp_generic_show_state_label: false
+    ulm_icon_tap_action: "popup"
+    ulm_name_tap_action: "popup"
+    ulm_icon_hold_action: "popup"
+    ulm_name_hold_action: "popup"
+    ulm_custom_popup:
+      template: popup_hcp_history
+  show_icon: false
+  show_name: false
+  show_label: false
+  styles:
+    grid:
+      - grid-template-areas: '"item1 item2"'
+      - grid-template-columns: "4fr 1fr"
+      - grid-template-rows: "min-content"
+      - row-gap: "[[[ return variables.card_hcp_alert_row_gap ]]]"
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "var(--box-shadow)"
+      - padding: "var(--hcp_minimalist_default_padding)"
+      - border-style: none
+      - background-color: transparent
+    custom_fields:
+      item2:
+        - display: >
+            [[[
+              if (variables.card_hcp_generic_show_state) {
+                  return "block";
+              } else {
+                  return "none";
+              }
+            ]]]
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        entity: "[[[ return entity.entity_id ]]]"
+        template:
+          - "hcp_icon_info"
+        variables:
+          ulm_input_select_option: "[[[ return variables.ulm_input_select_option; ]]]"
+          ulm_input_select: "[[[ return variables.ulm_input_select; ]]]"
+          ulm_icon_tap_action: "[[[ return variables.ulm_icon_tap_action; ]]]"
+          ulm_icon_tap_haptic: "[[[ return variables.ulm_icon_tap_haptic; ]]]"
+          ulm_icon_tap_navigate_path: "[[[ return variables.ulm_icon_tap_navigate_path; ]]]"
+          ulm_icon_tap_service: "[[[ return variables.ulm_icon_tap_service; ]]]"
+          ulm_icon_tap_target: "[[[ return variables.ulm_icon_tap_target; ]]]"
+          ulm_icon_tap_service_data: "[[[ return variables.ulm_icon_tap_service_data; ]]]"
+          ulm_icon_hold_action: "[[[ return variables.ulm_icon_hold_action; ]]]"
+          ulm_icon_hold_haptic: "[[[ return variables.ulm_icon_hold_haptic; ]]]"
+          ulm_icon_hold_navigate_path: "[[[ return variables.ulm_icon_hold_navigate_path; ]]]"
+          ulm_icon_hold_service: "[[[ return variables.ulm_icon_hold_service; ]]]"
+          ulm_icon_hold_service_data: "[[[ return variables.ulm_icon_hold_service_data; ]]]"
+          ulm_icon_double_tap_action: "[[[ return variables.ulm_icon_double_tap_action; ]]]"
+          ulm_icon_double_tap_haptic: "[[[ return variables.ulm_icon_double_tap_haptic; ]]]"
+          ulm_icon_double_tap_navigate_path: "[[[ return variables.ulm_icon_double_tap_navigate_path; ]]]"
+          ulm_icon_double_tap_service: "[[[ return variables.ulm_icon_double_tap_service; ]]]"
+          ulm_icon_double_tap_service_data: "[[[ return variables.ulm_icon_double_tap_service_data; ]]]"
+          ulm_name_tap_action: "[[[ return variables.ulm_name_tap_action; ]]]"
+          ulm_name_tap_haptic: "[[[ return variables.ulm_name_tap_haptic; ]]]"
+          ulm_name_tap_navigate_path: "[[[ return variables.ulm_name_tap_navigate_path; ]]]"
+          ulm_name_tap_service: "[[[ return variables.ulm_name_tap_service; ]]]"
+          ulm_name_tap_service_data: "[[[ return variables.ulm_name_tap_service_data; ]]]"
+          ulm_name_hold_action: "[[[ return variables.ulm_name_hold_action; ]]]"
+          ulm_name_hold_haptic: "[[[ return variables.ulm_name_hold_haptic; ]]]"
+          ulm_name_hold_navigate_path: "[[[ return variables.ulm_name_hold_navigate_path; ]]]"
+          ulm_name_hold_service: "[[[ return variables.ulm_name_hold_service; ]]]"
+          ulm_name_hold_service_data: "[[[ return variables.ulm_name_hold_service_data; ]]]"
+          ulm_name_double_tap_action: "[[[ return variables.ulm_name_double_tap_action; ]]]"
+          ulm_name_double_tap_haptic: "[[[ return variables.ulm_name_double_tap_haptic; ]]]"
+          ulm_name_double_tap_navigate_path: "[[[ return variables.ulm_name_double_tap_navigate_path; ]]]"
+          ulm_name_double_tap_service: "[[[ return variables.ulm_name_double_tap_service; ]]]"
+          ulm_name_double_tap_service_data: "[[[ return variables.ulm_name_double_tap_service_data; ]]]"
+          ulm_custom_popup: "[[[ return variables.ulm_custom_popup; ]]]"
+          hcp_icon_info_label: "[[[ return variables.card_hcp_generic_label; ]]]"
+          hcp_icon_info_name: "[[[ return variables._card_hcp_generic_name; ]]]"
+          hcp_icon_info_icon: "[[[ return variables.card_hcp_generic_icon; ]]]"
+          hcp_icon_info_icon_color: "[[[ return variables.card_hcp_generic_color ]]]"
+          hcp_icon_info_text_color: "[[[ return variables.card_hcp_generic_color ]]]"
+          hcp_icon_info_label_swap: "[[[ return variables.card_hcp_generic_swap ]]]"
+          hcp_icon_info_label_date: "[[[ return variables.card_hcp_generic_label_date ]]]"
+          hcp_icon_info_label_date_format: "[[[ return variables.card_hcp_generic_label_format ]]]"
+          hcp_icon_info_show_indicator: "[[[ return variables.card_hcp_generic_show_indicator;]]]"
+
+    item2:
+      card:
+        type: "custom:button-card"
+        entity: "[[[ return entity.entity_id ]]]"
+        template: >
+          [[[
+            var templates = ["hcp_widget_state","ulm_actions_name","ulm_actions_icon"]
+            templates.push(variables.card_hcp_generic_state_color)
+            return templates;
+          ]]]
+        variables:
+          widget_hcp_state_show_label: "[[[ return variables.card_hcp_generic_show_state_label; ]]]"
+          widget_hcp_state_color: "[[[ return variables.card_hcp_generic_state_color; ]]]"
+          ulm_input_select_option: "[[[ return variables.ulm_input_select_option; ]]]"
+          ulm_input_select: "[[[ return variables.ulm_input_select; ]]]"
+          ulm_icon_tap_action: "[[[ return variables.ulm_icon_tap_action; ]]]"
+          ulm_icon_tap_haptic: "[[[ return variables.ulm_icon_tap_haptic; ]]]"
+          ulm_icon_tap_navigate_path: "[[[ return variables.ulm_icon_tap_navigate_path; ]]]"
+          ulm_icon_tap_service: "[[[ return variables.ulm_icon_tap_service; ]]]"
+          ulm_icon_tap_service_data: "[[[ return variables.ulm_icon_tap_service_data; ]]]"
+          ulm_icon_hold_action: "[[[ return variables.ulm_icon_hold_action; ]]]"
+          ulm_icon_hold_haptic: "[[[ return variables.ulm_icon_hold_haptic; ]]]"
+          ulm_icon_hold_navigate_path: "[[[ return variables.ulm_icon_hold_navigate_path; ]]]"
+          ulm_icon_hold_service: "[[[ return variables.ulm_icon_hold_service; ]]]"
+          ulm_icon_hold_service_data: "[[[ return variables.ulm_icon_hold_service_data; ]]]"
+          ulm_icon_double_tap_action: "[[[ return variables.ulm_icon_double_tap_action; ]]]"
+          ulm_icon_double_tap_haptic: "[[[ return variables.ulm_icon_double_tap_haptic; ]]]"
+          ulm_icon_double_tap_navigate_path: "[[[ return variables.ulm_icon_double_tap_navigate_path; ]]]"
+          ulm_icon_double_tap_service: "[[[ return variables.ulm_icon_double_tap_service; ]]]"
+          ulm_icon_double_tap_service_data: "[[[ return variables.ulm_icon_double_tap_service_data; ]]]"
+          ulm_name_tap_action: "[[[ return variables.ulm_name_tap_action; ]]]"
+          ulm_name_tap_haptic: "[[[ return variables.ulm_name_tap_haptic; ]]]"
+          ulm_name_tap_navigate_path: "[[[ return variables.ulm_name_tap_navigate_path; ]]]"
+          ulm_name_tap_service: "[[[ return variables.ulm_name_tap_service; ]]]"
+          ulm_name_tap_service_data: "[[[ return variables.ulm_name_tap_service_data; ]]]"
+          ulm_name_hold_action: "[[[ return variables.ulm_name_hold_action; ]]]"
+          ulm_name_hold_haptic: "[[[ return variables.ulm_name_hold_haptic; ]]]"
+          ulm_name_hold_navigate_path: "[[[ return variables.ulm_name_hold_navigate_path; ]]]"
+          ulm_name_hold_service: "[[[ return variables.ulm_name_hold_service; ]]]"
+          ulm_name_hold_service_data: "[[[ return variables.ulm_name_hold_service_data; ]]]"
+          ulm_name_double_tap_action: "[[[ return variables.ulm_name_double_tap_action; ]]]"
+          ulm_name_double_tap_haptic: "[[[ return variables.ulm_name_double_tap_haptic; ]]]"
+          ulm_name_double_tap_navigate_path: "[[[ return variables.ulm_name_double_tap_navigate_path; ]]]"
+          ulm_name_double_tap_service: "[[[ return variables.ulm_name_double_tap_service; ]]]"
+          ulm_name_double_tap_service_data: "[[[ return variables.ulm_name_double_tap_service_data; ]]]"
+          ulm_custom_popup:
+            template: "[[[ return variables.ulm_custom_popup ]]]"

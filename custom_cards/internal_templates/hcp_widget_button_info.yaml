@@ -1,0 +1,83 @@
+---
+### HCP widget button info ###
+hcp_widget_button_info:
+  template: 
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  variables:
+    _hcp_widget_button_info_area: >
+      [[[ 
+        const entityObj = hass.entities?.[entity.entity_id];
+        const deviceId = entityObj?.device_id;
+        const areaId = entityObj?.area_id || hass.devices?.[deviceId]?.area_id;
+        return hass.areas?.[areaId]?.name;
+      ]]]    
+    hcp_widget_button_info_label: ""
+    hcp_widget_button_info_name: "[[[ return entity.attributes?.friendly_name; ]]]"
+    hcp_widget_button_info_show_area: false
+    hcp_widget_button_info_show_label: false
+    hcp_widget_button_info_show_name: true
+  show_icon: true
+  show_label: "[[[ return variables.hcp_widget_button_info_show_label; ]]]"
+  show_name: "[[[ return variables.hcp_widget_button_info_show_name; ]]]"
+  show_state: true
+  state_display: >
+    [[[
+      if (entity.attributes?.power_sensor) {
+          return states[entity.attributes.power_sensor].state + ' ' + states[entity.attributes.power_sensor].attributes.unit_of_measurement;
+        } else {
+          return " ";
+        }
+    ]]]
+  label: >
+    [[[ 
+      if (variables.hcp_widget_button_info_show_area) {
+        return variables._hcp_widget_button_info_area; 
+      } else {
+        return variables.hcp_widget_button_info_label; 
+      }
+    ]]]
+  styles:
+    grid:
+      - grid-template-areas: '"s" "i" "l" "n"'
+      - grid-template-columns: "1fr"
+      - grid-template-rows: "min-content min-content min-content min-content"
+      - row-gap: "var(--hcp_minimalist_default_row_gap)"
+    card:
+      - background: "none"
+      - box-shadow: "none"
+      - border-radius: "none"
+      - padding: "var(--hcp_minimalist_default_padding)"
+      - height: >
+          [[[ 
+            if (variables.hcp_widget_button_info_show_area || variables.hcp_widget_button_info_show_label) {
+              return "var(--hcp_minimalist_power_button_card_height_with_area)"
+            } else {
+              return "var(--hcp_minimalist_power_button_card_height)"
+            }
+          ]]]
+    state:
+      - justify-self: "right"
+      - font-weight: "var(--hcp_minimalist_power_button_font_weight)"
+      - font-size: "var(--hcp_minimalist_power_button_font_size)"
+    img_cell:
+      - border-radius: "50%"
+      - place-self: "center"
+      - width: "42px"
+      - height: "42px"
+      - box-shadow: "var(--box-shadow)"
+    name:
+      - justify-self: "center"
+      - font-weight: "var(--hcp_minimalist_power_button_font_weight)"
+      - font-size: "var(--hcp_minimalist_power_button_font_size)"
+      - white-space: "initial"
+      - text-overflow: "initial"
+      - overflow: "initial"
+    label:
+      - justify-self: "center"
+      - font-weight: "var(--hcp_minimalist_power_button_font_weight)"
+      - font-size: "var(--hcp_minimalist_power_button_font_size)"
+      - white-space: "initial"
+      - text-overflow: "initial"
+      - overflow: "initial"
+

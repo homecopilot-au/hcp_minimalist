@@ -1,0 +1,21 @@
+---
+### Cover open color default ###
+color_hcp_cover_open_default:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  state:
+    - operator: template
+      value: >-
+        [[[ return entity.attributes.current_position == "100" ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_button_unavailable_color), var(--hcp_minimalist_icon_unavailable_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_button_unavailable_color), var(--hcp_minimalist_icon_unavailable_background_opacity))"
+    - operator: default
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_button_icon_on_color), var(--hcp_minimalist_button_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_button_background_color), var(--hcp_minimalist_button_background_opacity))"

@@ -1,0 +1,11 @@
+---
+### Button unavailable ###
+color_hcp_button_unavailable:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  styles:
+    icon:
+      - color: "rgba(var(--hcp_minimalist_button_unavailable_color), var(--hcp_minimalist_icon_unavailable_opacity))"
+    img_cell:
+      - background-color: "rgba(var(--hcp_minimalist_button_unavailable_color), var(--hcp_minimalist_icon_unavailable_background_opacity))"

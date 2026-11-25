@@ -1,0 +1,91 @@
+---
+popup_hcp_person:
+  show_icon: false
+  show_name: false
+  show_label: false
+  show_units: false
+  tap_action:
+    action: none
+  variables:
+    popup_hcp_person_hide_back: false
+    popup_hcp_person_history_entity: "[[[ return entity.entity_id ]]]"
+  styles:
+    grid:
+      - grid-template-areas: '"back header history" "divider1 divider1 divider1" "content1 content1 content1" "divider2 divider2 divider2" "content2 content2 content2"'
+      - grid-template-columns: "1fr 3fr 1fr"
+      - grid-template-rows: "min-content min-content"
+      - row-gap: "5px"
+    card:
+      - background: "var(--primary-background-color)"
+      - box-shadow: "none"
+      - padding: "0px"
+    custom_fields:
+      back:
+        - display: >
+            [[[
+                  if (variables.popup_hcp_person_hide_back) {
+                      return "none";
+                  } else {
+                      return "block";
+                  }
+            ]]]
+        - align-text: "left"
+        - justify-self: "left"
+      header:
+        - align-self: "start"
+      history:
+        - justify-self: "right"
+      content1:
+        - align-self: "start"
+        - margin-left: "0px"
+  custom_fields:
+    back:
+      card:
+        type: "custom:button-card"
+        template: "popup_hcp_button_back"
+
+    header:
+      card:
+        type: "custom:button-card"
+        template: "popup_hcp_title"
+        name: "[[[ return entity.attributes.friendly_name ]]]"
+        show_label: true
+        label: "[[[ return entity.state ]]]"
+        styles:
+          label:
+            - text-transform: "capitalize"
+            - font-size: "16px"
+
+    history:
+      card:
+        type: "custom:button-card"
+        template: "popup_hcp_button_history"
+        variables:
+          popup_hcp_history_entity: "[[[ return variables.popup_hcp_person_history_entity ]]]"
+
+    divider1:
+      card:
+        type: "custom:button-card"
+        template: "popup_hcp_subtitle"
+        name: History
+
+    content1:
+      card:
+        type: "history-graph"
+        show_names: false
+        entities:
+          - "[[[ return entity.entity_id ]]]"
+
+    divider2:
+      card:
+        type: "custom:button-card"
+        template: "popup_hcp_subtitle"
+        name: Location
+
+    content2:
+      card:
+        type: map
+        aspect_ratio: "12x10"
+        default_zoom: 16
+        entities:
+          - "[[[ return entity.entity_id ]]]"

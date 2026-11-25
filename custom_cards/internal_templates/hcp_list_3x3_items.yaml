@@ -1,0 +1,16 @@
+---
+### List 3x3 Items ###
+hcp_list_3x3_items:
+  styles:
+    grid:
+      - grid-template-areas: "'item1 item2 item3' 'item4 item5 item6' 'item7 item8 item9'"
+      - grid-template-columns: "1fr 1fr 1fr"
+      - grid-template-rows: "min-content min-content min-content"
+      - column-gap: "var(--hcp_minimalist_default_column_gap)"
+      - row-gap: "var(--hcp_minimalist_default_row_gap)"
+    card:
+      - margin-top: "0px"
+      - box-shadow: "none"
+      - padding: var(--hcp_minimalist_card_bottom_padding)
+      - border-style: none
+      - background-color: transparent

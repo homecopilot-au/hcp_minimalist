@@ -1,0 +1,130 @@
+---
+### HCP widget State ###
+hcp_widget_state:
+  template:
+    - "ulm_translation_engine"
+    - "ulm_actions_card"
+    - "hcp_global_defaults"
+  variables:
+    widget_hcp_state_show_label: false
+    widget_hcp_state_color: "color_hcp_icon_info_room_temp"
+    widget_hcp_state_indicator_state: "[[[ return variables.ulm_translation_unavailable ]]]"
+    widget_hcp_state_indicator_icon: "[[[ return variables._hcp_default_indicator_icon ]]]"
+    widget_hcp_state_indicator_size: "var(--hcp_minimalist_widget_icon_indicator_size)"
+    widget_hcp_state_indicator_color: "var(--hcp_minimalist_widget_icon_indicator_color)"
+    widget_hcp_state_indicator_pos_left: "var(--hcp_minimalist_widget_icon_indicator_pos_left)"
+    widget_hcp_state_indicator_pos_top: "var(--hcp_minimalist_widget_icon_indicator_pos_top)"
+    widget_hcp_state_indicator_font_size: "var(--hcp_minimalist_widget_icon_indicator_font_size)"
+    ulm_card_tap_action: "popup"
+    ulm_card_hold_action: "popup"
+    ulm_custom_popup:
+      template: "popup_hcp_history"
+      entity: "[[[ return entity.entity_id ]]]"
+  show_icon: false
+  show_label: false
+  show_name: false
+  show_state: false
+  show_units: false
+  styles:
+    grid:
+      - grid-template-areas: '"item1" "item2"'
+      - grid-template-columns: "1fr"
+    card:
+      - box-shadow: "none"
+      - border-radius: "none"
+      - width: "42px"
+      - height: "42px"
+    custom_fields:
+      item1:
+        - display: >
+            [[[
+                  if (variables.widget_hcp_state_show_label) {
+                      return "block";
+                  } else {
+                      return "none";
+                  }
+            ]]]
+      item2:
+        - display: >
+            [[[
+                  if (!variables.widget_hcp_state_show_label) {
+                      return "block";
+                  } else {
+                      return "none";
+                  }
+            ]]]
+      notification:
+        - position: "absolute"
+        - border: "none"
+        - left: "[[[ return variables.widget_hcp_state_indicator_pos_left ]]]"
+        - top: "[[[ return variables.widget_hcp_state_indicator_pos_top ]]]"
+        - height: "[[[ return variables.widget_hcp_state_indicator_size ]]]"
+        - width: "[[[ return variables.widget_hcp_state_indicator_size ]]]"
+        - font-size: "[[[ return variables.widget_hcp_state_indicator_font_size ]]]"
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        entity: "[[[ return entity.entity_id; ]]]"
+        template: >
+          [[[
+            var templates = ["ulm_actions_card"]
+            templates.push(variables.widget_hcp_state_color)
+            return templates;
+          ]]]
+        show_icon: false
+        show_label: true
+        show_name: false
+        show_state: true
+        show_units: false
+        variables:
+          ulm_card_tap_action: "popup"
+          ulm_card_hold_action: "popup"
+          ulm_custom_popup: "[[[ return variables.ulm_custom_popup ]]]"
+        label: "[[[ return entity.attributes.unit_of_measurement ]]]"
+        styles:
+          grid:
+            - grid-template-areas: '"s" "l"'
+            - grid-template-columns: "1fr"
+            - grid-template-rows: "1fr"
+          card:
+            - box-shadow: "none"
+            - border-radius: "none"
+            - width: "42px"
+            - height: "42px"
+          state:
+            - border-radius: "50%"
+            - place-self: "center"
+    item2:
+      card:
+        type: "custom:button-card"
+        entity: "[[[ return entity.entity_id; ]]]"
+        template: >
+          [[[
+            var templates = ["ulm_actions_card"]
+            templates.push(variables.widget_hcp_state_color)
+            return templates;
+          ]]]
+        show_icon: false
+        show_label: false
+        show_name: false
+        show_state: true
+        show_units: false
+        variables:
+          ulm_card_tap_action: "popup"
+          ulm_card_hold_action: "popup"
+          ulm_custom_popup: "[[[ return variables.ulm_custom_popup ]]]"
+        styles:
+          grid:
+            - grid-template-areas: '"s"'
+            - grid-template-columns: "1fr"
+            - grid-template-rows: "1fr"
+          card:
+            - box-shadow: "none"
+            - border-radius: "none"
+            - width: "42px"
+            - height: "42px"
+          state:
+            - border-radius: "50%"
+            - place-self: "center"
+  size: "20px"

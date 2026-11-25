@@ -1,0 +1,20 @@
+popup_hcp_button_back:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+    - "hcp_widget_icon"
+    - "color_hcp_card_popup_default"
+    - "color_hcp_button_popup"
+  show_name: false
+  variables:
+    popup_hcp_button_back_path: >
+      [[[
+        return hass["panelUrl"];
+      ]]]
+    popup_hcp_button_back_icon: "[[[ return variables._hcp_default_popup_back_icon; ]]]"
+  icon: "[[[ return variables.popup_hcp_button_back_icon; ]]]"
+  tap_action:
+    action: "fire-dom-event"
+    browser_mod:
+      service: "browser_mod.close_popup"
+      data: {}

@@ -1,0 +1,10 @@
+---
+popup_hcp_button_radar:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+    - "hcp_widget_icon"
+    - "color_hcp_card_popup_default"
+    - "color_hcp_button_popup"
+  show_name: false
+  variables:

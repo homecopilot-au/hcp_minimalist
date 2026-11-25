@@ -1,0 +1,121 @@
+---
+### Card HCP Update ###
+card_hcp_update:
+  template:
+    - "ulm_language_variables"
+    - "ulm_custom_actions"
+    - "ulm_actions_card"
+    - "hcp_global_defaults"
+  show_icon: false
+  show_name: false
+  show_label: false
+  variables:
+    card_hcp_update_icon: "[[[ return variables._hcp_default_update_icon; ]]]"
+    card_hcp_update_release_notes_icon: "[[[ return variables._hcp_default_update_release_notes; ]]]"
+    card_hcp_update_use_entity_picture: "[[[ return (typeof entity.attributes.entity_picture !== variables._hcp_default_entity_undefined); ]]]"
+    card_hcp_update_has_release_url: "[[[ return (typeof entity.attributes.release_url === variables._hcp_default_entity_string); ]]]"
+    card_hcp_update_icon_color: "color_hcp_update_default"
+    card_hcp_update_picture_color: "color_hcp_update_picture"
+    card_hcp_update_text_color: "color_hcp_card_text_default"
+    card_hcp_update_button_color: "color_hcp_button_default"
+    card_hcp_update_name: "[[[ return entity.attributes.friendly_name; ]]]"
+    card_hcp_update_label: >
+      [[[ 
+          let var_installed_version = "no installed version";
+          let var_latest_version = "no latest version";
+          if (typeof entity.attributes.installed_version !== variables._hcp_default_entity_undefined) {
+            var_installed_version = entity.attributes.installed_version;
+          }
+          if (typeof entity.attributes.latest_version !== variables._hcp_default_entity_undefined) {
+            var_latest_version = entity.attributes.latest_version;
+          }
+          return var_installed_version + ' --> ' + var_latest_version
+      ]]]
+    ulm_icon_tap_action: "popup"
+    ulm_name_tap_action: "popup"
+    ulm_icon_hold_action: "popup"
+    ulm_name_hold_action: "popup"
+  tap_action:
+    action: none
+  styles:
+    grid:
+      - grid-template-areas: '"item1"'
+      - grid-template-columns: "auto"
+      - grid-template-rows: "min-content"
+      - row-gap: "var(--hcp_minimalist_default_row_gap)"
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "var(--box-shadow)"
+      - padding: "var(--hcp_minimalist_default_padding)"
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        show_icon: false
+        show_name: false
+        show_label: false
+        template:
+          - "hcp_list_3x1_items"
+        styles:
+          grid:
+            - grid-template-columns: "1.5fr 7fr 1.5fr"
+          custom_fields:
+            item3:
+              - display: >
+                  [[[
+                        if (variables.card_hcp_update_has_release_url) {
+                            return "block";
+                        } else {
+                            return "none";
+                        }
+                  ]]]
+        custom_fields:
+          item1:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id; ]]]"
+              icon: "[[[ return variables.card_hcp_update_icon ]]]"
+              show_entity_picture: "[[[ return variables.card_hcp_update_use_entity_picture ]]]"
+              entity_picture: "[[[ return variables.card_hcp_update_use_entity_picture ? entity.attributes.entity_picture : null ]]]"
+              template: >
+                [[[
+                  var templates = ["hcp_widget_icon", "ulm_actions_icon"]
+                  if (!variables.card_hcp_update_use_entity_picture) {
+                    templates.push(variables.card_hcp_update_icon_color);
+                  } else {
+                    templates.push(variables.card_hcp_update_picture_color);
+                  }
+                  return templates;
+                ]]]
+              variables:
+                ulm_icon_tap_action: "[[[ return variables.ulm_icon_tap_action; ]]]"
+                ulm_icon_hold_action: "[[[ return variables.ulm_icon_hold_action; ]]]"
+          item2:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              name: "[[[ return variables.card_hcp_update_name; ]]]"
+              label: "[[[ return variables.card_hcp_update_label; ]]]"
+              template: >
+                [[[
+                  var templates = ["hcp_widget_info", "ulm_actions_name"]
+                  templates.push(variables.card_hcp_update_text_color)
+                  return templates;
+                ]]]
+              variables:
+                ulm_name_tap_action: "[[[ return variables.ulm_name_tap_action; ]]]"
+                ulm_name_hold_action: "[[[ return variables.ulm_name_hold_action; ]]]"
+          item3:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              icon: "[[[ return variables.card_hcp_update_release_notes_icon; ]]]"
+              template: >
+                [[[
+                  var templates = ["hcp_widget_button", "ulm_actions_name"]
+                  templates.push(variables.card_hcp_update_button_color)
+                  return templates;
+                ]]]
+              tap_action:
+                action: url
+                url_path: "[[[ return variables.card_hcp_update_has_release_url ? entity.attributes.release_url : null ]]]"

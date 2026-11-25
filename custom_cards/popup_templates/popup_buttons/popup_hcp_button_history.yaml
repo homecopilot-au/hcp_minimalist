@@ -1,0 +1,35 @@
+popup_hcp_button_history:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+    - "hcp_widget_icon"
+    - "color_hcp_button_popup"
+  variables:
+    popup_hcp_history_entity: ""
+    popup_hcp_history_icon: "[[[ return variables._hcp_default_popup_history_icon; ]]]"
+  icon: "[[[ return variables.popup_hcp_history_icon]]]"
+  show_name: false
+  tap_action:
+    action: "fire-dom-event"
+    browser_mod:
+      service: "browser_mod.popup"
+      data:
+        hide_header: true
+        style: |
+          --popup-background-color: var(--hcp_minimalist_popup_background_color);
+          --popup-border-radius: var(--hcp_minimalist_popup_border_radius);
+          --popup-padding-x: var(--hcp_minimalist_popup_padding_x);
+          --popup-padding-y: var(--hcp_minimalist_popup_padding_y);
+          --popup-max-width: var(--hcp_minimalist_popup_max_width);
+          --popup-min-width: var(--hcp_minimalist_popup_min_width);;
+        size: >
+          [[[
+            const mediaQuery = window.matchMedia('(max-width: 1200px)')
+            if (mediaQuery.matches) {
+              return 'fullscreen'
+            }
+          ]]]
+        content:
+          type: "custom:button-card"
+          template: "popup_hcp_history"
+          entity: "[[[ return variables.popup_hcp_history_entity ]]]"

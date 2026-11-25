@@ -1,0 +1,15 @@
+---
+### Color for info alerts ###
+color_hcp_automated_alert_info:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  styles:
+    icon:
+      - color: "rgba(var(--hcp_minimalist_automated_alert_info_icon_color), var(--hcp_minimalist_state_alert_icon_opacity))"
+    name:
+      - color: "rgba(var(--hcp_minimalist_automated_alert_info_text_color),var(--hcp_minimalist_state_alert_text_opacity))"
+    label:
+      - color: "rgba(var(--hcp_minimalist_automated_alert_info_text_color), var(--hcp_minimalist_state_alert_text_opacity))"
+    img_cell:
+      - background-color: "rgba(var(--hcp_minimalist_automated_alert_info_icon_color), var(--hcp_minimalist_automated_alert_icon_background_opacity))"

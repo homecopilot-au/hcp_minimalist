@@ -1,0 +1,164 @@
+---
+### Card 3 Speed Fan - HCP UI standard ###
+card_hcp_fan_3speed:
+  template:
+    - "ulm_translation_engine"
+    - "ulm_actions_card"
+    - "hcp_global_defaults"
+  variables:
+    card_hcp_fan_3speed_name: "[[[ return entity.attributes.friendly_name; ]]]"
+    card_hcp_fan_3speed_enable_collapse: true
+    card_hcp_fan_3speed_show_buttons: true
+    card_hcp_fan_3speed_power_entity: null
+    card_hcp_fan_3speed_power_entity_icon: "[[[ return variables._hcp_default_power_entity_icon; ]]]"
+    card_hcp_fan_3speed_text_color: "color_hcp_card_text_default"
+    card_hcp_fan_3speed_switch_color: "color_hcp_switch_default"
+    card_hcp_fan_3speed_preset_switch_color: "color_hcp_switch_option"
+    card_hcp_fan_3speed_preset_1: "[[[ return states[entity.entity_id].attributes?.preset_modes[0]; ]]]"
+    card_hcp_fan_3speed_preset_2: "[[[ return states[entity.entity_id].attributes?.preset_modes[1]; ]]]"
+    card_hcp_fan_3speed_preset_3: "[[[ return states[entity.entity_id].attributes?.preset_modes[2]; ]]]"
+    card_hcp_fan_3speed_speed_1_icon: "[[[ return variables._hcp_default_3speedfan_speed_1_icon; ]]]"
+    card_hcp_fan_3speed_speed_2_icon: "[[[ return variables._hcp_default_3speedfan_speed_2_icon; ]]]"
+    card_hcp_fan_3speed_speed_3_icon: "[[[ return variables._hcp_default_3speedfan_speed_3_icon; ]]]"
+    card_hcp_fan_3speed_padding: "var(--hcp_minimalist_default_padding)"
+    card_hcp_fan_3speed_row_gap: "var(--hcp_minimalist_default_row_gap)"
+    card_hcp_fan_3speed_show_indicator: "[[[ return variables._hcp_default_show_icon_indicator; ]]]"
+    ulm_icon_hold_action: "popup"
+    ulm_name_hold_action: "popup"
+    ulm_card_hold_action: "popup"
+    ulm_name_tap_action: "popup"
+    ulm_card_tap_action: "popup"
+  show_icon: false
+  show_name: false
+  show_label: false
+  styles:
+    grid:
+      - grid-template-areas: >
+          [[[
+            var areas = [];
+            areas.push("item1 item1");
+            if (variables.card_hcp_fan_3speed_show_buttons && (variables.ulm_active_state || !variables.card_hcp_fan_3speed_enable_collapse)) {
+                areas.push("buttons buttons");
+            }
+            return "\"" + areas.join("\" \"") + "\"";
+          ]]]
+      - grid-template-columns: "1fr"
+      - grid-template-rows: >
+          [[[
+            var rows = [];
+            rows.push("min-content");
+            if (variables.ulm_active_state && variables.card_hcp_fan_3speed_show_buttons) {
+                rows.push("min-content");
+            }
+            return rows.join(" ");
+          ]]]
+      - row-gap: "[[[ return variables.card_hcp_fan_3speed_row_gap ]]]"
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "var(--box-shadow)"
+      - padding: "[[[ return variables.card_hcp_fan_3speed_padding ]]]"
+      - border-style: none
+      - background-color: transparent
+    custom_fields:
+      buttons:
+        - display: >
+            [[[
+                  if (variables.card_hcp_fan_3speed_show_buttons && (variables.ulm_active_state || !variables.card_hcp_fan_3speed_enable_collapse)) {
+                      return "block";
+                  } else {
+                      return "none";
+                  }
+            ]]]
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        entity: "[[[ return entity.entity_id ]]]"
+        template:
+          - "hcp_icon_power"
+          - "ulm_actions_name"
+        variables:
+          ulm_icon_tap_action: "[[[ return variables.ulm_icon_tap_action ]]]"
+          ulm_icon_hold_action: "[[[ return variables.ulm_icon_hold_action ]]]"
+          ulm_name_tap_action: "[[[ return variables.ulm_name_tap_action ]]]"
+          ulm_name_hold_action: "[[[ return variables.ulm_name_hold_action ]]]"
+          ulm_input_select_option: "[[[ return variables.ulm_input_select_option ]]]"
+          ulm_input_select: "[[[ return variables.ulm_input_select ]]]"
+          ulm_custom_popup:
+            template: popup_hcp_fan_3speed
+            popup_variables:
+              popup_hcp_fan_3speed_history_entity: "[[[ return entity.entity_id ]]]"
+          hcp_icon_power_power_entity: "[[[ return variables.card_hcp_fan_3speed_power_entity ]]]"
+          hcp_icon_power_power_entity_icon: "[[[ return variables._hcp_default_power_entity_icon ]]]"
+          hcp_icon_power_icon_color: "[[[ return variables.card_hcp_fan_3speed_switch_color ]]]"
+          hcp_icon_power_text_color: "[[[ return variables.card_hcp_fan_3speed_text_color ]]]"
+          hcp_icon_power_show_indicator: "[[[ return variables.card_hcp_fan_3speed_show_indicator ]]]"
+          hcp_icon_power_name: "[[[ return variables.card_hcp_fan_3speed_name ]]]"
+    buttons:
+      card:
+        type: "custom:button-card"
+        template: "hcp_list_3x1_items"
+        custom_fields:
+          item1:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              template: >
+                [[[
+                  var templates = ["hcp_widget_button"]
+                  templates.push(variables.card_hcp_fan_3speed_preset_switch_color)
+                  return templates;
+                ]]]
+              icon: "[[[ return variables.card_hcp_fan_3speed_speed_1_icon; ]]]"
+              variables:
+                hcp_widget_button_label: "[[[ return variables.card_hcp_fan_3speed_preset_1; ]]]"
+                color_hcp_switch_option_name: "[[[ return variables.card_hcp_fan_3speed_preset_1; ]]]"
+                color_hcp_switch_option_state: "[[[ return states[entity.entity_id].attributes?.preset_mode; ]]]"
+              tap_action:
+                action: call-service
+                service: "fan.set_preset_mode"
+                service_data:
+                  entity_id: "[[[ return entity.entity_id; ]]]"
+                  preset_mode: "[[[ return variables.card_hcp_fan_3speed_preset_1; ]]]"
+          item2:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              template: >
+                [[[
+                  var templates = ["hcp_widget_button"]
+                  templates.push(variables.card_hcp_fan_3speed_preset_switch_color)
+                  return templates;
+                ]]]
+              icon: "[[[ return variables.card_hcp_fan_3speed_speed_2_icon; ]]]"
+              variables:
+                hcp_widget_button_label: "[[[ return variables.card_hcp_fan_3speed_preset_2; ]]]"
+                color_hcp_switch_option_name: "[[[ return variables.card_hcp_fan_3speed_preset_2; ]]]"
+                color_hcp_switch_option_state: "[[[ return states[entity.entity_id].attributes?.preset_mode; ]]]"
+              tap_action:
+                action: call-service
+                service: "fan.set_preset_mode"
+                service_data:
+                  entity_id: "[[[ return entity.entity_id; ]]]"
+                  preset_mode: "[[[ return variables.card_hcp_fan_3speed_preset_2; ]]]"
+          item3:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              template: >
+                [[[
+                  var templates = ["hcp_widget_button"]
+                  templates.push(variables.card_hcp_fan_3speed_preset_switch_color)
+                  return templates;
+                ]]]
+              icon: "[[[ return variables.card_hcp_fan_3speed_speed_3_icon; ]]]"
+              variables:
+                hcp_widget_button_label: "[[[ return variables.card_hcp_fan_3speed_preset_3; ]]]"
+                color_hcp_switch_option_name: "[[[ return variables.card_hcp_fan_3speed_preset_3; ]]]"
+                color_hcp_switch_option_state: "[[[ return states[entity.entity_id].attributes?.preset_mode; ]]]"
+              tap_action:
+                action: call-service
+                service: "fan.set_preset_mode"
+                service_data:
+                  entity_id: "[[[ return entity.entity_id; ]]]"
+                  preset_mode: "[[[ return variables.card_hcp_fan_3speed_preset_3; ]]]"

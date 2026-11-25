@@ -1,0 +1,11 @@
+---
+### Update default ###
+color_hcp_update_default:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  styles:
+    icon:
+      - color: "rgba(var(--hcp_minimalist_update_color), var(--hcp_minimalist_icon_on_opacity))"
+    img_cell:
+      - background-color: "rgba(var(--hcp_minimalist_update_color), var(--hcp_minimalist_background_on_opacity))"

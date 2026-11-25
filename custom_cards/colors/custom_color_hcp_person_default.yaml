@@ -1,0 +1,21 @@
+---
+### Person default ###
+color_hcp_person_default:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  state:
+    - operator: template
+      value: >-
+        [[[ return (variables.ulm_active_state); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_person_home_color), var(--hcp_minimalist_icon_on_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_person_home_color), var(--hcp_minimalist_background_on_opacity))"
+    - operator: default
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_person_away_color), var(--hcp_minimalist_icon_off_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_person_away_color), var(--hcp_minimalist_background_off_opacity))"

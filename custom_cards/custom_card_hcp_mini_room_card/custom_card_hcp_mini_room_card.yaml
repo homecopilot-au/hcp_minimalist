@@ -1,0 +1,471 @@
+---
+### Mini room card - HCP UI standard ###
+card_hcp_mini_room_card:
+  template:
+    - "ulm_translation_engine"
+    - "ulm_actions_card"
+    - "hcp_global_defaults"
+  show_icon: false
+  show_name: false
+  show_label: false
+  show_state: false
+  variables:
+    _card_hcp_mini_room_card_btn_1_entity: null
+    card_hcp_mini_room_card_btn_1_template_1: null
+    card_hcp_mini_room_card_btn_1_template_2: null
+    card_hcp_mini_room_card_btn_1_action: >
+      [[[
+        if (variables._card_hcp_mini_room_card_btn_1_entity) {
+          return "toggle";
+        } else {
+          return "";
+        }
+      ]]]
+    card_hcp_mini_room_card_btn_1_path: null
+    card_hcp_mini_room_card_btn_1_service: null
+    card_hcp_mini_room_card_btn_1_service_entity: null
+    card_hcp_mini_room_card_btn_1_service_command: null
+    card_hcp_mini_room_card_btn_1_icon: >
+      [[[
+        if (variables._card_hcp_mini_room_card_btn_1_entity) {
+          return states[variables._card_hcp_mini_room_card_btn_1_entity].icon;
+        } else {
+          return "";
+        }
+      ]]]
+    card_hcp_mini_room_card_btn_1_popup_card: null
+    _card_hcp_mini_room_card_btn_2_entity: null
+    card_hcp_mini_room_card_btn_2_template_1: null
+    card_hcp_mini_room_card_btn_2_template_2: null
+    card_hcp_mini_room_card_btn_2_action: >
+      [[[
+        if (variables._card_hcp_mini_room_card_btn_2_entity) {
+          return "toggle";
+        } else {
+          return "";
+        }
+      ]]]
+    card_hcp_mini_room_card_btn_2_path: null
+    card_hcp_mini_room_card_btn_2_service: null
+    card_hcp_mini_room_card_btn_2_service_entity: null
+    card_hcp_mini_room_card_btn_2_service_command: null
+    card_hcp_mini_room_card_btn_2_icon: >
+      [[[
+        if (variables._card_hcp_mini_room_card_btn_2_entity) {
+          return states[variables._card_hcp_mini_room_card_btn_2_entity].icon;
+        } else {
+          return "";
+        }
+      ]]]
+    card_hcp_mini_room_card_btn_2_popup_card: null
+    _card_hcp_mini_room_card_btn_3_entity: null
+    card_hcp_mini_room_card_btn_3_template_1: null
+    card_hcp_mini_room_card_btn_3_template_2: null
+    card_hcp_mini_room_card_btn_3_action: >
+      [[[
+        if (variables._card_hcp_mini_room_card_btn_3_entity) {
+          return "toggle";
+        } else {
+          return "";
+        }
+      ]]]
+    card_hcp_mini_room_card_btn_3_path: null
+    card_hcp_mini_room_card_btn_3_service: null
+    card_hcp_mini_room_card_btn_3_service_entity: null
+    card_hcp_mini_room_card_btn_3_service_command: null
+    card_hcp_mini_room_card_btn_3_icon: >
+      [[[
+        if (variables._card_hcp_mini_room_card_btn_3_entity) {
+          return states[variables._card_hcp_mini_room_card_btn_3_entity].icon;
+        } else {
+          return "";
+        }
+      ]]]
+    card_hcp_mini_room_card_btn_3_popup_card: null
+    _card_hcp_mini_room_card_btn_4_entity: null
+    card_hcp_mini_room_card_btn_4_template_1: null
+    card_hcp_mini_room_card_btn_4_template_2: null
+    card_hcp_mini_room_card_btn_4_action: >
+      [[[
+        if (variables._card_hcp_mini_room_card_btn_4_entity) {
+          return "toggle";
+        } else {
+          return "";
+        }
+      ]]]
+    card_hcp_mini_room_card_btn_4_path: null
+    card_hcp_mini_room_card_btn_4_service: null
+    card_hcp_mini_room_card_btn_4_service_entity: null
+    card_hcp_mini_room_card_btn_4_service_command: null
+    card_hcp_mini_room_card_btn_4_icon: >
+      [[[
+        if (variables._card_hcp_mini_room_card_btn_4_entity) {
+          return states[variables._card_hcp_mini_room_card_btn_4_entity].icon;
+        } else {
+          return "";
+        }
+      ]]]
+    card_hcp_mini_room_card_btn_4_popup_card: null
+    _card_hcp_mini_room_card_btn_5_entity: null
+    card_hcp_mini_room_card_btn_5_template_1: null
+    card_hcp_mini_room_card_btn_5_template_2: null
+    card_hcp_mini_room_card_btn_5_action: >
+      [[[
+        if (variables._card_hcp_mini_room_card_btn_5_entity) {
+          return "toggle";
+        } else {
+          return "";
+        }
+      ]]]
+    card_hcp_mini_room_card_btn_5_path: null
+    card_hcp_mini_room_card_btn_5_service: null
+    card_hcp_mini_room_card_btn_5_service_entity: null
+    card_hcp_mini_room_card_btn_5_service_command: null
+    card_hcp_mini_room_card_btn_5_icon: >
+      [[[
+        if (variables._card_hcp_mini_room_card_btn_5_entity) {
+          return states[variables._card_hcp_mini_room_card_btn_5_entity].icon;
+        } else {
+          return "";
+        }
+      ]]]
+    card_hcp_mini_room_card_btn_5_popup_card: null
+    _card_hcp_mini_room_card_btn_6_entity: null
+    card_hcp_mini_room_card_btn_6_template_1: null
+    card_hcp_mini_room_card_btn_6_template_2: null
+    card_hcp_mini_room_card_btn_6_action: >
+      [[[
+        if (variables._card_hcp_mini_room_card_btn_6_entity) {
+          return "toggle";
+        } else {
+          return "";
+        }
+      ]]]
+    card_hcp_mini_room_card_btn_6_path: null
+    card_hcp_mini_room_card_btn_6_service: null
+    card_hcp_mini_room_card_btn_6_service_entity: null
+    card_hcp_mini_room_card_btn_6_service_command: null
+    card_hcp_mini_room_card_btn_6_icon: >
+      [[[
+        if (variables._card_hcp_mini_room_card_btn_6_entity) {
+          return states[variables._card_hcp_mini_room_card_btn_6_entity].icon;
+        } else {
+          return "";
+        }
+      ]]]
+    card_hcp_mini_room_card_btn_6_popup_card: null
+  styles:
+    custom_fields:
+      item1:
+        - display: >
+            [[[
+              if (variables._card_hcp_mini_room_card_btn_1_entity || variables.card_hcp_mini_room_card_btn_1_action) {
+                  return "block";
+              } else {
+                  return "none";
+              }
+            ]]]
+      item2:
+        - display: >
+            [[[
+              if (variables._card_hcp_mini_room_card_btn_2_entity || variables.card_hcp_mini_room_card_btn_2_action) {
+                  return "block";
+              } else {
+                  return "none";
+              }
+            ]]]
+      item3:
+        - display: >
+            [[[
+              if (variables._card_hcp_mini_room_card_btn_3_entity || variables.card_hcp_mini_room_card_btn_3_action) {
+                  return "block";
+              } else {
+                  return "none";
+              }
+            ]]]
+      item4:
+        - display: >
+            [[[
+              if (variables._card_hcp_mini_room_card_btn_4_entity || variables.card_hcp_mini_room_card_btn_4_action) {
+                  return "block";
+              } else {
+                  return "none";
+              }
+            ]]]
+      item5:
+        - display: >
+            [[[
+              if (variables._card_hcp_mini_room_card_btn_5_entity || variables.card_hcp_mini_room_card_btn_5_action) {
+                  return "block";
+              } else {
+                  return "none";
+              }
+            ]]]
+      item6:
+        - display: >
+            [[[
+              if (variables._card_hcp_mini_room_card_btn_6_entity || variables.card_hcp_mini_room_card_btn_6_action) {
+                  return "block";
+              } else {
+                  return "none";
+              }
+            ]]]
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        entity: "[[[ return variables._card_hcp_mini_room_card_btn_1_entity ]]]"
+        icon: "[[[ return variables.card_hcp_mini_room_card_btn_1_icon ]]]"
+        template: >
+          [[[
+            var templates = []
+            templates.push(variables.card_hcp_mini_room_card_btn_1_template_1)
+            templates.push(variables.card_hcp_mini_room_card_btn_1_template_2)
+            return templates;
+          ]]]
+        tap_action:
+          action: "[[[ return variables.card_hcp_mini_room_card_btn_1_action; ]]]"
+          navigation_path: "[[[ return variables.card_hcp_mini_room_card_btn_1_path; ]]]"
+          service: "[[[ return variables.card_hcp_mini_room_card_btn_1_service ]]]"
+          service_data:
+            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_1_service_entity ]]]"
+            command: "[[[ return variables.card_hcp_mini_room_card_btn_1_service_command ]]]"
+          browser_mod:
+            service: "browser_mod.popup"
+            data:
+              hide_header: true
+              style: |
+                --popup-background-color: var(--hcp_minimalist_popup_background_color);
+                --popup-border-radius: var(--hcp_minimalist_popup_border_radius);
+                --popup-padding-x: var(--hcp_minimalist_popup_padding_x);
+                --popup-padding-y: var(--hcp_minimalist_popup_padding_y);
+                --popup-max-width: var(--hcp_minimalist_popup_max_width);
+                --popup-min-width: var(--hcp_minimalist_popup_min_width);;
+              card_mod:
+                style: |
+                  ha-dialog {
+                    --mdc-dialog-min-width: 1024px !important;
+                    --mdc-dialog-max-width: 768px !important;
+                  }
+                  .content {
+                    width: auto !important;
+                  }
+              content:
+                type: "custom:button-card"
+                template: "[[[ return variables.card_hcp_mini_room_card_btn_1_popup_card ]]]"
+                entity: "[[[ return variables._card_hcp_mini_room_card_btn_1_entity ]]]"
+    item2:
+      card:
+        type: "custom:button-card"
+        entity: "[[[ return variables._card_hcp_mini_room_card_btn_2_entity ]]]"
+        icon: "[[[ return variables.card_hcp_mini_room_card_btn_2_icon ]]]"
+        template: >
+          [[[
+            var templates = []
+            templates.push(variables.card_hcp_mini_room_card_btn_2_template_1)
+            templates.push(variables.card_hcp_mini_room_card_btn_2_template_2)
+            return templates;
+          ]]]
+        tap_action:
+          action: "[[[ return variables.card_hcp_mini_room_card_btn_2_action; ]]]"
+          navigation_path: "[[[ return variables.card_hcp_mini_room_card_btn_2_path; ]]]"
+          service: "[[[ return variables.card_hcp_mini_room_card_btn_2_service ]]]"
+          service_data:
+            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_2_service_entity ]]]"
+            command: "[[[ return variables.card_hcp_mini_room_card_btn_2_service_command ]]]"
+          browser_mod:
+            service: "browser_mod.popup"
+            data:
+              hide_header: true
+              style: |
+                --popup-background-color: var(--hcp_minimalist_popup_background_color);
+                --popup-border-radius: var(--hcp_minimalist_popup_border_radius);
+                --popup-padding-x: var(--hcp_minimalist_popup_padding_x);
+                --popup-padding-y: var(--hcp_minimalist_popup_padding_y);
+                --popup-max-width: var(--hcp_minimalist_popup_max_width);
+                --popup-min-width: var(--hcp_minimalist_popup_min_width);;
+              card_mod:
+                style: |
+                  ha-dialog {
+                    --mdc-dialog-min-width: 1024px !important;
+                    --mdc-dialog-max-width: 768px !important;
+                  }
+                  .content {
+                    width: auto !important;
+                  }
+              content:
+                type: "custom:button-card"
+                template: "[[[ return variables.card_hcp_mini_room_card_btn_2_popup_card ]]]"
+                entity: "[[[ return variables._card_hcp_mini_room_card_btn_2_entity ]]]"
+    item3:
+      card:
+        type: "custom:button-card"
+        entity: "[[[ return variables._card_hcp_mini_room_card_btn_3_entity ]]]"
+        icon: "[[[ return variables.card_hcp_mini_room_card_btn_3_icon ]]]"
+        template: >
+          [[[
+            var templates = []
+            templates.push(variables.card_hcp_mini_room_card_btn_3_template_1)
+            templates.push(variables.card_hcp_mini_room_card_btn_3_template_2)
+            return templates;
+          ]]]
+        tap_action:
+          action: "[[[ return variables.card_hcp_mini_room_card_btn_3_action; ]]]"
+          navigation_path: "[[[ return variables.card_hcp_mini_room_card_btn_3_path; ]]]"
+          service: "[[[ return variables.card_hcp_mini_room_card_btn_3_service ]]]"
+          service_data:
+            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_3_service_entity ]]]"
+            command: "[[[ return variables.card_hcp_mini_room_card_btn_3_service_command ]]]"
+          browser_mod:
+            service: "browser_mod.popup"
+            data:
+              hide_header: true
+              style: |
+                --popup-background-color: var(--hcp_minimalist_popup_background_color);
+                --popup-border-radius: var(--hcp_minimalist_popup_border_radius);
+                --popup-padding-x: var(--hcp_minimalist_popup_padding_x);
+                --popup-padding-y: var(--hcp_minimalist_popup_padding_y);
+                --popup-max-width: var(--hcp_minimalist_popup_max_width);
+                --popup-min-width: var(--hcp_minimalist_popup_min_width);;
+              card_mod:
+                style: |
+                  ha-dialog {
+                    --mdc-dialog-min-width: 1024px !important;
+                    --mdc-dialog-max-width: 768px !important;
+                  }
+                  .content {
+                    width: auto !important;
+                  }
+              content:
+                type: "custom:button-card"
+                template: "[[[ return variables.card_hcp_mini_room_card_btn_3_popup_card ]]]"
+                entity: "[[[ return variables._card_hcp_mini_room_card_btn_3_entity ]]]"
+    item4:
+      card:
+        type: "custom:button-card"
+        entity: "[[[ return variables._card_hcp_mini_room_card_btn_4_entity ]]]"
+        icon: "[[[ return variables.card_hcp_mini_room_card_btn_4_icon ]]]"
+        template: >
+          [[[
+            var templates = []
+            templates.push(variables.card_hcp_mini_room_card_btn_4_template_1)
+            templates.push(variables.card_hcp_mini_room_card_btn_4_template_2)
+            return templates;
+          ]]]
+        tap_action:
+          action: "[[[ return variables.card_hcp_mini_room_card_btn_4_action; ]]]"
+          navigation_path: "[[[ return variables.card_hcp_mini_room_card_btn_4_path; ]]]"
+          service: "[[[ return variables.card_hcp_mini_room_card_btn_4_service ]]]"
+          service_data:
+            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_4_service_entity ]]]"
+            command: "[[[ return variables.card_hcp_mini_room_card_btn_4_service_command ]]]"
+          browser_mod:
+            service: "browser_mod.popup"
+            data:
+              hide_header: true
+              style: |
+                --popup-background-color: var(--hcp_minimalist_popup_background_color);
+                --popup-border-radius: var(--hcp_minimalist_popup_border_radius);
+                --popup-padding-x: var(--hcp_minimalist_popup_padding_x);
+                --popup-padding-y: var(--hcp_minimalist_popup_padding_y);
+                --popup-max-width: var(--hcp_minimalist_popup_max_width);
+                --popup-min-width: var(--hcp_minimalist_popup_min_width);;
+              card_mod:
+                style: |
+                  ha-dialog {
+                    --mdc-dialog-min-width: 1024px !important;
+                    --mdc-dialog-max-width: 768px !important;
+                  }
+                  .content {
+                    width: auto !important;
+                  }
+              content:
+                type: "custom:button-card"
+                template: "[[[ return variables.card_hcp_mini_room_card_btn_4_popup_card ]]]"
+                entity: "[[[ return variables._card_hcp_mini_room_card_btn_4_entity ]]]"
+    item5:
+      card:
+        type: "custom:button-card"
+        entity: "[[[ return variables._card_hcp_mini_room_card_btn_5_entity ]]]"
+        icon: "[[[ return variables.card_hcp_mini_room_card_btn_5_icon ]]]"
+        template: >
+          [[[
+            var templates = []
+            templates.push(variables.card_hcp_mini_room_card_btn_5_template_1)
+            templates.push(variables.card_hcp_mini_room_card_btn_5_template_2)
+            return templates;
+          ]]]
+        tap_action:
+          action: "[[[ return variables.card_hcp_mini_room_card_btn_5_action; ]]]"
+          navigation_path: "[[[ return variables.card_hcp_mini_room_card_btn_5_path; ]]]"
+          service: "[[[ return variables.card_hcp_mini_room_card_btn_5_service ]]]"
+          service_data:
+            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_5_service_entity ]]]"
+            command: "[[[ return variables.card_hcp_mini_room_card_btn_5_service_command ]]]"
+          browser_mod:
+            service: "browser_mod.popup"
+            data:
+              hide_header: true
+              style: |
+                --popup-background-color: var(--hcp_minimalist_popup_background_color);
+                --popup-border-radius: var(--hcp_minimalist_popup_border_radius);
+                --popup-padding-x: var(--hcp_minimalist_popup_padding_x);
+                --popup-padding-y: var(--hcp_minimalist_popup_padding_y);
+                --popup-max-width: var(--hcp_minimalist_popup_max_width);
+                --popup-min-width: var(--hcp_minimalist_popup_min_width);;
+              card_mod:
+                style: |
+                  ha-dialog {
+                    --mdc-dialog-min-width: 1024px !important;
+                    --mdc-dialog-max-width: 768px !important;
+                  }
+                  .content {
+                    width: auto !important;
+                  }
+              content:
+                type: "custom:button-card"
+                template: "[[[ return variables.card_hcp_mini_room_card_btn_5_popup_card ]]]"
+                entity: "[[[ return variables._card_hcp_mini_room_card_btn_5_entity ]]]"
+    item6:
+      card:
+        type: "custom:button-card"
+        entity: "[[[ return variables._card_hcp_mini_room_card_btn_6_entity ]]]"
+        icon: "[[[ return variables.card_hcp_mini_room_card_btn_6_icon ]]]"
+        template: >
+          [[[
+            var templates = []
+            templates.push(variables.card_hcp_mini_room_card_btn_6_template_1)
+            templates.push(variables.card_hcp_mini_room_card_btn_6_template_2)
+            return templates;
+          ]]]
+        tap_action:
+          action: "[[[ return variables.card_hcp_mini_room_card_btn_6_action; ]]]"
+          navigation_path: "[[[ return variables.card_hcp_mini_room_card_btn_6_path; ]]]"
+          service: "[[[ return variables.card_hcp_mini_room_card_btn_6_service ]]]"
+          service_data:
+            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_6_service_entity ]]]"
+            command: "[[[ return variables.card_hcp_mini_room_card_btn_6_service_command ]]]"
+          browser_mod:
+            service: "browser_mod.popup"
+            data:
+              hide_header: true
+              style: |
+                --popup-background-color: var(--hcp_minimalist_popup_background_color);
+                --popup-border-radius: var(--hcp_minimalist_popup_border_radius);
+                --popup-padding-x: var(--hcp_minimalist_popup_padding_x);
+                --popup-padding-y: var(--hcp_minimalist_popup_padding_y);
+                --popup-max-width: var(--hcp_minimalist_popup_max_width);
+                --popup-min-width: var(--hcp_minimalist_popup_min_width);;
+              card_mod:
+                style: |
+                  ha-dialog {
+                    --mdc-dialog-min-width: 1024px !important;
+                    --mdc-dialog-max-width: 768px !important;
+                  }
+                  .content {
+                    width: auto !important;
+                  }
+              content:
+                type: "custom:button-card"
+                template: "[[[ return variables.card_hcp_mini_room_card_btn_6_popup_card ]]]"
+                entity: "[[[ return variables._card_hcp_mini_room_card_btn_6_entity ]]]"

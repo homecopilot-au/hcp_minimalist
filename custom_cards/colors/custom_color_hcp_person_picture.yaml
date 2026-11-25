@@ -1,0 +1,11 @@
+---
+### Person picture ###
+color_hcp_person_picture:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  styles:
+    icon:
+      - width: "var(--hcp_minimalist_person_picture_size)"
+      - height: "var(--hcp_minimalist_person_picture_size)"
+      - place-self: "var(--hcp_minimalist_person_picture_placement)"

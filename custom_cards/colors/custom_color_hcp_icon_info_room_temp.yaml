@@ -1,0 +1,54 @@
+---
+color_hcp_icon_info_room_temp:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  variables:
+    color_hcp_room_temp_warn_level: "[[[ return variables._hcp_default_room_temp_warn_level; ]]]"
+    color_hcp_room_temp_alert_level: "[[[ return variables._hcp_default_room_temp_alert_level; ]]]"
+  state:
+    - operator: template
+      value: >-
+        [[[ return (variables.ulm_translation_state === variables.ulm_translation_unavailable); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_unavailable_icon_color), var(--hcp_minimalist_state_unavailable_icon_opacity))"
+        card:
+          - background-color: "rgba(var(--hcp_minimalist_state_unavailable_background_color), var(--hcp_minimalist_state_unavailable_icon_opacity))"
+    - operator: template
+      value: >
+        [[[
+          return (entity.state > variables.color_hcp_room_temp_alert_level);
+        ]]]
+      styles:
+        card:
+          - background-color: "rgba(var(--hcp_minimalist_state_alert_background_color), var(--hcp_minimalist_state_off_background_opacity))"
+          - padding: 0px
+        state:
+          - color: "rgba(var(--hcp_minimalist_state_alert_text_color), var(--hcp_minimalist_state_alert_text_opacity))"
+          - font-weight: var(--hcp_minimalist_state_font_weight)
+          - font-size: var(--hcp_minimalist_state_font_size)
+      state_display: "[[[ return Math.round(Number(entity.state)).toFixed(0) + entity.attributes?.unit_of_measurement; ]]]"
+    - operator: template
+      value: >
+        [[[
+          return (entity.state > variables.color_hcp_room_temp_warn_level);
+        ]]]
+      styles:
+        card:
+          - background-color: "rgba(var(--hcp_minimalist_state_warning_background_color), var(--hcp_minimalist_state_ok_background_opacity))"
+          - padding: 0px
+        state:
+          - color: "rgba(var(--hcp_minimalist_state_warning_text_color), var(--hcp_minimalist_state_warning_text_opacity))"
+          - font-weight: var(--hcp_minimalist_state_font_weight)
+          - font-size: var(--hcp_minimalist_state_font_size)
+      state_display: "[[[ return Math.round(Number(entity.state)).toFixed(0) + entity.attributes?.unit_of_measurement; ]]]"
+    - operator: default
+      styles:
+        card:
+          - background-color: "rgba(var(--hcp_minimalist_state_ok_background_color), var(--hcp_minimalist_state_ok_background_opacity))"
+        state:
+          - color: "rgba(var(--hcp_minimalist_state_ok_text_color), var(--hcp_minimalist_state_ok_text_opacity))"
+          - font-weight: var(--hcp_minimalist_state_font_weight)
+          - font-size: var(--hcp_minimalist_state_font_size)
+      state_display: "[[[ return Math.round(Number(entity.state)).toFixed(0) + entity.attributes?.unit_of_measurement; ]]]"

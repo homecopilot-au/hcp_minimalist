@@ -1,0 +1,84 @@
+---
+### Color for aircon mode ###
+color_hcp_icon_info_aircon_mode:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  variables:
+    color_hcp_icon_info_aircon_mode_off: "[[[ return hass.localize('component.climate.entity_component._.state.off').toLowerCase() ]]]"
+    color_hcp_icon_info_aircon_mode_heat: "[[[ return hass.localize('component.climate.entity_component._.state.heat').toLowerCase() ]]]"
+    color_hcp_icon_info_aircon_mode_cool: "[[[ return hass.localize('component.climate.entity_component._.state.cool').toLowerCase() ]]]"
+    color_hcp_icon_info_aircon_mode_heat_cool: "[[[ return hass.localize('component.climate.entity_component._.state.heat_cool').toLowerCase() ]]]"
+    color_hcp_icon_info_aircon_mode_fan_only: "[[[ return hass.localize('component.climate.entity_component._.state.fan_only').toLowerCase() ]]]"
+    color_hcp_icon_info_aircon_mode_dry: "[[[ return hass.localize('component.climate.entity_component._.state.dry').toLowerCase() ]]]"
+  state:
+    - operator: template
+      value: >-
+        [[[ return (entity.state === variables.color_hcp_icon_info_aircon_mode_off); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_off_icon_color), var(--hcp_minimalist_state_off_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_state_off_icon_color), var(--hcp_minimalist_state_off_background_opacity))"
+      icon: "[[[ return variables._hcp_default_aircon_off_icon; ]]]"
+    - operator: template
+      value: >-
+        [[[ return (entity.state === variables.color_hcp_icon_info_aircon_mode_heat); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_off_icon_color), var(--hcp_minimalist_state_off_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_state_off_icon_color), var(--hcp_minimalist_state_off_background_opacity))"
+      icon: "[[[ return variables._hcp_default_aircon_heat_icon; ]]]"
+    - operator: template
+      value: >-
+        [[[ return (entity.state === variables.color_hcp_icon_info_aircon_mode_cool); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_off_icon_color), var(--hcp_minimalist_state_off_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_state_off_icon_color), var(--hcp_minimalist_state_off_background_opacity))"
+      icon: "[[[ return variables._hcp_default_aircon_cool_icon; ]]]"
+    - operator: template
+      value: >-
+        [[[ return (entity.state === variables.color_hcp_icon_info_aircon_mode_heat_cool); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_off_icon_color), var(--hcp_minimalist_state_off_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_state_off_icon_color), var(--hcp_minimalist_state_off_background_opacity))"
+      icon: "[[[ return variables._hcp_default_aircon_heat_cool_icon; ]]]"
+    - operator: template
+      value: >-
+        [[[ return (entity.state === variables.color_hcp_icon_info_aircon_mode_fan_only); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_off_icon_color), var(--hcp_minimalist_state_off_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_state_off_icon_color), var(--hcp_minimalist_state_off_background_opacity))"
+      icon: "[[[ return variables._hcp_default_aircon_fan_only_icon; ]]]"
+    - operator: template
+      value: >-
+        [[[ return (entity.state === variables.color_hcp_icon_info_aircon_mode_dry); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_state_off_icon_color), var(--hcp_minimalist_state_off_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_state_off_icon_color), var(--hcp_minimalist_state_off_background_opacity))"
+      icon: "[[[ return variables._hcp_default_aircon_dry_icon; ]]]"
+    - operator: template
+      value: >-
+        [[[ return (variables.ulm_translation_state === variables.ulm_translation_unavailable); ]]]
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_button_unavailable_color), var(--hcp_minimalist_icon_unavailable_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_button_unavailable_color), var(--hcp_minimalist_icon_unavailable_background_opacity))"
+      icon: "[[[ return variables._hcp_default_aircon_off_icon ]]]"
+    - operator: default
+      styles:
+        icon:
+          - color: "rgba(var(--hcp_minimalist_button_icon_on_color), var(--hcp_minimalist_button_icon_opacity))"
+        img_cell:
+          - background-color: "rgba(var(--hcp_minimalist_button_background_color), var(--hcp_minimalist_button_background_opacity))"
+      icon: "[[[ return variables._hcp_default_aircon_off_icon ]]]"

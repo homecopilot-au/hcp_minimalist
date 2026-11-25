@@ -1,0 +1,19 @@
+---
+popup_hcp_subtitle:
+  show_icon: false
+  show_label: false
+  show_name: true
+  template:
+    - "color_hcp_card_popup_default"
+  styles:
+    card:
+      - box-shadow: "none"
+      - border-radius: "0px"
+      - padding: "var(--hcp_minimalist_default_padding)"
+    name:
+      - justify-self: "start"
+      - margin-left: "var(--hcp_minimalist_popup_subititle_left_margin)"
+      - font-weight: "var(--hcp_minimalist_popup_subtitle_font_weight)"
+      - font-size: "var(--hcp_minimalist_popup_subtitle_font_size)"
+  tap_action:
+    action: "none"

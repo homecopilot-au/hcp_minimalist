@@ -1,0 +1,19 @@
+---
+### HCP widget button ###
+hcp_widget_button:
+  template: 
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+  show_icon: true
+  show_label: false
+  show_name: false
+  styles:
+    grid:
+      - grid-template-areas: "'i'"
+    card:
+      - box-shadow: "var(--box-shadow)"
+      - padding: "var(--hcp_minimalist_default_icon_padding)"
+      - border-radius: "var(--hcp_minimalist_icon_border_radius)"
+      - place-self: "center"
+      - height: "42px"
+  size: "20px"

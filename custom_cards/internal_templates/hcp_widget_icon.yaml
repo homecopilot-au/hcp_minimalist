@@ -1,0 +1,53 @@
+---
+### HCP widget Icon ###
+hcp_widget_icon:
+  template:
+    - "ulm_translation_engine"
+    - "ulm_actions_card"
+    - "hcp_global_defaults"
+  show_icon: true
+  show_label: false
+  show_name: false
+  variables:
+    widget_hcp_icon_indicator_state: "[[[ return variables.ulm_translation_unavailable ]]]"
+    widget_hcp_icon_indicator_icon: "[[[ return variables._hcp_default_indicator_icon ]]]"
+    widget_hcp_icon_indicator_size: "var(--hcp_minimalist_widget_icon_indicator_size)"
+    widget_hcp_icon_indicator_color: "var(--hcp_minimalist_widget_icon_indicator_color)"
+    widget_hcp_icon_indicator_pos_left: "var(--hcp_minimalist_widget_icon_indicator_pos_left)"
+    widget_hcp_icon_indicator_pos_top: "var(--hcp_minimalist_widget_icon_indicator_pos_top)"
+    widget_hcp_icon_indicator_font_size: "var(--hcp_minimalist_widget_icon_indicator_font_size)"
+  styles:
+    grid:
+      - grid-template-areas: "'i'"
+      - grid-template-columns: "min-content"
+      - grid-template-rows: "min-content"
+    card:
+      - box-shadow: "none"
+      - border-radius: "none"
+      - border-style: none
+      - background-color: transparent
+    img_cell:
+      - border-radius: "50%"
+      - place-self: "center"
+      - width: "42px"
+      - height: "42px"
+    custom_fields:
+      notification:
+        - position: "absolute"
+        - border: "none"
+        - left: "[[[ return variables.widget_hcp_icon_indicator_pos_left ]]]"
+        - top: "[[[ return variables.widget_hcp_icon_indicator_pos_top ]]]"
+        - height: "[[[ return variables.widget_hcp_icon_indicator_size ]]]"
+        - width: "[[[ return variables.widget_hcp_icon_indicator_size ]]]"
+        - font-size: "[[[ return variables.widget_hcp_icon_indicator_font_size ]]]"
+  custom_fields:
+    notification: >
+      [[[
+        if (variables.ulm_translation_state === variables.widget_hcp_icon_indicator_state && variables.widget_hcp_show_indicator ){
+          let var_icon = '"' + variables.widget_hcp_icon_indicator_icon + '"'
+          let var_size = variables.widget_hcp_icon_indicator_size
+          let var_color = "rgba(" + variables.widget_hcp_icon_indicator_color + ",1)"
+          return `<ha-icon icon= ${var_icon} style="width: ${var_size}; height: ${var_size}; color: ${var_color};"></ha-icon>`
+        }
+      ]]]
+  size: "20px"

@@ -1,0 +1,26 @@
+---
+### For numeric sensor where state >- is on and 0 off ###
+color_hcp_state_numberic:
+  template:
+    - "ulm_translation_engine"
+    - "hcp_global_defaults"
+    - "hcp_numerical_state_check"
+  state:
+    - operator: template
+      value: >-
+        [[[ return (variables.hcp_is_numerical_state_non_zero); ]]]
+      styles:
+        label:
+          - color: "rgba(var(--hcp_minimalist_state_ok_text_color), var(--hcp_minimalist_state_ok_text_opacity))"
+        state:
+          - color: "rgba(var(--hcp_minimalist_state_ok_text_color), var(--hcp_minimalist_state_ok_text_opacity))"
+          - font-size: "var(--hcp_minimalist_state_large_font_size)"
+          - font-weight: "var(--hcp_minimalist_state_font_weight)"
+    - operator: default
+      styles:
+        label:
+          - color: "rgba(var(--hcp_minimalist_state_off_text_color), var(--hcp_minimalist_state_off_text_opacity))"
+        state:
+          - color: "rgba(var(--hcp_minimalist_state_on_text_color), var(--hcp_minimalist_state_off_text_opacity))"
+          - font-size: "var(--hcp_minimalist_state_large_font_size)"
+          - font-weight: "var(--hcp_minimalist_state_font_weight)"

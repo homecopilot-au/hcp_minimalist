@@ -1,0 +1,23 @@
+---
+### Test for numerical_state ###
+hcp_numerical_state_check:
+  variables:
+    hcp_is_numerical_state: >
+      [[[
+        if (typeof(entity) !== 'undefined' && entity !== undefined){
+          function containsNumbers(str) {
+            return /\d/.test(str);
+          }
+          return (containsNumbers(entity.state))
+        }
+      ]]]
+    hcp_is_numerical_state_non_zero: >
+      [[[
+        if (typeof(entity) !== 'undefined' && entity !== undefined){
+          function containsNumbers(str) {
+            return /\d/.test(str);
+          }
+
+          return (containsNumbers(entity.state) && entity.state != 0)
+        }
+      ]]]
