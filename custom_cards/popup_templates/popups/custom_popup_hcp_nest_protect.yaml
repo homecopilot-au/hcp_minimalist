@@ -163,10 +163,11 @@ popup_hcp_nest_protect:
                 card:
                   - padding: "var(--hcp_minimalist_default_padding)"
               tap_action:
-                action: call-service
-                service: select.select_option
-                service_data:
+                action: perform-action
+                perform_action: select.select_option
+                target:
                   entity_id: "[[[ return variables.popup_hcp_nest_protect_brightness_entity; ]]]"
+                data:
                   option: "[[[ return variables.popup_hcp_nest_protect_brightness_option_1; ]]]"
               hold_action:
                 action: "fire-dom-event"
@@ -210,10 +211,11 @@ popup_hcp_nest_protect:
                 card:
                   - padding: "var(--hcp_minimalist_default_padding)"
               tap_action:
-                action: call-service
-                service: select.select_option
-                service_data:
+                action: perform-action
+                perform_action: select.select_option
+                target:
                   entity_id: "[[[ return variables.popup_hcp_nest_protect_brightness_entity; ]]]"
+                data:
                   option: "[[[ return variables.popup_hcp_nest_protect_brightness_option_2; ]]]"
               hold_action:
                 action: "fire-dom-event"
@@ -257,10 +259,11 @@ popup_hcp_nest_protect:
                 card:
                   - padding: "var(--hcp_minimalist_default_padding)"
               tap_action:
-                action: call-service
-                service: select.select_option
-                service_data:
+                action: perform-action
+                perform_action: select.select_option
+                target:
                   entity_id: "[[[ return variables.popup_hcp_nest_protect_brightness_entity; ]]]"
+                data:
                   option: "[[[ return variables.popup_hcp_nest_protect_brightness_option_3; ]]]"
               hold_action:
                 action: "fire-dom-event"

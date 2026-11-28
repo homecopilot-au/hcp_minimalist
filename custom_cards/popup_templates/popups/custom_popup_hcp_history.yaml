@@ -11,10 +11,11 @@ popup_hcp_history:
   variables:
     _popup_hcp_history_area: >
       [[[ 
-        const entityObj = hass.entities?.[entity.entity_id];
-        const deviceId = entityObj?.device_id;
-        const areaId = entityObj?.area_id || hass.devices?.[deviceId]?.area_id;
-        return hass.areas?.[areaId]?.name;
+        const entityId = entity?.entity_id;
+        if (!entityId) return '';
+        const entityObj = hass.entities?.[entityId];
+        const areaId = entityObj?.area_id || hass.devices?.[entityObj?.device_id]?.area_id;
+        return hass.areas?.[areaId]?.name ?? '';
       ]]]      
   styles:
     grid:

@@ -113,10 +113,11 @@ popup_hcp_fan_3speed:
                 card:
                   - padding: "var(--hcp_minimalist_default_padding)"
               tap_action:
-                action: call-service
-                service: "fan.set_preset_mode"
-                service_data:
+                action: perform-action
+                perform_action: "fan.set_preset_mode"
+                target:
                   entity_id: "[[[ return entity.entity_id; ]]]"
+                data:
                   preset_mode: "[[[ return variables.popup_hcp_fan_3speed_preset_1; ]]]"
               hold_action:
                 action: "fire-dom-event"
@@ -161,10 +162,11 @@ popup_hcp_fan_3speed:
                 card:
                   - padding: "var(--hcp_minimalist_default_padding)"
               tap_action:
-                action: call-service
-                service: "fan.set_preset_mode"
-                service_data:
+                action: "perform-action"
+                perform_action: "fan.set_preset_mode"
+                target:
                   entity_id: "[[[ return entity.entity_id; ]]]"
+                data:
                   preset_mode: "[[[ return variables.popup_hcp_fan_3speed_preset_2; ]]]"
               hold_action:
                 action: "fire-dom-event"
@@ -209,10 +211,11 @@ popup_hcp_fan_3speed:
                 card:
                   - padding: "var(--hcp_minimalist_default_padding)"
               tap_action:
-                action: call-service
-                service: "fan.set_preset_mode"
-                service_data:
+                action: perform-action
+                perform_action: "fan.set_preset_mode"
+                target:
                   entity_id: "[[[ return entity.entity_id; ]]]"
+                data:
                   preset_mode: "[[[ return variables.popup_hcp_fan_3speed_preset_3; ]]]"
               hold_action:
                 action: "fire-dom-event"

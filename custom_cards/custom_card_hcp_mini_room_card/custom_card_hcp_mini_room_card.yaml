@@ -22,9 +22,9 @@ card_hcp_mini_room_card:
         }
       ]]]
     card_hcp_mini_room_card_btn_1_path: null
-    card_hcp_mini_room_card_btn_1_service: null
-    card_hcp_mini_room_card_btn_1_service_entity: null
-    card_hcp_mini_room_card_btn_1_service_command: null
+    card_hcp_mini_room_card_btn_1_action_perform: null
+    card_hcp_mini_room_card_btn_1_action_target: null
+    card_hcp_mini_room_card_btn_1_action_data: null
     card_hcp_mini_room_card_btn_1_icon: >
       [[[
         if (variables._card_hcp_mini_room_card_btn_1_entity) {
@@ -46,9 +46,9 @@ card_hcp_mini_room_card:
         }
       ]]]
     card_hcp_mini_room_card_btn_2_path: null
-    card_hcp_mini_room_card_btn_2_service: null
-    card_hcp_mini_room_card_btn_2_service_entity: null
-    card_hcp_mini_room_card_btn_2_service_command: null
+    card_hcp_mini_room_card_btn_2_action_perform: null
+    card_hcp_mini_room_card_btn_2_action_target: null
+    card_hcp_mini_room_card_btn_2_action_data: null
     card_hcp_mini_room_card_btn_2_icon: >
       [[[
         if (variables._card_hcp_mini_room_card_btn_2_entity) {
@@ -70,9 +70,9 @@ card_hcp_mini_room_card:
         }
       ]]]
     card_hcp_mini_room_card_btn_3_path: null
-    card_hcp_mini_room_card_btn_3_service: null
-    card_hcp_mini_room_card_btn_3_service_entity: null
-    card_hcp_mini_room_card_btn_3_service_command: null
+    card_hcp_mini_room_card_btn_3_action_perform: null
+    card_hcp_mini_room_card_btn_3_action_target: null
+    card_hcp_mini_room_card_btn_3_action_data: null
     card_hcp_mini_room_card_btn_3_icon: >
       [[[
         if (variables._card_hcp_mini_room_card_btn_3_entity) {
@@ -94,9 +94,9 @@ card_hcp_mini_room_card:
         }
       ]]]
     card_hcp_mini_room_card_btn_4_path: null
-    card_hcp_mini_room_card_btn_4_service: null
-    card_hcp_mini_room_card_btn_4_service_entity: null
-    card_hcp_mini_room_card_btn_4_service_command: null
+    card_hcp_mini_room_card_btn_4_action_perform: null
+    card_hcp_mini_room_card_btn_4_action_target: null
+    card_hcp_mini_room_card_btn_4_action_data: null
     card_hcp_mini_room_card_btn_4_icon: >
       [[[
         if (variables._card_hcp_mini_room_card_btn_4_entity) {
@@ -118,9 +118,9 @@ card_hcp_mini_room_card:
         }
       ]]]
     card_hcp_mini_room_card_btn_5_path: null
-    card_hcp_mini_room_card_btn_5_service: null
-    card_hcp_mini_room_card_btn_5_service_entity: null
-    card_hcp_mini_room_card_btn_5_service_command: null
+    card_hcp_mini_room_card_btn_5_action_perform: null
+    card_hcp_mini_room_card_btn_5_action_target: null
+    card_hcp_mini_room_card_btn_5_action_data: null
     card_hcp_mini_room_card_btn_5_icon: >
       [[[
         if (variables._card_hcp_mini_room_card_btn_5_entity) {
@@ -142,9 +142,9 @@ card_hcp_mini_room_card:
         }
       ]]]
     card_hcp_mini_room_card_btn_6_path: null
-    card_hcp_mini_room_card_btn_6_service: null
-    card_hcp_mini_room_card_btn_6_service_entity: null
-    card_hcp_mini_room_card_btn_6_service_command: null
+    card_hcp_mini_room_card_btn_6_action_perform: null
+    card_hcp_mini_room_card_btn_6_action_target: null
+    card_hcp_mini_room_card_btn_6_action_data: null
     card_hcp_mini_room_card_btn_6_icon: >
       [[[
         if (variables._card_hcp_mini_room_card_btn_6_entity) {
@@ -226,10 +226,11 @@ card_hcp_mini_room_card:
         tap_action:
           action: "[[[ return variables.card_hcp_mini_room_card_btn_1_action; ]]]"
           navigation_path: "[[[ return variables.card_hcp_mini_room_card_btn_1_path; ]]]"
-          service: "[[[ return variables.card_hcp_mini_room_card_btn_1_service ]]]"
-          service_data:
-            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_1_service_entity ]]]"
-            command: "[[[ return variables.card_hcp_mini_room_card_btn_1_service_command ]]]"
+          perform_action: "[[[ return variables.card_hcp_mini_room_card_btn_1_action_perform ]]]"
+          target:
+            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_1_action_target ]]]"
+          data:
+            command: "[[[ return variables.card_hcp_mini_room_card_btn_1_action_data ]]]"
           browser_mod:
             service: "browser_mod.popup"
             data:
@@ -269,10 +270,11 @@ card_hcp_mini_room_card:
         tap_action:
           action: "[[[ return variables.card_hcp_mini_room_card_btn_2_action; ]]]"
           navigation_path: "[[[ return variables.card_hcp_mini_room_card_btn_2_path; ]]]"
-          service: "[[[ return variables.card_hcp_mini_room_card_btn_2_service ]]]"
-          service_data:
-            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_2_service_entity ]]]"
-            command: "[[[ return variables.card_hcp_mini_room_card_btn_2_service_command ]]]"
+          perform_action: "[[[ return variables.card_hcp_mini_room_card_btn_2_action_perform ]]]"
+          target:
+            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_2_action_target ]]]"
+          data:
+            command: "[[[ return variables.card_hcp_mini_room_card_btn_2_action_data ]]]"
           browser_mod:
             service: "browser_mod.popup"
             data:
@@ -312,10 +314,11 @@ card_hcp_mini_room_card:
         tap_action:
           action: "[[[ return variables.card_hcp_mini_room_card_btn_3_action; ]]]"
           navigation_path: "[[[ return variables.card_hcp_mini_room_card_btn_3_path; ]]]"
-          service: "[[[ return variables.card_hcp_mini_room_card_btn_3_service ]]]"
-          service_data:
-            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_3_service_entity ]]]"
-            command: "[[[ return variables.card_hcp_mini_room_card_btn_3_service_command ]]]"
+          perform_action: "[[[ return variables.card_hcp_mini_room_card_btn_3_action_perform ]]]"
+          target:
+            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_3_action_target ]]]"
+          data:
+            command: "[[[ return variables.card_hcp_mini_room_card_btn_3_action_data ]]]"
           browser_mod:
             service: "browser_mod.popup"
             data:
@@ -355,10 +358,11 @@ card_hcp_mini_room_card:
         tap_action:
           action: "[[[ return variables.card_hcp_mini_room_card_btn_4_action; ]]]"
           navigation_path: "[[[ return variables.card_hcp_mini_room_card_btn_4_path; ]]]"
-          service: "[[[ return variables.card_hcp_mini_room_card_btn_4_service ]]]"
-          service_data:
-            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_4_service_entity ]]]"
-            command: "[[[ return variables.card_hcp_mini_room_card_btn_4_service_command ]]]"
+          perform_action: "[[[ return variables.card_hcp_mini_room_card_btn_4_action_perform ]]]"
+          target:
+            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_4_action_target ]]]"
+          data:
+            command: "[[[ return variables.card_hcp_mini_room_card_btn_4_action_data ]]]"
           browser_mod:
             service: "browser_mod.popup"
             data:
@@ -398,10 +402,11 @@ card_hcp_mini_room_card:
         tap_action:
           action: "[[[ return variables.card_hcp_mini_room_card_btn_5_action; ]]]"
           navigation_path: "[[[ return variables.card_hcp_mini_room_card_btn_5_path; ]]]"
-          service: "[[[ return variables.card_hcp_mini_room_card_btn_5_service ]]]"
-          service_data:
-            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_5_service_entity ]]]"
-            command: "[[[ return variables.card_hcp_mini_room_card_btn_5_service_command ]]]"
+          perform_action: "[[[ return variables.card_hcp_mini_room_card_btn_5_action_perform ]]]"
+          target:
+            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_5_action_target ]]]"
+          data:
+            command: "[[[ return variables.card_hcp_mini_room_card_btn_5_action_data ]]]"
           browser_mod:
             service: "browser_mod.popup"
             data:
@@ -441,10 +446,11 @@ card_hcp_mini_room_card:
         tap_action:
           action: "[[[ return variables.card_hcp_mini_room_card_btn_6_action; ]]]"
           navigation_path: "[[[ return variables.card_hcp_mini_room_card_btn_6_path; ]]]"
-          service: "[[[ return variables.card_hcp_mini_room_card_btn_6_service ]]]"
-          service_data:
-            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_6_service_entity ]]]"
-            command: "[[[ return variables.card_hcp_mini_room_card_btn_6_service_command ]]]"
+          perform_action: "[[[ return variables.card_hcp_mini_room_card_btn_6_action_perform ]]]"
+          target:
+            entity_id: "[[[ return variables.card_hcp_mini_room_card_btn_6_action_target ]]]"
+          data:
+            command: "[[[ return variables.card_hcp_mini_room_card_btn_6_action_data ]]]"
           browser_mod:
             service: "browser_mod.popup"
             data:

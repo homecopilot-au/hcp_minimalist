@@ -115,10 +115,11 @@ card_hcp_fan_3speed:
                 color_hcp_switch_option_name: "[[[ return variables.card_hcp_fan_3speed_preset_1; ]]]"
                 color_hcp_switch_option_state: "[[[ return states[entity.entity_id].attributes?.preset_mode; ]]]"
               tap_action:
-                action: call-service
-                service: "fan.set_preset_mode"
-                service_data:
+                action: perform-action
+                perform_action: "fan.set_preset_mode"
+                target:
                   entity_id: "[[[ return entity.entity_id; ]]]"
+                data:
                   preset_mode: "[[[ return variables.card_hcp_fan_3speed_preset_1; ]]]"
           item2:
             card:
@@ -136,10 +137,11 @@ card_hcp_fan_3speed:
                 color_hcp_switch_option_name: "[[[ return variables.card_hcp_fan_3speed_preset_2; ]]]"
                 color_hcp_switch_option_state: "[[[ return states[entity.entity_id].attributes?.preset_mode; ]]]"
               tap_action:
-                action: call-service
-                service: "fan.set_preset_mode"
-                service_data:
+                action: perform-action
+                perform_action: "fan.set_preset_mode"
+                target:
                   entity_id: "[[[ return entity.entity_id; ]]]"
+                data:
                   preset_mode: "[[[ return variables.card_hcp_fan_3speed_preset_2; ]]]"
           item3:
             card:
@@ -157,8 +159,9 @@ card_hcp_fan_3speed:
                 color_hcp_switch_option_name: "[[[ return variables.card_hcp_fan_3speed_preset_3; ]]]"
                 color_hcp_switch_option_state: "[[[ return states[entity.entity_id].attributes?.preset_mode; ]]]"
               tap_action:
-                action: call-service
-                service: "fan.set_preset_mode"
-                service_data:
+                action: perform-action
+                perform_action: "fan.set_preset_mode"
+                target:
                   entity_id: "[[[ return entity.entity_id; ]]]"
+                data:
                   preset_mode: "[[[ return variables.card_hcp_fan_3speed_preset_3; ]]]"

@@ -19,6 +19,8 @@ card_hcp_power_distribution:
         return hass.areas?.[areaId]?.name;
       ]]]
     card_hcp_power_distribution_show_title: true
+    card_hcp_power_distribution_show_distribution: true
+    card_hcp_power_distribution_show_usage: false
     card_hcp_power_distribution_icon_color: "color_hcp_icon_default"
     card_hcp_power_distribution_label: "[[[ return entity.attributes.friendly_name; ]]]"
     card_hcp_power_distribution_icon: "[[[ return entity.attributes.icon; ]]]"
@@ -65,6 +67,24 @@ card_hcp_power_distribution:
                   return "none";
               }
             ]]]
+      item2:
+        - display: >
+            [[[
+              if (variables.card_hcp_power_distribution_show_distribution) {
+                  return "block";
+              } else {
+                  return "none";
+              }
+            ]]]
+      item3:
+        - display: >
+            [[[
+              if (variables.card_hcp_power_distribution_show_usage) {
+                  return "block";
+              } else {
+                  return "none";
+              }
+            ]]]
 
   custom_fields:
     item1:
@@ -81,10 +101,6 @@ card_hcp_power_distribution:
           ulm_name_hold_action: "[[[ return variables.ulm_name_hold_action ]]]"
           ulm_input_select_option: "[[[ return variables.ulm_input_select_option ]]]"
           ulm_input_select: "[[[ return variables.ulm_input_select ]]]"
-          ulm_custom_popup:
-            template: popup_hcp_camera
-            popup_variables:
-              popup_hcp_power_distribution_device_name: "[[[ return variables.card_hcp_power_distribution_device; ]]]"
           hcp_icon_info_label: "[[[ return variables.card_hcp_power_distribution_label; ]]]"
           hcp_icon_info_name: "[[[ return variables._card_hcp_power_distribution_name; ]]]"
           hcp_icon_info_icon: "[[[ return variables.card_hcp_power_distribution_icon; ]]]"

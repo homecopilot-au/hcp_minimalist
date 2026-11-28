@@ -45,16 +45,17 @@ popup_hcp_refrigerator_thermostat:
               entity: "[[[ return entity.entity_id ]]]"
               icon: "mdi:minus"
               tap_action:
-                action: "call-service"
-                service: "climate.set_temperature"
-                service_data:
+                action: "perform-action"
+                perform_action: "climate.set_temperature"
+                target:
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                data:
                   temperature: |
                     [[[
                       const unit = hass.config.unit_system.temperature
                       const step = variables.ulm_card_thermostat_temp_step || entity.attributes.target_temp_step || (unit == '°F' ? 1.0 : 0.5)
                       return (parseFloat(states[entity.entity_id].attributes.temperature) - step)
                     ]]]
-                  entity_id: "[[[ return entity.entity_id ]]]"
           item2:
             card:
               type: "custom:button-card"
@@ -81,13 +82,14 @@ popup_hcp_refrigerator_thermostat:
               entity: "[[[ return entity.entity_id ]]]"
               icon: "mdi:plus"
               tap_action:
-                action: "call-service"
-                service: "climate.set_temperature"
-                service_data:
+                action: "perform-action"
+                perform_action: "climate.set_temperature"
+                target: 
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                data:
                   temperature: |
                     [[[
                       const unit = hass.config.unit_system.temperature
                       const step = variables.ulm_card_thermostat_temp_step || entity.attributes.target_temp_step || (unit == '°F' ? 1.0 : 0.5)
                       return (parseFloat(states[entity.entity_id].attributes.temperature) + step)
                     ]]]
-                  entity_id: "[[[ return entity.entity_id ]]]"

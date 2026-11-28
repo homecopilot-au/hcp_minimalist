@@ -64,10 +64,11 @@ card_hcp_media_player_sonos:
                   return templates;
                 ]]]
               tap_action:
-                action: "call-service"
-                service: "media_player.volume_mute"
-                service_data:
+                action: "perform-action"
+                perform_action: "media_player.volume_mute"
+                target:
                   entity_id: "[[[ return entity.entity_id; ]]]"
+                data:
                   is_volume_muted: "[[[ return (states[entity.entity_id].attributes.is_volume_muted) ? false : true; ]]]"
               hold_action:
                 action: "fire-dom-event"
@@ -169,9 +170,9 @@ card_hcp_media_player_sonos:
                 ]]]
               entity: "[[[ return entity.entity_id ]]]"
               tap_action:
-                action: "call-service"
-                service: "media_player.volume_down"
-                service_data:
+                action: "perform-action"
+                perform_action: "media_player.volume_down"
+                target:
                   entity_id: "[[[ return entity.entity_id ]]]"
               icon: "[[[ return variables._hcp_default_media_volume_down_icon ]]]"
           item2:
@@ -185,9 +186,9 @@ card_hcp_media_player_sonos:
                 ]]]
               entity: "[[[ return entity.entity_id ]]]"
               tap_action:
-                action: "call-service"
-                service: "media_player.media_play_pause"
-                service_data:
+                action: "perform-action"
+                perform_action: "media_player.media_play_pause"
+                target:
                   entity_id: "[[[ return entity.entity_id ]]]"
           item3:
             card:
@@ -200,8 +201,8 @@ card_hcp_media_player_sonos:
                 ]]]
               entity: "[[[ return entity.entity_id ]]]"
               tap_action:
-                action: "call-service"
-                service: "media_player.volume_up"
-                service_data:
+                action: "perform-action"
+                perform_action: "media_player.volume_up"
+                target:
                   entity_id: "[[[ return entity.entity_id ]]]"
               icon: "[[[ return variables._hcp_default_media_volume_up_icon ]]]"

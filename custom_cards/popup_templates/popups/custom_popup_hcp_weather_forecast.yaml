@@ -131,9 +131,9 @@ popup_hcp_weather_forecast:
             }
           ]]]
         tap_action:
-          action: "call-service"
-          service: "input_boolean.toggle"
-          service_data:
+          action: "perform-action"
+          perform_action: "input_boolean.toggle"
+          taregt:
             entity_id: "[[[ return variables._popup_hcp_weather_forecast_show_radar_entity; ]]]"
     header:
       card:

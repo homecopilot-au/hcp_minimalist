@@ -8,7 +8,7 @@ hcp_bravia_tv_2_config:
         hcp_bravia_tv_config_heading_up: "mdi:chevron-up"
         hcp_bravia_tv_config_heading_down: "mdi:chevron-down"
         hcp_bravia_tv_config_media_channel: "channel"
-        hcp_bravia_tv_config_action: "call-service"
+        hcp_bravia_tv_config_action: "perform-action"
         hcp_bravia_tv_config_sec1_service: "remote.send_command"
         hcp_bravia_tv_config_sec2_service: "media_player.play_media"
         hcp_bravia_tv_config_sec3_service: "remote.send_command"

@@ -201,9 +201,9 @@ card_hcp_cover:
                   return templates;
                 ]]]
               tap_action:
-                action: "call-service"
-                service: "cover.close_cover"
-                service_data:
+                action: "perform-action"
+                perform_action: "cover.close_cover"
+                target:
                   entity_id: "[[[ return entity.entity_id ]]]"
               icon: >-
                 [[[
@@ -227,9 +227,9 @@ card_hcp_cover:
                   return templates;
                 ]]]
               tap_action:
-                action: "call-service"
-                service: "cover.stop_cover"
-                service_data:
+                action: "perform-action"
+                perform_action: "cover.stop_cover"
+                target:
                   entity_id: "[[[ return entity.entity_id ]]]"
               icon: "[[[ return variables._hcp_default_cover_stop_icon ]]]"
           item3:
@@ -243,9 +243,9 @@ card_hcp_cover:
                   return templates;
                 ]]]
               tap_action:
-                action: "call-service"
-                service: "cover.open_cover"
-                service_data:
+                action: "perform-action"
+                perform_action: "cover.open_cover"
+                target:
                   entity_id: "[[[ return entity.entity_id ]]]"
               icon: >-
                 [[[
@@ -298,9 +298,9 @@ card_hcp_cover:
                   return templates;
                 ]]]
               tap_action:
-                action: "call-service"
-                service: "cover.close_cover_tilt"
-                service_data:
+                action: "perform-action"
+                perform_action: "cover.close_cover_tilt"
+                target:
                   entity_id: "[[[ return entity.entity_id ]]]"
               icon: "[[[ return variables._hcp_default_cover_tilt_open_icon ]]]"
           item2:
@@ -314,9 +314,9 @@ card_hcp_cover:
                   return templates;
                 ]]]
               tap_action:
-                action: "call-service"
-                service: "cover.stop_cover_tilt"
-                service_data:
+                action: "perform-action"
+                perform_action: "cover.stop_cover_tilt"
+                target:
                   entity_id: "[[[ return entity.entity_id ]]]"
               icon: "[[[ return variables._hcp_default_cover_stop_icon ]]]"
           item3:
@@ -330,8 +330,8 @@ card_hcp_cover:
                   return templates;
                 ]]]
               tap_action:
-                action: "call-service"
-                service: "cover.open_cover_tilt"
-                service_data:
+                action: "perform-action"
+                perform_action: "cover.open_cover_tilt"
+                target:
                   entity_id: "[[[ return entity.entity_id ]]]"
               icon: "[[[ return variables._hcp_default_cover_tilt_close_icon ]]]"

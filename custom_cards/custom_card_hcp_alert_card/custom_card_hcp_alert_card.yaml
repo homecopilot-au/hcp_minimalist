@@ -133,6 +133,7 @@ card_hcp_alert:
           ulm_icon_hold_action: "[[[ return variables.ulm_icon_hold_action; ]]]"
           ulm_name_tap_action: "[[[ return variables.ulm_name_tap_action; ]]]"
           ulm_name_hold_action: "[[[ return variables.ulm_name_hold_action; ]]]"
+          ulm_icon_tap_target: "[[[ return variables.ulm_icon_tap_target; ]]]"
           ulm_custom_popup: "[[[ return variables.ulm_custom_popup; ]]]"
           ulm_icon_tap_action: >
             [[[
@@ -140,7 +141,7 @@ card_hcp_alert:
               if (!severity || 
                 severity === variables._hcp_default_automated_alert_severity_action ||
                 severity === variables._hcp_default_automated_alert_severity_security )
-                return "call-service";
+                return "perform-action";
               else
                 return variables.ulm_icon_tap_action;
               endif
@@ -198,11 +199,11 @@ card_hcp_alert:
               if (variables.card_hcp_alert_status === "acknowledged" || excludeSeverities.includes(variables.card_hcp_alert_severity)) {
                   return "";
               } else {
-                  return "call-service";
+                  return "perform-action";
               }
             ]]]
-          service: script.alert_clear
-          service_data:
+          perform_action: script.alert_clear
+          data:
             tag: "[[[ return variables.card_hcp_alert_tag ]]]"
             acknowledged: true
             status_helper: "[[[ return variables.card_hcp_alert_status_helper ]]]"

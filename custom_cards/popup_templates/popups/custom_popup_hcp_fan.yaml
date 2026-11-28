@@ -130,7 +130,7 @@ popup_hcp_fan:
               variables:
                 hcp_widget_button_label: "[[[ return variables.popup_hcp_fan_direction ]]]"
               tap_action:
-                action: call-service
-                service: script.toggle_fan_direction
-                service_data:
+                action: perform-action
+                perform_action: script.toggle_fan_direction
+                target:
                   entity_id: "[[[ return entity.entity_id ]]]"

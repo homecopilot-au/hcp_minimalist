@@ -63,7 +63,7 @@ card_hcp_lock:
     ulm_icon_tap_action: >
       [[[
         if (variables._card_hcp_lock_door_open.toLowerCase() === "off" || variables._card_hcp_lock_device_class.toLowerCase() === "button"){
-          return "call-service";
+          return "perform-action";
         } else {
           return "";
         }
@@ -82,7 +82,7 @@ card_hcp_lock:
     ulm_icon_hold_action: >
       [[[
         if (variables._card_hcp_lock_door_open.toLowerCase() === "off" || variables._card_hcp_lock_device_class.toLowerCase() === "button"){
-          return "call-service";
+          return "perform-action";
         } else {
           return "";
         }

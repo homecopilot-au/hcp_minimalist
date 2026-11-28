@@ -179,9 +179,9 @@ card_hcp_aircon:
                   return templates;
                 ]]]
               tap_action:
-                action: "call-service"
-                service: "input_number.decrement"
-                service_data:
+                action: "perform-action"
+                perform_action: "input_number.decrement"
+                target:
                   entity_id: "[[[ return variables.card_hcp_aircon_zone_target; ]]]"
               icon: "[[[ return variables._hcp_default_aircon_temp_down_icon ]]]"
           item2:
@@ -207,8 +207,8 @@ card_hcp_aircon:
                   return templates;
                 ]]]
               tap_action:
-                action: "call-service"
-                service: "input_number.increment"
-                service_data:
+                action: "perform-action"
+                perform_action: "input_number.increment"
+                target:
                   entity_id: "[[[ return variables.card_hcp_aircon_zone_target; ]]]"
               icon: "[[[ return variables._hcp_default_aircon_temp_up_icon ]]]"
