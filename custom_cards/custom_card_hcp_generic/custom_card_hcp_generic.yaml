@@ -124,6 +124,7 @@ card_hcp_generic:
           ulm_icon_tap_action: "[[[ return variables.ulm_icon_tap_action; ]]]"
           ulm_icon_tap_haptic: "[[[ return variables.ulm_icon_tap_haptic; ]]]"
           ulm_icon_tap_navigate_path: "[[[ return variables.ulm_icon_tap_navigate_path; ]]]"
+          ulm_icon_tap_target: "[[[ return variables.ulm_icon_tap_target; ]]]"
           ulm_icon_tap_service: "[[[ return variables.ulm_icon_tap_service; ]]]"
           ulm_icon_tap_service_data: "[[[ return variables.ulm_icon_tap_service_data; ]]]"
           ulm_icon_hold_action: "[[[ return variables.ulm_icon_hold_action; ]]]"
@@ -151,5 +152,4 @@ card_hcp_generic:
           ulm_name_double_tap_navigate_path: "[[[ return variables.ulm_name_double_tap_navigate_path; ]]]"
           ulm_name_double_tap_service: "[[[ return variables.ulm_name_double_tap_service; ]]]"
           ulm_name_double_tap_service_data: "[[[ return variables.ulm_name_double_tap_service_data; ]]]"
-          ulm_custom_popup:
-            template: "[[[ return variables.ulm_custom_popup ]]]"
+          ulm_custom_popup: "[[[ return variables.ulm_custom_popup; ]]]"
